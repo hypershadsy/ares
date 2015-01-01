@@ -20,7 +20,6 @@ namespace Ares
             sprite.Origin = origin;
             sprite.Position = position;
             sprite.Color = color;
-
             Game.window.Draw(sprite);
         }
 
@@ -28,18 +27,16 @@ namespace Ares
         {
             Text text = new Text(message, font);
             text.Scale = new Vector2f(scale, scale);
-            text.Position = position;// clientPlayer.position;
+            text.Position = position;
             text.Color = color;
             if (centered)
                 text.Position = new Vector2f(text.Position.X - ((text.GetLocalBounds().Width * scale) / 2), text.Position.Y);
-
             Game.window.Draw(text);
         }
 
-        public static void DrawAnimation(Sprite sprite, Vector2f position, Color color, Vector2f origin, int facing, int frames, int rows, int currentFrame, int frameRow)
+        public static void DrawAnimation(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, int frames, int rows, int currentFrame, int frameRow)
         {
-            Sprite newSprite;
-            newSprite = sprite;
+            Sprite sprite = new Sprite(texture);
             sprite.Scale = new Vector2f(-facing, 1);
             sprite.Origin = origin;
             sprite.Position = position;
