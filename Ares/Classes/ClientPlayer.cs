@@ -12,16 +12,25 @@ namespace Ares
 {
     public class ClientPlayer : Player
     {
+        DateTime lastPosSent;
+
         public ClientPlayer()
             : base()
         {
             Position = new Vector2f(100, 100);
-            speed = 3;
+            MovementSpeed = 3;
         }
 
         public override void Update()
         {
             HandleMovement();
+            var sinceLastPosSent = DateTime.Now - lastPosSent;
+            if (sinceLastPosSent.TotalMilliseconds >= 50)
+            {
+                //sehdpos
+
+                lastPosSent = DateTime.Now;
+            }
             base.Update();
         }
 
@@ -37,25 +46,35 @@ namespace Ares
 
             if (Input.isKeyDown(Keyboard.Key.A))
             {
-                Velocity.X = -speed;
+                Velocity.X = -MovementSpeed;
             }
             if (Input.isKeyDown(Keyboard.Key.D))
             {
-                Velocity.X = speed;
+                Velocity.X = MovementSpeed;
             }
 
             if (Input.isKeyDown(Keyboard.Key.W))
             {
-                Velocity.Y = -speed;
+                Velocity.Y = -MovementSpeed;
             }
             if (Input.isKeyDown(Keyboard.Key.S))
             {
-                Velocity.Y = speed;
+                Velocity.Y = MovementSpeed;
             }
 
             var delta = Game.getDeltaRatio();
             Position += Velocity * delta;            
         }
 
+        private void sendPos()
+        {
+
+            NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+            outGoingMessage.Write("POS");
+            outGoingMessage.Write(Position.X);
+            outGoingMessage.Write(Position.Y);
+
+            Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.Unreliable);
+        }
     }
 }
