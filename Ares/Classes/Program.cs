@@ -85,8 +85,8 @@ namespace Ares
             charTexture = new Texture("Content/player.png");
             wallTexture = new Texture("Content/wall.png");
             font = new Font("Content/Font1.ttf");
-            
-            
+
+
             //Initialize
             map = new Map(20);
         }
@@ -94,15 +94,18 @@ namespace Ares
         private static void UpdateDraw(RenderWindow window)
         {
             deltaTime = DateTime.Now - oldDateTime;
-
+            HandleMessages();
             window.DispatchEvents();
             window.Clear(Color.Green);
+
+
+
             Input.Update();
 
             map.Update();
             map.Draw();
 
-            
+
 
 
             oldDateTime = DateTime.Now;
@@ -125,49 +128,49 @@ namespace Ares
                     case NetIncomingMessageType.ConnectionLatencyUpdated:
                         break;
                     case NetIncomingMessageType.Data:
-                        while (msg.PeekString() != string.Empty)
+                        //while (msg.PeekString() != string.Empty)
+                        //{
+                        //read the incoming string
+                        string messageType = msg.ReadString();
+
+                        switch (messageType)
                         {
-                            //read the incoming string
-                            string messageType = msg.ReadString();
+                            case "LIFE":
+                                long UID_LIFE = msg.ReadInt64();
+                                int hp = msg.ReadInt32();
+                                handleLifeMessage(UID_LIFE, hp);
+                                break;
 
-                            switch (messageType)
-                            {
-                                case "LIFE":
-                                    long UID_LIFE = msg.ReadInt64();
-                                    int hp = msg.ReadInt32();
-                                    handleLifeMessage(UID_LIFE, hp);
-                                    break;
+                            case "NAME":
+                                long UID_NAME = msg.ReadInt64();
+                                string newName = msg.ReadString();
+                                handleNameMessage(UID_NAME, newName);
+                                break;
 
-                                case "NAME":
-                                    long UID_NAME = msg.ReadInt64();
-                                    string newName = msg.ReadString();
-                                    handleNameMessage(UID_NAME, newName);
-                                    break;
+                            case "POS": //Update a player's position
+                                long UID_POS = msg.ReadInt64();
+                                float xPos = msg.ReadFloat();
+                                float yPos = msg.ReadFloat();
+                                handlePosMessage(UID_POS, xPos, yPos);
+                                break;
 
-                                case "POS": //Update a player's position
-                                    long UID_POS = msg.ReadInt64();
-                                    float xPos = msg.ReadFloat();
-                                    float yPos = msg.ReadFloat();
-                                    handlePosMessage(UID_POS, xPos, yPos);
-                                    break;
+                            case "JOIN": //Add a player
+                                long UID_JOIN = msg.ReadInt64();
+                                handleJoinMessage(UID_JOIN);
+                                break;
 
-                                case "JOIN": //Add a player
-                                    long UID_JOIN = msg.ReadInt64();
-                                    handleJoinMessage(UID_JOIN);
-                                    break;
+                            case "CHAT": //Add chat
+                                long UID_CHAT = msg.ReadInt64();
+                                string message = msg.ReadString();
+                                handleChatMessage(UID_CHAT, message);
+                                break;
 
-                                case "CHAT": //Add chat
-                                    long UID_CHAT = msg.ReadInt64();
-                                    string message = msg.ReadString();
-                                    handleChatMessage(UID_CHAT, message);
-                                    break;
-
-                                case "PART": //Remove a player
-                                    long UID_PART = msg.ReadInt64();
-                                    handlePartMessage(UID_PART);
-                                    break;
-                            }
+                            case "PART": //Remove a player
+                                long UID_PART = msg.ReadInt64();
+                                handlePartMessage(UID_PART);
+                                break;
                         }
+                        //}
                         break;
                     default:
                         Console.WriteLine("Unrecognized Message Recieved:" + msg.ToString());
@@ -221,14 +224,14 @@ namespace Ares
         /// <returns>The delta ratio.</returns>
         public static float getDeltaRatio()
         {
-			double sixtyFpsHundredNanos = 166666.66666666667;
-			double actualHundredNanos = deltaTime.Ticks;
-			double ratio = sixtyFpsHundredNanos / actualHundredNanos;
-			//debugging screws up timestep, we'll assume it's running fine
-			if (double.IsInfinity(ratio) || double.IsNaN(ratio))
-			{
-				ratio = 1.0;
-			}
+            double sixtyFpsHundredNanos = 166666.66666666667;
+            double actualHundredNanos = deltaTime.Ticks;
+            double ratio = sixtyFpsHundredNanos / actualHundredNanos;
+            //debugging screws up timestep, we'll assume it's running fine
+            if (double.IsInfinity(ratio) || double.IsNaN(ratio))
+            {
+                ratio = 1.0;
+            }
             return (float)ratio;
         }
     }
