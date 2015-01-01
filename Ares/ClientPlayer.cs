@@ -22,6 +22,7 @@ namespace Ares
 
         void Draw()
         {
+
         }
 
         void HandleMovement()

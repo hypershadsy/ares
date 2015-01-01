@@ -15,5 +15,13 @@ namespace Ares
         public NetPlayer()
         {
         }
+
+        public override void Update()
+        {
+        }
+
+        public override void Draw()
+        {
+        }
     }
 }

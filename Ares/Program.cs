@@ -76,7 +76,7 @@ namespace Ares
 
 
 
-            charSprite = new Sprite(new Texture("Content/"));
+            charSprite = new Sprite(new Texture("Content/player.png"));
             font = new Font("Content/Font1.ttf");
 
         }

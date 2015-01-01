@@ -16,5 +16,14 @@ namespace Ares
         public Player()
         {
         }
+
+        public virtual void Update()
+        {
+        }
+
+        public virtual void Draw()
+        {
+            Render.Draw(Game.charSprite, Position, Color.White, new Vector2f(0, 0), 1);
+        }
     }
 }

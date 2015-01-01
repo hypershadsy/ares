@@ -17,5 +17,13 @@ namespace Ares
         public Tile()
         {
         }
+
+        public virtual void Update()
+        {
+        }
+
+        public virtual void Draw()
+        {
+        }
     }
 }
