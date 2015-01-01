@@ -55,5 +55,46 @@ namespace Ares
 
             Position += Velocity * Game.getDeltaRatio();
         }
+
+        public void sendChat()
+        {
+            NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+            outGoingMessage.Write("CHAT");
+            outGoingMessage.Write(textCapture);
+            Game.chatMessages.Add("You: " + textCapture);
+            //SoundPlayer.playSound(Game.click);
+            Game.soundInstances.Add(new SoundInstance(Game.click, 0f, 0f));
+            if (Game.chatMessages.Count > 15)
+                Game.chatMessages.RemoveAt(0);
+
+            if (!(textCapture.IndexOf("/") == 0))
+                overheadMessage = textCapture;
+            ohmDecay = (60 * 5);
+
+            if (textCapture.IndexOf("/setname") == 0)
+                if (textCapture.Substring(0, 8).Equals("/setname"))
+                {
+                    username = textCapture.Substring(8).Trim();
+                }
+
+            if (textCapture.IndexOf("/scream") == 0)
+                Game.soundInstances.Add(new SoundInstance(Game.SaD, 0f, 0f));
+
+            if (textCapture.IndexOf("/fart") == 0)
+                Game.soundInstances.Add(new SoundInstance(Game.fart, 0f, 0f));
+            if (textCapture.IndexOf("/clear") == 0)
+                Game.chatMessages.Clear();
+            if (textCapture.IndexOf("/kill") == 0)
+            {
+                alive = false;
+                sendAliveStatus();
+                Game.soundInstances.Add(new SoundInstance(Game.fart, 0f, 0f));
+                Game.soundInstances.Add(new SoundInstance(Game.SaD, 0f, 0f));
+            }
+
+
+            textCapture = "";
+            Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+        }
     }
 }

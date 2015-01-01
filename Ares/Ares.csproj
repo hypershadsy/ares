@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actor.cs" />
+    <Compile Include="Chat.cs" />
     <Compile Include="ClientPlayer.cs" />
     <Compile Include="GrassTile.cs" />
     <Compile Include="GroundTile.cs" />
