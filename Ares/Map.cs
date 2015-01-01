@@ -12,10 +12,23 @@ namespace Ares
 {
     public class Map
     {
-        //private Tile[,] tiles;
+        private Tile[,] tiles;
 
-        public Map()
+        public Map(int size)
         {
+            tiles = new Tile[size, size];
+            Load();
+        }
+
+        private void Load()
+        {
+            for (int x = 0; x < tiles.GetLength(0); x++)
+            {
+                for (int y = 0; y < tiles.GetLength(1); y++)
+                {
+                    tiles[x, y] = new GroundTile();
+                }
+            }
         }
 
         public void Update()

@@ -25,6 +25,8 @@ namespace Ares
         public static Font font;
         public static Sprite charSprite;
 
+        public static Map map = new Map(20);
+
 
         static void Main(string[] args)
         {
@@ -87,17 +89,12 @@ namespace Ares
             window.DispatchEvents();
             window.Clear(Color.Green);
             Input.Update();
+            map.Draw();
+            
 
             
 
             window.Display();
-
-            NetOutgoingMessage outgoing = client.CreateMessage();
-            outgoing.Write("POS");
-            outgoing.Write(100);
-            outgoing.Write(150);
-
-            client.SendMessage(outgoing, NetDeliveryMethod.UnreliableSequenced);
 
         }
 
