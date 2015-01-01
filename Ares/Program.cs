@@ -24,6 +24,7 @@ namespace Ares
 
         public static Font font;
 
+
         static void Main(string[] args)
         {
             PreRun();
@@ -44,29 +45,33 @@ namespace Ares
 
         private static void Initialize()
         {
-            NetPeerConfiguration config = new NetPeerConfiguration("Ares");
+            NetPeerConfiguration config = new NetPeerConfiguration("ares");
             config.EnableMessageType(NetIncomingMessageType.ConnectionLatencyUpdated);
             string ip = "giga.krash.net"; //Jared's IP
             int port = 12345;
             client = new NetClient(config);
             client.Start();
             client.Connect(ip, port);
+
+
+
+
         }
 
         private static void LoadContentInitialize()
         {
             window = new RenderWindow(
-                new VideoMode(800,600), "Project Ares");
+                new VideoMode(800, 600), "Project Ares");
 
-            windowSize = new Vector2f(800,600);
+            windowSize = new Vector2f(800, 600);
             window.SetFramerateLimit(60);
 
-            window.Closed += (a, b) => 
+            window.Closed += (a, b) =>
                 {
                     window.Close();
                 };
 
-            camera2D = new View(new Vector2f(640/2,480/2), new Vector2f(640,480));
+            camera2D = new View(new Vector2f(640 / 2, 480 / 2), new Vector2f(640, 480));
 
 
 
@@ -80,6 +85,7 @@ namespace Ares
         {
             window.DispatchEvents();
             window.Clear(Color.Green);
+            Input.Update();
 
             
 
@@ -91,6 +97,7 @@ namespace Ares
             outgoing.Write(150);
 
             client.SendMessage(outgoing, NetDeliveryMethod.UnreliableSequenced);
+
         }
 
         public static void HandleMessages()
@@ -126,7 +133,7 @@ namespace Ares
                                 break;
 
                             case "JOIN": //Add a player
-                                 break;
+                                break;
 
                             case "CHAT": //Add chat
                                 break;

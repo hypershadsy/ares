@@ -10,12 +10,23 @@ using Lidgren.Network;
 
 namespace Ares
 {
-    public class Map
+    public class ClientPlayer : Player
     {
-        //private Tile[,] tiles;
-
-        public Map()
+        public ClientPlayer()
         {
+        }
+
+        void Update()
+        {
+        }
+
+        void Draw()
+        {
+        }
+
+        void HandleMovement()
+        {
+
         }
     }
 }

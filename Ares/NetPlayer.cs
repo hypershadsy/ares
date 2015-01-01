@@ -10,11 +10,9 @@ using Lidgren.Network;
 
 namespace Ares
 {
-    public class Map
+    public class NetPlayer : Player
     {
-        //private Tile[,] tiles;
-
-        public Map()
+        public NetPlayer()
         {
         }
     }

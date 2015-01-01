@@ -75,7 +75,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actor.cs" />
+    <Compile Include="ClientPlayer.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="NetPlayer.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
