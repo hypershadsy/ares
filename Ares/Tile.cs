@@ -12,10 +12,11 @@ namespace Ares
 {
     public class Tile
     {
-        public Vector2f Position { get; set; }
+		public Vector2f Position;
 
-        public Tile()
+        public Tile(Vector2f position)
         {
+			Position = position;
         }
 
         public virtual void Update()

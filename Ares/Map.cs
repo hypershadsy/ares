@@ -28,31 +28,63 @@ namespace Ares
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    tiles[x, y] = new GroundTile();
+                    tiles[x, y] = new GroundTile(new Vector2f(x, y));
                 }
             }
         }
 
         public void Update()
         {
-
+			UpdateTiles();
+			UpdatePlayers();
         }
 
-        public void Draw()
-        {
-            DrawPlayers();
-        }
+		public void Draw()
+		{
+			DrawTiles();
+			DrawPlayers();
+		}
 
-        public void DrawPlayers()
+		private void UpdateTiles()
+		{
+			for (int x = 0; x < tiles.GetLength(0); x++)
+			{
+				for (int y = 0; y < tiles.GetLength(1); y++)
+				{
+					Tile thisTile = tiles[x, y];
+					thisTile.Update();
+				}
+			}
+		}
+
+		private void UpdatePlayers()
+		{
+			for (int i = 0; i < players.Count; i++)
+			{
+				Player thisPlayer = players[i];
+				thisPlayer.Update();
+			}
+		}
+
+		private void DrawTiles()
+		{
+			for (int x = 0; x < tiles.GetLength(0); x++)
+			{
+				for (int y = 0; y < tiles.GetLength(1); y++)
+				{
+					Tile thisTile = tiles[x, y];
+					thisTile.Draw();
+				}
+			}
+		}
+
+        private void DrawPlayers()
         {
             for (int i = 0; i < players.Count; i++)
             {
-                players[i].Draw();
+				Player thisPlayer = players[i];
+                thisPlayer.Draw();
             }
-        }
-
-        public void DrawTiles()
-        {
         }
     }
 }

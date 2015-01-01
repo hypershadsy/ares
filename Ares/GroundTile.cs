@@ -12,7 +12,8 @@ namespace Ares
 {
     public class GroundTile : Tile
     {
-        public GroundTile()
+        public GroundTile(Vector2f position)
+			: base(position)
         {
         }
     }
