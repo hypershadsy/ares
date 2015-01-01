@@ -12,8 +12,11 @@ namespace Ares
 {
     public class NetPlayer : Player
     {
-        public NetPlayer()
+
+
+        public NetPlayer(long uid)
         {
+            this.UID = uid;
         }
 
         public override void Update()
@@ -22,6 +25,8 @@ namespace Ares
 
         public override void Draw()
         {
+            Render.Draw(Game.charTexture, Position, Color.Red, new Vector2f(0, 0), 1);
+           
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Ares
 
         void HandleMovement()
         {
-            Velocity = new Vector2f(0, 0);
+            Velocity = new Vector2f(0, 0); //Reset the velocity
 
             if (Input.isKeyDown(Keyboard.Key.A))
             {

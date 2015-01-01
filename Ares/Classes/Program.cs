@@ -190,6 +190,7 @@ namespace Ares
         }
         private static void handleJoinMessage(long uid)
         {
+            map.players.Add(new NetPlayer(uid));
             //add a new net player to players 
         }
         private static void handleChatMessage(long uid, string message)
