@@ -19,6 +19,7 @@ namespace Ares
         {
             Position = new Vector2f(100, 100);
             MovementSpeed = 3;
+            UID = Game.client.UniqueIdentifier;
         }
 
         public override void Update()
@@ -28,7 +29,7 @@ namespace Ares
             if (sinceLastPosSent.TotalMilliseconds >= 50)
             {
                 //sehdpos
-
+                sendPos();
                 lastPosSent = DateTime.Now;
             }
             base.Update();

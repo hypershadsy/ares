@@ -17,6 +17,7 @@ namespace Ares
         public NetPlayer(long uid)
         {
             this.UID = uid;
+            Position = new Vector2f(100, 100);
         }
 
         public override void Update()
