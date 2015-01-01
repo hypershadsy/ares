@@ -1,6 +1,9 @@
 #monodevelop
 Ares.userprefs
 
+#gtfo bin
+Ares/bin/
+
 #ignore thumbnails created by windows
 Thumbs.db
 #Ignore files build by Visual Studio
