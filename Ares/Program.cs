@@ -18,6 +18,10 @@ namespace Ares
         static Vector2f windowSize;
         static Random r = new Random();
 
+        static DateTime oldDateTime;
+        static TimeSpan deltaTime;
+
+
         public static NetClient client;
 
         public static View camera2D;
@@ -72,34 +76,37 @@ namespace Ares
 
             window.Closed += (a, b) =>
                 {
+                    client.Disconnect("Bye");
                     window.Close();
                 };
 
-			camera2D = new View(new Vector2f(800/2,600/2), new Vector2f(0, 0));
+            camera2D = new View(new Vector2f(800 / 2, 600 / 2), new Vector2f(0, 0));
 
-            charTexture = new Texture("content/player.png");
-            wallTexture = new Texture("content/wall.png");
+            charTexture = new Texture("Content/player.png");
+            wallTexture = new Texture("Content/wall.png");
             font = new Font("Content/Font1.ttf");
-
-
+            
+            
             //Initialize
-             map = new Map(20);
+            map = new Map(20);
         }
-
 
         private static void UpdateDraw(RenderWindow window)
         {
+            deltaTime = DateTime.Now - oldDateTime;
+
             window.DispatchEvents();
             window.Clear(Color.Green);
             Input.Update();
 
             map.Update();
             map.Draw();
-        
-           
 
+            Console.WriteLine(deltaTime.TotalMilliseconds);
+
+
+            oldDateTime = DateTime.Now;
             window.Display();
-
         }
 
         public static void HandleMessages()
@@ -152,6 +159,12 @@ namespace Ares
                 Game.client.Recycle(msg);
             }
 
+        }
+
+        public static float getDeltaRatio()
+        {
+            //TimeSpan ts = new TimeSpan(
+            return 1f;
         }
     }
 }

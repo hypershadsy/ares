@@ -16,6 +16,7 @@ namespace Ares
             : base()
         {
             Position = new Vector2f(100, 100);
+            speed = 3;
         }
 
         public override void Update()
@@ -32,6 +33,8 @@ namespace Ares
 
         void HandleMovement()
         {
+            Velocity = new Vector2f(0, 0);
+
             if (Input.isKeyDown(Keyboard.Key.A))
             {
                 Velocity.X = -speed;
@@ -50,7 +53,7 @@ namespace Ares
                 Velocity.Y = speed;
             }
 
-            Position += Velocity;
+            Position += Velocity * Game.getDeltaRatio();
         }
     }
 }
