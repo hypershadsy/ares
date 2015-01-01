@@ -12,5 +12,9 @@ namespace Ares
 {
     public class Player : Actor
     {
+
+        public Player()
+        {
+        }
     }
 }

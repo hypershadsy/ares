@@ -13,5 +13,9 @@ namespace Ares
     public class Tile
     {
         public Vector2f Position { get; set; }
+
+        public Tile()
+        {
+        }
     }
 }

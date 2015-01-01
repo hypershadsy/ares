@@ -13,5 +13,9 @@ namespace Ares
     public class Map
     {
         private Tile[,] tiles;
+
+        public Map()
+        {
+        }
     }
 }
