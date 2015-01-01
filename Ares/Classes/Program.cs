@@ -125,32 +125,49 @@ namespace Ares
                     case NetIncomingMessageType.ConnectionLatencyUpdated:
                         break;
                     case NetIncomingMessageType.Data:
-                        //read the incoming string
-                        string messageType = msg.ReadString();
-
-
-                        switch (messageType)
+                        while (msg.PeekString() != string.Empty)
                         {
-                            case "LIFE":
-                                break;
+                            //read the incoming string
+                            string messageType = msg.ReadString();
 
-                            case "NAME":
-                                break;
+                            switch (messageType)
+                            {
+                                case "LIFE":
+                                    long UID_LIFE = msg.ReadInt64();
+                                    bool status = msg.ReadBoolean();
+                                    handleLifeMessage(UID_LIFE, status);
+                                    break;
 
-                            case "POS": //Update a player's position
+                                case "NAME":
+                                    long UID_NAME = msg.ReadInt64();
+                                    string newName = msg.ReadString();
+                                    handleNameMessage(UID_NAME, newName);
+                                    break;
 
-                                break;
+                                case "POS": //Update a player's position
+                                    long UID_POS = msg.ReadInt64();
+                                    float xPos = msg.ReadFloat();
+                                    float yPos = msg.ReadFloat();
+                                    handlePosMessage(UID_POS, xPos, yPos);
+                                    break;
 
-                            case "JOIN": //Add a player
-                                break;
+                                case "JOIN": //Add a player
+                                    long UID_JOIN = msg.ReadInt64();
+                                    handleJoinMessage(UID_JOIN);
+                                    break;
 
-                            case "CHAT": //Add chat
-                                break;
+                                case "CHAT": //Add chat
+                                    long UID_CHAT = msg.ReadInt64();
+                                    string message = msg.ReadString();
+                                    handleChatMessage(UID_CHAT, message);
+                                    break;
 
-                            case "PART": //Remove a player
-                                break;
+                                case "PART": //Remove a player
+                                    long UID_PART = msg.ReadInt64();
+                                    handlePartMessage(UID_PART);
+                                    break;
+                            }
                         }
-
                         break;
                     default:
                         Console.WriteLine("Unrecognized Message Recieved:" + msg.ToString());
@@ -159,6 +176,28 @@ namespace Ares
                 Game.client.Recycle(msg);
             }
 
+        }
+
+        private static void handleLifeMessage(long uid, bool status)
+        {
+        }
+        private static void handleNameMessage(long uid, string newName)
+        {
+        }
+        private static void handlePosMessage(long uid, float x, float y)
+        {
+            //
+        }
+        private static void handleJoinMessage(long uid)
+        {
+            //add a new net player to players 
+        }
+        private static void handleChatMessage(long uid, string message)
+        {
+        }
+        private static void handlePartMessage(long uid)
+        {
+            //remove net player from players list
         }
 
 		/// <summary>

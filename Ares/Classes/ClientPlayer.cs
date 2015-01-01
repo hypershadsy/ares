@@ -54,9 +54,7 @@ namespace Ares
             }
 
             var delta = Game.getDeltaRatio();
-            Position += Velocity * delta;
-
-            
+            Position += Velocity * delta;            
         }
 
     }
