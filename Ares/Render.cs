@@ -12,11 +12,10 @@ namespace Ares
 {
     public class Render
     {
-        public static void Draw(Sprite sprite, Vector2f position, Color color, Vector2f origin, int facing)
+        public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing)
         {
-            Sprite newSprite;
-            newSprite = sprite;
-            newSprite.Texture.Smooth = false;
+            Sprite sprite = new Sprite(texture);
+            sprite.Texture.Smooth = false;
             sprite.Scale = new Vector2f(-facing, 1);
             sprite.Origin = origin;
             sprite.Position = position;

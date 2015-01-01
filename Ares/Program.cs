@@ -95,10 +95,8 @@ namespace Ares
 
             map.Update();
             map.Draw();
-
-            Render.Draw(new Sprite(Game.charTexture), new Vector2f(100, 100), Color.White, new Vector2f(0, 0), 1);
+        
            
-            
 
             window.Display();
 
