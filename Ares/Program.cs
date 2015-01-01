@@ -42,7 +42,7 @@ namespace Ares
         private static void PreRun()
         {
             startTime = DateTime.Now;
-            r = new Random(100);
+            r = new Random();
             Initialize();
         }
 
@@ -74,7 +74,7 @@ namespace Ares
                     window.Close();
                 };
 
-            camera2D = new View(new Vector2f(640 / 2, 480 / 2), new Vector2f(640, 480));
+			camera2D = new View(new Vector2f(800 / 2, 600 / 2), new Vector2f(800, 600));
 
 
 
