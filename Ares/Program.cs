@@ -161,10 +161,17 @@ namespace Ares
 
         }
 
+		/// <summary>
+		/// Gets the delta ratio. If the game is running slowly, this number will be higher,
+		/// causing your game object to go further per frame. At 60FPS, this number will be 1.0.
+		/// </summary>
+		/// <returns>The delta ratio.</returns>
         public static float getDeltaRatio()
         {
-            //TimeSpan ts = new TimeSpan(
-            return 1f;
+			double sixtyFpsHundredNanos = 166666.66666666667;
+			double actualHundredNanos = deltaTime.Ticks;
+			double ratio = sixtyFpsHundredNanos / actualHundredNanos;
+            return (float)ratio;
         }
     }
 }
