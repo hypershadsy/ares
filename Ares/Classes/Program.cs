@@ -171,6 +171,11 @@ namespace Ares
 			double sixtyFpsHundredNanos = 166666.66666666667;
 			double actualHundredNanos = deltaTime.Ticks;
 			double ratio = sixtyFpsHundredNanos / actualHundredNanos;
+			//debugging screws up timestep, we'll assume it's running fine
+			if (double.IsInfinity(ratio) || double.IsNaN(ratio))
+			{
+				ratio = 1.0;
+			}
             return (float)ratio;
         }
     }
