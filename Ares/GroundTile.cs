@@ -12,5 +12,8 @@ namespace Ares
 {
     public class GroundTile : Tile
     {
+        public GroundTile()
+        {
+        }
     }
 }

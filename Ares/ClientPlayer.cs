@@ -16,13 +16,15 @@ namespace Ares
         {
         }
 
-        void Update()
+        public override void Update()
         {
+            base.Update();
         }
 
-        void Draw()
+        public override void Draw()
         {
-
+            Render.Draw(Game.charSprite, Position, Color.White, new Vector2f(0, 0), 1);
+            base.Draw();
         }
 
         void HandleMovement()

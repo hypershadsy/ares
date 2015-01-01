@@ -13,11 +13,13 @@ namespace Ares
     public class Map
     {
         private Tile[,] tiles;
+        public List<Player> players = new List<Player>();
 
         public Map(int size)
         {
             tiles = new Tile[size, size];
             Load();
+            players.Add(new ClientPlayer());
         }
 
         private void Load()
@@ -33,7 +35,7 @@ namespace Ares
 
         public void Update()
         {
-            
+
         }
 
         public void Draw()
@@ -43,6 +45,10 @@ namespace Ares
 
         public void DrawPlayers()
         {
+            for (int i = 0; i < players.Count; i++)
+            {
+                players[i].Draw();
+            }
         }
 
         public void DrawTiles()

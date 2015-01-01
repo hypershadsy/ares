@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Actor.cs" />
     <Compile Include="ClientPlayer.cs" />
+    <Compile Include="GrassTile.cs" />
     <Compile Include="GroundTile.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Map.cs" />

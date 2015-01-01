@@ -89,9 +89,12 @@ namespace Ares
             window.DispatchEvents();
             window.Clear(Color.Green);
             Input.Update();
-            map.Draw();
-            
 
+            map.Update();
+            map.Draw();
+
+            Render.Draw(Game.charSprite, new Vector2f(100,100), Color.White, new Vector2f(0, 0), 1);
+           
             
 
             window.Display();
