@@ -12,7 +12,8 @@ namespace Ares
 {
     public class Actor
     {
-        public Vector2f Position { get; set; }
-        public Vector2f Velocity { get; set; }
+        public Vector2f Position;
+        public Vector2f Velocity;
+        public float speed;
     }
 }

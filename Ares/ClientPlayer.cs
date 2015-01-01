@@ -20,6 +20,7 @@ namespace Ares
 
         public override void Update()
         {
+            HandleMovement();
             base.Update();
         }
 
@@ -31,7 +32,25 @@ namespace Ares
 
         void HandleMovement()
         {
+            if (Input.isKeyDown(Keyboard.Key.A))
+            {
+                Velocity.X = -speed;
+            }
+            if (Input.isKeyDown(Keyboard.Key.D))
+            {
+                Velocity.X = speed;
+            }
 
+            if (Input.isKeyDown(Keyboard.Key.W))
+            {
+                Velocity.Y = -speed;
+            }
+            if (Input.isKeyDown(Keyboard.Key.S))
+            {
+                Velocity.Y = speed;
+            }
+
+            Position += Velocity;
         }
     }
 }
