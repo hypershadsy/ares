@@ -74,7 +74,7 @@ namespace Ares
                     window.Close();
                 };
 
-			camera2D = new View(new Vector2f(800 / 2, 600 / 2), new Vector2f(800, 600));
+			camera2D = new View(new Vector2f(0,0), new Vector2f(800, 600));
 
 
 
@@ -93,7 +93,7 @@ namespace Ares
             map.Update();
             map.Draw();
 
-            Render.Draw(Game.charSprite, new Vector2f(100,100), Color.White, new Vector2f(0, 0), 1);
+            Render.Draw(Game.charSprite, new Vector2f(0,0), Color.White, new Vector2f(0, 0), 1);
            
             
 
