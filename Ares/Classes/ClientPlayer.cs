@@ -28,8 +28,8 @@ namespace Ares
             var sinceLastPosSent = DateTime.Now - lastPosSent;
             if (sinceLastPosSent.TotalMilliseconds >= 50)
             {
-                //sehdpos
                 sendPos();
+                Console.WriteLine("POS SENT");
                 lastPosSent = DateTime.Now;
             }
             base.Update();

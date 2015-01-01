@@ -102,7 +102,7 @@ namespace Ares
             map.Update();
             map.Draw();
 
-            Console.WriteLine(deltaTime.TotalMilliseconds);
+            
 
 
             oldDateTime = DateTime.Now;
@@ -134,8 +134,8 @@ namespace Ares
                             {
                                 case "LIFE":
                                     long UID_LIFE = msg.ReadInt64();
-                                    bool status = msg.ReadBoolean();
-                                    handleLifeMessage(UID_LIFE, status);
+                                    int hp = msg.ReadInt32();
+                                    handleLifeMessage(UID_LIFE, hp);
                                     break;
 
                                 case "NAME":
@@ -178,15 +178,17 @@ namespace Ares
 
         }
 
-        private static void handleLifeMessage(long uid, bool status)
+        private static void handleLifeMessage(long uid, int health)
         {
+            getPlayerWithUID(uid).health = health;
         }
         private static void handleNameMessage(long uid, string newName)
         {
+            getPlayerWithUID(uid).name = newName;
         }
         private static void handlePosMessage(long uid, float x, float y)
         {
-            //
+            getPlayerWithUID(uid).Position = new Vector2f(x, y);
         }
         private static void handleJoinMessage(long uid)
         {
@@ -201,11 +203,22 @@ namespace Ares
             //remove net player from players list
         }
 
-		/// <summary>
-		/// Gets the delta ratio. If the game is running slowly, this number will be higher,
-		/// causing your game object to go further per frame. At 60FPS, this number will be 1.0.
-		/// </summary>
-		/// <returns>The delta ratio.</returns>
+
+        private static Player getPlayerWithUID(long id)
+        {
+            for (int i = 0; i < map.players.Count; i++)
+            {
+                if (map.players[i].UID == id)
+                    return map.players[i];
+            }
+
+            return null;
+        }
+        /// <summary>
+        /// Gets the delta ratio. If the game is running slowly, this number will be higher,
+        /// causing your game object to go further per frame. At 60FPS, this number will be 1.0.
+        /// </summary>
+        /// <returns>The delta ratio.</returns>
         public static float getDeltaRatio()
         {
 			double sixtyFpsHundredNanos = 166666.66666666667;

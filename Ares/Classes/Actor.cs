@@ -15,5 +15,9 @@ namespace Ares
         public Vector2f Position;
         public Vector2f Velocity;
         public float MovementSpeed;
+        public string name;
+        public int health, maxHealth;
+
+        public bool alive { get { return health > 0; } }
     }
 }
