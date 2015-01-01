@@ -23,9 +23,9 @@ namespace Ares
         public static View camera2D;
 
         public static Font font;
-        public static Sprite charSprite;
+        public static Texture charTexture, wallTexture;
 
-        public static Map map = new Map(20);
+        public static Map map;
 
 
         static void Main(string[] args)
@@ -63,6 +63,7 @@ namespace Ares
 
         private static void LoadContentInitialize()
         {
+            //Load
             window = new RenderWindow(
                 new VideoMode(800, 600), "Project Ares");
 
@@ -74,13 +75,15 @@ namespace Ares
                     window.Close();
                 };
 
-			camera2D = new View(new Vector2f(0,0), new Vector2f(800, 600));
+			camera2D = new View(new Vector2f(800/2,600/2), new Vector2f(0, 0));
 
-
-
-            charSprite = new Sprite(new Texture("Content/player.png"));
+            charTexture = new Texture("content/player.png");
+            wallTexture = new Texture("content/wall.png");
             font = new Font("Content/Font1.ttf");
 
+
+            //Initialize
+             map = new Map(20);
         }
 
 
@@ -93,7 +96,7 @@ namespace Ares
             map.Update();
             map.Draw();
 
-            Render.Draw(Game.charSprite, new Vector2f(0,0), Color.White, new Vector2f(0, 0), 1);
+            Render.Draw(new Sprite(Game.charTexture), new Vector2f(100, 100), Color.White, new Vector2f(0, 0), 1);
            
             
 

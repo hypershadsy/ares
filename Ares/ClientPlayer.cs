@@ -12,8 +12,12 @@ namespace Ares
 {
     public class ClientPlayer : Player
     {
+        Sprite characterSprite;
+
         public ClientPlayer()
+            : base()
         {
+            characterSprite = new Sprite(Game.charTexture);
         }
 
         public override void Update()
@@ -23,7 +27,7 @@ namespace Ares
 
         public override void Draw()
         {
-            Render.Draw(Game.charSprite, Position, Color.White, new Vector2f(0, 0), 1);
+            Render.Draw(characterSprite, Position, Color.White, new Vector2f(0, 0), 1);
             base.Draw();
         }
 
