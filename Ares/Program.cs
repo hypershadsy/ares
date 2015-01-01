@@ -23,6 +23,7 @@ namespace Ares
         public static View camera2D;
 
         public static Font font;
+        public static Sprite charSprite;
 
 
         static void Main(string[] args)
@@ -75,7 +76,7 @@ namespace Ares
 
 
 
-
+            charSprite = new Sprite(new Texture("Content/"));
             font = new Font("Content/Font1.ttf");
 
         }

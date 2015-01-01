@@ -17,5 +17,23 @@ namespace Ares
         public Map()
         {
         }
+
+        public void Update()
+        {
+            
+        }
+
+        public void Draw()
+        {
+            DrawPlayers();
+        }
+
+        public void DrawPlayers()
+        {
+        }
+
+        public void DrawTiles()
+        {
+        }
     }
 }
