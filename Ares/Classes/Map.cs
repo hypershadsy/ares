@@ -30,7 +30,7 @@ namespace Ares
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    tiles[x, y] = new GroundTile(new Vector2f(x, y));
+                    tiles[x, y] = new GrassTile(new Vector2f(x, y), -1);
                 }
             }
         }
@@ -87,6 +87,42 @@ namespace Ares
 				Player thisPlayer = players[i];
                 thisPlayer.Draw();
             }
+        }
+
+        /// <summary>
+        /// Used to get a tile at an array index, not world coordinates
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="id"></param>
+        public void addTile(int x, int y, int id, long UID)
+        {
+            switch (id)
+            {
+                case 0:
+                    tiles[x, y] = new GrassTile(new Vector2f(x, y), UID);
+                    break;
+                case 1:
+                    tiles[x, y] = new WoodWallTile(new Vector2f(x, y), UID);
+                    break;
+            }
+        }
+
+        public Tile getTileInArray(int x, int y)
+        {
+            return tiles[x, y];
+        }
+
+        /// <summary>
+        /// Used to get a tile at a world coordinate, not an array index
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public Tile getTileInWorld(float x, float y)
+        {
+            //Console.WriteLine(tiles[(int)(x / 32), (int)(y / 32)].)
+            return tiles[(int)(x / 32), (int)(y / 32)];
         }
     }
 }

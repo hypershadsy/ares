@@ -32,7 +32,7 @@ namespace Ares
         public static View camera2D;
 
         public static Font font;
-        public static Texture charTexture, wallTexture;
+        public static Texture charTexture, wallTexture, grassTexture;
 
         public static Map map;
 
@@ -87,13 +87,13 @@ namespace Ares
             Game.window.GainedFocus += new EventHandler(window_GainedFocus); { }
             Game.window.LostFocus += new EventHandler(window_LostFocus); { }
 
-
-            camera2D = new View(new FloatRect(0, 0, 800, 600));
+            camera2D = new View(new Vector2f(800/2,600/2), new Vector2f(800,600));
 
             camera2D.Zoom(1f);
 
             charTexture = new Texture("Content/player.png");
             wallTexture = new Texture("Content/wall.png");
+            grassTexture = new Texture("Content/grass.png");
             font = new Font("Content/Font1.ttf");
 
 
@@ -113,21 +113,24 @@ namespace Ares
 
         private static void UpdateDraw(RenderWindow window)
         {
+            window.Clear(Color.Black);
             window.SetView(camera2D);
             HandleMessages();
             window.DispatchEvents();
-            window.Clear(Color.Green);
-
             Input.Update();
-
             map.Update();
             map.Draw();
 
-
-
-
             oldDateTime = DateTime.Now;
+
+            window.SetView(new View(new Vector2f(800/2,600/2), new Vector2f(800,600)));
+            DrawOnGUI();
             window.Display();
+        }
+
+        public static void DrawOnGUI()
+        {
+            map.clientPlayer.gui.Draw();
         }
 
         public static void HandleMessages()
@@ -187,6 +190,14 @@ namespace Ares
                                 long UID_PART = msg.ReadInt64();
                                 handlePartMessage(UID_PART);
                                 break;
+                            case "BUILD": //Remove a player
+                                long UID_BUILD = msg.ReadInt64();
+                                int X_BUILD = msg.ReadInt32();
+                                int Y_BUILD = msg.ReadInt32();
+                                int TYPE_BUILD = msg.ReadInt32();
+
+                                handleBuildMessage(UID_BUILD, X_BUILD, Y_BUILD, TYPE_BUILD);
+                                break;
                         }
                         //}
                         break;
@@ -199,6 +210,10 @@ namespace Ares
 
         }
 
+        private static void handleBuildMessage(long uid, int x, int y, int type)
+        {
+            map.addTile(x, y, type, uid);
+        }
         private static void handleLifeMessage(long uid, int health)
         {
             getPlayerWithUID(uid).Health = health;

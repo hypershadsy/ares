@@ -10,10 +10,18 @@ using Lidgren.Network;
 
 namespace Ares
 {
-    public class GroundTile : Tile
+    public abstract class GroundTile : Tile
     {
-        public GroundTile(Vector2f position)
-			: base(position)
+        public GroundTile(Vector2f position, long UID_Builder)
+            : base(position, UID_Builder)
+        {
+        }
+
+        public override void Update()
+        {
+        }
+
+        public override void Draw()
         {
         }
     }

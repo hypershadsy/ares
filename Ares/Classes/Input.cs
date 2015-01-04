@@ -21,13 +21,11 @@ namespace Ares
             refreshState();
             PressedKeys.Clear();
 
-
             for (int i = 0; i < 100; i++)
             {
                 if (Keyboard.IsKeyPressed((Keyboard.Key)i))
                 {
                     PressedKeys.Add(((Keyboard.Key)i).ToString());
-
                 }
             }
         }

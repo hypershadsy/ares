@@ -14,6 +14,7 @@ namespace Ares
     {
         DateTime lastPosSent;
         public GUI gui;
+        public int currentBlockType = 1;
 
         public ClientPlayer()
             : base()
@@ -26,17 +27,21 @@ namespace Ares
 
         public override void Update()
         {
+            Game.camera2D.Center = Position;
             gui.Update();
+
             HandleMovement();
+            HandleBuilding();
+
             var sinceLastPosSent = DateTime.Now - lastPosSent;
             if (sinceLastPosSent.TotalMilliseconds >= 50)
             {
                 sendPos();
-                //Console.WriteLine("POS SENT");
+
                 lastPosSent = DateTime.Now;
             }
 
-            
+
             base.Update();
         }
 
@@ -44,7 +49,6 @@ namespace Ares
         {
             Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(0, 0), 1);
 
-            gui.Draw();
             base.Draw();
         }
 
@@ -71,7 +75,30 @@ namespace Ares
             }
 
             var delta = Game.getDeltaRatio();
-            Position += Velocity * delta;            
+
+            //if (Game.map.getTileInWorld(Position.X + Velocity.X, Position.Y) is GroundTile)
+                Position.X += Velocity.X;
+
+            //if (Game.map.getTileInWorld(Position.X, Position.Y + Velocity.Y) is GroundTile)
+                Position.Y += Velocity.Y;
+        }
+
+        void HandleBuilding()
+        {
+            if (Input.isKeyTap(Keyboard.Key.Up))
+            {
+                Vector2i pos = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32) - 1); //One block above
+
+                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                outGoingMessage.Write("BUILD");
+                outGoingMessage.Write(pos.X);
+                outGoingMessage.Write(pos.Y);
+                outGoingMessage.Write(currentBlockType);
+
+                Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+
+                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+            }
         }
 
         private void sendPos()

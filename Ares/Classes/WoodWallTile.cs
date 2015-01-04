@@ -10,9 +10,9 @@ using Lidgren.Network;
 
 namespace Ares
 {
-    public class GrassTile : GroundTile
+    public class WoodWallTile : WallTile
     {
-        public GrassTile(Vector2f position, long UID_Builder)
+        public WoodWallTile(Vector2f position, long UID_Builder)
             : base(position, UID_Builder)
         {
         }
@@ -23,7 +23,7 @@ namespace Ares
 
         public override void Draw()
         {
-            Render.Draw(Game.grassTexture, Position * 32, Color.White, new Vector2f(0, 0), 1);
+            Render.Draw(Game.wallTexture, Position * 32, Color.White, new Vector2f(0, 0), 1);
         }
     }
 }
