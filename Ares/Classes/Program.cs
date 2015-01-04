@@ -19,7 +19,12 @@ namespace Ares
         static Random r = new Random();
 
         static DateTime oldDateTime;
-        static TimeSpan deltaTime;
+		static TimeSpan deltaTime
+		{
+			get {
+				return DateTime.Now - oldDateTime;
+			}
+		}
 
 
         public static NetClient client;
@@ -46,21 +51,9 @@ namespace Ares
         private static void PreRun()
         {
             startTime = DateTime.Now;
+			//pretend value to appease the delta timer gods
+			oldDateTime = DateTime.Now - new TimeSpan((long)expectedTicks);
             r = new Random();
-            Initialize();
-        }
-
-        private static void Initialize()
-        {
-            NetPeerConfiguration config = new NetPeerConfiguration("ares");
-            config.EnableMessageType(NetIncomingMessageType.ConnectionLatencyUpdated);
-            string ip = "giga.krash.net"; //Jared's IP
-            int port = 12345;
-            client = new NetClient(config);
-            client.Start();
-            client.Connect(ip, port);
-
-
         }
 
         private static void LoadContentInitialize()
@@ -70,7 +63,7 @@ namespace Ares
                 new VideoMode(800, 600), "Project Ares");
 
             windowSize = new Vector2f(800, 600);
-            window.SetFramerateLimit(60);
+           	window.SetFramerateLimit(60);
 
             window.Closed += (a, b) =>
                 {
@@ -88,12 +81,21 @@ namespace Ares
 
 
             //Initialize
-            map = new Map(20);
+			NetPeerConfiguration config = new NetPeerConfiguration("ares");
+			config.EnableMessageType(NetIncomingMessageType.ConnectionLatencyUpdated);
+			string ip = "giga.krash.net"; //Jared's IP
+			int port = 12345;
+			client = new NetClient(config);
+
+			map = new Map(20);
+
+			//start processing messages
+			client.Start();
+			client.Connect(ip, port);
         }
 
         private static void UpdateDraw(RenderWindow window)
         {
-            deltaTime = DateTime.Now - oldDateTime;
             window.SetView(camera2D);
             HandleMessages();
             window.DispatchEvents();
@@ -220,19 +222,38 @@ namespace Ares
         /// <summary>
         /// Gets the delta ratio. If the game is running slowly, this number will be higher,
         /// causing your game object to go further per frame. At 60FPS, this number will be 1.0.
+		/// To take care of flukes in frametime, the ratio is averaged out over a period of
+		/// <c>deltaPeriod</c> frames.
         /// </summary>
         /// <returns>The delta ratio.</returns>
+		static Queue<double> pastFrameTimes;
+		const double expectedTicks = (1000.0 / 63.0) * 10000.0;
+		const int deltaPeriod = 100;
         public static float getDeltaRatio()
         {
-            double sixtyFpsHundredNanos = 166666.66666666667;
-            double actualHundredNanos = deltaTime.Ticks;
-            double ratio = sixtyFpsHundredNanos / actualHundredNanos;
+            double actualTicks = deltaTime.Ticks;
+			double ratio = actualTicks / expectedTicks;
             //debugging screws up timestep, we'll assume it's running fine
             if (double.IsInfinity(ratio) || double.IsNaN(ratio))
             {
                 ratio = 1.0;
             }
-            return (float)ratio;
+
+			if (pastFrameTimes == null)
+			{
+				pastFrameTimes = new Queue<double>(Enumerable.Repeat(1.0, deltaPeriod).ToList());
+				ratio = 1.0; //initialization is tough... ignore the first frame
+			}
+
+			//prune the old ratio, add this one
+			pastFrameTimes.Dequeue();
+			pastFrameTimes.Enqueue(ratio);
+
+			var avg = pastFrameTimes.Average();
+
+			Console.WriteLine("{0} -> {1}", ratio.ToString("00.000"), avg.ToString("00.000"));
+
+			return (float)avg;
         }
     }
 }
