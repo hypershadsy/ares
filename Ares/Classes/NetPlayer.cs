@@ -12,16 +12,19 @@ namespace Ares
 {
     public class NetPlayer : Player
     {
-
+		public Vector2f PositionGoal;
 
         public NetPlayer(long uid)
         {
             this.UID = uid;
             Position = new Vector2f(100, 100);
+			PositionGoal = Position;
         }
 
         public override void Update()
         {
+			Vector2f diff = PositionGoal - Position;
+			Position = Position + diff / 2f;
         }
 
         public override void Draw()

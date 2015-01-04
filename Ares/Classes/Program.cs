@@ -192,7 +192,11 @@ namespace Ares
         }
         private static void handlePosMessage(long uid, float x, float y)
         {
-            getPlayerWithUID(uid).Position = new Vector2f(x, y);
+			NetPlayer plr = (NetPlayer)getPlayerWithUID(uid);
+			if (plr != null) //stale POS message, player is already gone?
+			{
+				plr.PositionGoal = new Vector2f(x, y);
+			}
         }
         private static void handleJoinMessage(long uid)
         {
@@ -253,8 +257,6 @@ namespace Ares
 			pastFrameTimes.Enqueue(ratio);
 
 			var avg = pastFrameTimes.Average();
-
-			//Console.WriteLine("{0} -> {1}", ratio.ToString("00.000"), avg.ToString("00.000"));
 
 			return (float)avg;
         }
