@@ -46,6 +46,7 @@ namespace Ares
 
         public static bool isKeyDown(Keyboard.Key key)
         {
+            
             return Keyboard.IsKeyPressed(key);
         }
 

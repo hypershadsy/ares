@@ -13,7 +13,7 @@ namespace Ares
     public class ClientPlayer : Player
     {
         DateTime lastPosSent;
-        GUI gui;
+        public GUI gui;
 
         public ClientPlayer()
             : base()
@@ -21,11 +21,12 @@ namespace Ares
             Position = new Vector2f(100, 100);
             MovementSpeed = 3;
             UID = Game.client.UniqueIdentifier;
-            gui = new GUI();
+            gui = new GUI(this);
         }
 
         public override void Update()
         {
+            gui.Update();
             HandleMovement();
             var sinceLastPosSent = DateTime.Now - lastPosSent;
             if (sinceLastPosSent.TotalMilliseconds >= 50)
@@ -34,12 +35,16 @@ namespace Ares
                 //Console.WriteLine("POS SENT");
                 lastPosSent = DateTime.Now;
             }
+
+            
             base.Update();
         }
 
         public override void Draw()
         {
             Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(0, 0), 1);
+
+            gui.Draw();
             base.Draw();
         }
 

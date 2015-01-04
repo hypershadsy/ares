@@ -14,12 +14,14 @@ namespace Ares
     {
         private Tile[,] tiles;
         public List<Player> players = new List<Player>();
+        public ClientPlayer clientPlayer;
 
         public Map(int size)
         {
+            clientPlayer = new ClientPlayer();
             tiles = new Tile[size, size];
             Load();
-            players.Add(new ClientPlayer());
+            players.Add(clientPlayer);
         }
 
         private void Load()

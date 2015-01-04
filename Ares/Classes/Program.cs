@@ -184,11 +184,11 @@ namespace Ares
 
         private static void handleLifeMessage(long uid, int health)
         {
-            getPlayerWithUID(uid).health = health;
+            getPlayerWithUID(uid).Health = health;
         }
         private static void handleNameMessage(long uid, string newName)
         {
-            getPlayerWithUID(uid).name = newName;
+            getPlayerWithUID(uid).Name = newName;
         }
         private static void handlePosMessage(long uid, float x, float y)
         {
@@ -201,6 +201,9 @@ namespace Ares
         }
         private static void handleChatMessage(long uid, string message)
         {
+            Player p = getPlayerWithUID(uid);
+            map.clientPlayer.gui.chat.messages.Add(
+                new ChatMessage(message, p)); 
         }
         private static void handlePartMessage(long uid)
         {
@@ -251,7 +254,7 @@ namespace Ares
 
 			var avg = pastFrameTimes.Average();
 
-			Console.WriteLine("{0} -> {1}", ratio.ToString("00.000"), avg.ToString("00.000"));
+			//Console.WriteLine("{0} -> {1}", ratio.ToString("00.000"), avg.ToString("00.000"));
 
 			return (float)avg;
         }
