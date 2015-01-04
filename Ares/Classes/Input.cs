@@ -14,6 +14,7 @@ namespace Ares
     {
         public static List<string> PressedKeys = new List<string>() { };
         public static List<string> OldPressedKeys = new List<string>() { };
+        public static bool isActive = true;
 
         public static void Update()
         {
@@ -38,6 +39,8 @@ namespace Ares
 
         public static bool isKeyTap(Keyboard.Key key)
         {
+            if (!isActive)
+                return false;
             if (PressedKeys.Contains(key.ToString()) &&
                 !OldPressedKeys.Contains(key.ToString()))
                 return true;
@@ -46,13 +49,15 @@ namespace Ares
 
         public static bool isKeyDown(Keyboard.Key key)
         {
-            
+            if (!isActive)
+                return false;
             return Keyboard.IsKeyPressed(key);
         }
 
         public static bool isKeyUp(Keyboard.Key key)
         {
-
+            if (!isActive)
+                return false;
             return !Keyboard.IsKeyPressed(key);
         }
     }

@@ -45,6 +45,7 @@ namespace Ares
             while (window.IsOpen())
             {
                 UpdateDraw(window);
+                Console.WriteLine(Input.isActive);
             }
         }
 
@@ -56,6 +57,18 @@ namespace Ares
             r = new Random();
         }
 
+        static void window_LostFocus(object sender, EventArgs e)
+        {
+            Input.isActive = false;
+            //throw new NotImplementedException();
+        }
+
+        static void window_GainedFocus(object sender, EventArgs e)
+        {
+            Input.isActive = true;
+            //throw new NotImplementedException();
+        }
+
         private static void LoadContentInitialize()
         {
             //Load
@@ -63,7 +76,7 @@ namespace Ares
                 new VideoMode(800, 600), "Project Ares");
 
             windowSize = new Vector2f(800, 600);
-           	window.SetFramerateLimit(60);
+            window.SetFramerateLimit(60);
 
             window.Closed += (a, b) =>
                 {
@@ -71,7 +84,11 @@ namespace Ares
                     window.Close();
                 };
 
-            camera2D = new View(new FloatRect(0,0,800,600));
+            Game.window.GainedFocus += new EventHandler(window_GainedFocus); { }
+            Game.window.LostFocus += new EventHandler(window_LostFocus); { }
+
+
+            camera2D = new View(new FloatRect(0, 0, 800, 600));
 
             camera2D.Zoom(1f);
 
@@ -81,17 +98,17 @@ namespace Ares
 
 
             //Initialize
-			NetPeerConfiguration config = new NetPeerConfiguration("ares");
-			config.EnableMessageType(NetIncomingMessageType.ConnectionLatencyUpdated);
-			string ip = "giga.krash.net"; //Jared's IP
-			int port = 12345;
-			client = new NetClient(config);
+            NetPeerConfiguration config = new NetPeerConfiguration("ares");
+            config.EnableMessageType(NetIncomingMessageType.ConnectionLatencyUpdated);
+            string ip = "giga.krash.net"; //Jared's IP
+            int port = 12345;
+            client = new NetClient(config);
 
-			map = new Map(20);
+            map = new Map(20);
 
-			//start processing messages
-			client.Start();
-			client.Connect(ip, port);
+            //start processing messages
+            client.Start();
+            client.Connect(ip, port);
         }
 
         private static void UpdateDraw(RenderWindow window)
