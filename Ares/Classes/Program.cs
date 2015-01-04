@@ -99,8 +99,6 @@ namespace Ares
             window.DispatchEvents();
             window.Clear(Color.Green);
 
-
-
             Input.Update();
 
             map.Update();
@@ -205,7 +203,7 @@ namespace Ares
         private static void handlePartMessage(long uid)
         {
             map.players.Remove(getPlayerWithUID(uid));
-            //remove net player from players list
+            //Remove net player from players list
         }
 
 

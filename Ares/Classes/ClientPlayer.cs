@@ -13,6 +13,7 @@ namespace Ares
     public class ClientPlayer : Player
     {
         DateTime lastPosSent;
+        GUI gui;
 
         public ClientPlayer()
             : base()
@@ -20,6 +21,7 @@ namespace Ares
             Position = new Vector2f(100, 100);
             MovementSpeed = 3;
             UID = Game.client.UniqueIdentifier;
+            gui = new GUI();
         }
 
         public override void Update()
