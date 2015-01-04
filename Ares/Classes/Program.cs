@@ -61,8 +61,6 @@ namespace Ares
             client.Connect(ip, port);
 
 
-
-
         }
 
         private static void LoadContentInitialize()
@@ -80,7 +78,9 @@ namespace Ares
                     window.Close();
                 };
 
-            camera2D = new View(new Vector2f(800 / 2, 600 / 2), new Vector2f(0, 0));
+            camera2D = new View(new FloatRect(0,0,800,600));
+
+            camera2D.Zoom(1f);
 
             charTexture = new Texture("Content/player.png");
             wallTexture = new Texture("Content/wall.png");
@@ -94,6 +94,7 @@ namespace Ares
         private static void UpdateDraw(RenderWindow window)
         {
             deltaTime = DateTime.Now - oldDateTime;
+            window.SetView(camera2D);
             HandleMessages();
             window.DispatchEvents();
             window.Clear(Color.Green);
@@ -203,6 +204,7 @@ namespace Ares
         }
         private static void handlePartMessage(long uid)
         {
+            map.players.Remove(getPlayerWithUID(uid));
             //remove net player from players list
         }
 
