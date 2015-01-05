@@ -83,6 +83,7 @@
     <Compile Include="Classes\GrassTile.cs" />
     <Compile Include="Classes\GroundTile.cs" />
     <Compile Include="Classes\GUI.cs" />
+    <Compile Include="Classes\Helper.cs" />
     <Compile Include="Classes\Input.cs" />
     <Compile Include="Classes\Map.cs" />
     <Compile Include="Classes\NetPlayer.cs" />

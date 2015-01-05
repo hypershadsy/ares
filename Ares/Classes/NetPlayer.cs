@@ -29,7 +29,7 @@ namespace Ares
 
         public override void Draw()
         {
-            Render.Draw(Game.charTexture, Position, Color.Red, new Vector2f(0, 0), 1);
+            Render.Draw(Game.charTexture, Position, Color.Yellow, new Vector2f(0, 0), 1);
            
         }
     }

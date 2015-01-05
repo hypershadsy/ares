@@ -37,54 +37,55 @@ namespace Ares
 
         public void Update()
         {
-			UpdateTiles();
-			UpdatePlayers();
+            UpdateTiles();
+            UpdatePlayers();
         }
 
-		public void Draw()
-		{
-			DrawTiles();
-			DrawPlayers();
-		}
+        public void Draw()
+        {
+            DrawTiles();
+            DrawPlayers();
+        }
 
-		private void UpdateTiles()
-		{
-			for (int x = 0; x < tiles.GetLength(0); x++)
-			{
-				for (int y = 0; y < tiles.GetLength(1); y++)
-				{
-					Tile thisTile = tiles[x, y];
-					thisTile.Update();
-				}
-			}
-		}
+        private void UpdateTiles()
+        {
+            for (int x = 0; x < tiles.GetLength(0); x++)
+            {
+                for (int y = 0; y < tiles.GetLength(1); y++)
+                {
+                    Tile thisTile = tiles[x, y];
+                    thisTile.Update();
+                }
+            }
+        }
 
-		private void UpdatePlayers()
-		{
-			for (int i = 0; i < players.Count; i++)
-			{
-				Player thisPlayer = players[i];
-				thisPlayer.Update();
-			}
-		}
+        private void UpdatePlayers()
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                Player thisPlayer = players[i];
+                thisPlayer.Update();
+            }
+        }
 
-		private void DrawTiles()
-		{
-			for (int x = 0; x < tiles.GetLength(0); x++)
-			{
-				for (int y = 0; y < tiles.GetLength(1); y++)
-				{
-					Tile thisTile = tiles[x, y];
-					thisTile.Draw();
-				}
-			}
-		}
+        private void DrawTiles()
+        {
+            for (int x = 0; x < tiles.GetLength(0); x++)
+            {
+                for (int y = 0; y < tiles.GetLength(1); y++)
+                {
+                    Tile thisTile = tiles[x, y];
+                    if (Helper.Distance(thisTile.Position * 32, clientPlayer.Position) < 300) //Tiles are not drawn if they are too far away, 
+                        thisTile.Draw();                                                      //however they will still be updated
+                }
+            }
+        }
 
         private void DrawPlayers()
         {
             for (int i = 0; i < players.Count; i++)
             {
-				Player thisPlayer = players[i];
+                Player thisPlayer = players[i];
                 thisPlayer.Draw();
             }
         }

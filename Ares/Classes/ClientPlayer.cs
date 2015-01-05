@@ -15,32 +15,33 @@ namespace Ares
         DateTime lastPosSent;
         public GUI gui;
         public int currentBlockType = 1;
+        public bool buildMode = false;
 
         public ClientPlayer()
             : base()
         {
-            Position = new Vector2f(100, 100);
-            MovementSpeed = 3;
+            Position = new Vector2f(500, 500);
+            MovementSpeed = 1.5f;
+            DefaultMovementSpeed = MovementSpeed;
             UID = Game.client.UniqueIdentifier;
             gui = new GUI(this);
         }
 
         public override void Update()
         {
-            Game.camera2D.Center = Position;
+            Game.camera2D.Center = Position + new Vector2f(-16,16);
             gui.Update();
 
+            HandleControls();
             HandleMovement();
             HandleBuilding();
+            
 
-            var sinceLastPosSent = DateTime.Now - lastPosSent;
-            if (sinceLastPosSent.TotalMilliseconds >= 50)
-            {
-                sendPos();
+            
 
-                lastPosSent = DateTime.Now;
-            }
 
+
+            HandlePositionSending();
 
             base.Update();
         }
@@ -48,8 +49,24 @@ namespace Ares
         public override void Draw()
         {
             Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(0, 0), 1);
+            DrawBuildPreview();
+            base.Draw();
+        }
 
-            #region Temp Preview Draw
+        void HandlePositionSending()
+        {
+            var sinceLastPosSent = DateTime.Now - lastPosSent;
+            if (sinceLastPosSent.TotalMilliseconds >= 50)
+            {
+                sendPos();
+
+                lastPosSent = DateTime.Now;
+            }
+        }
+
+        void DrawBuildPreview()
+        {
+            if (buildMode)
             {
                 Vector2f prevNorth = new Vector2f(
                     ((int)((Position.X + 16) / 32)) * 32,
@@ -75,15 +92,25 @@ namespace Ares
             );
                 Render.Draw(Game.wallTexture, prevWest, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1);
             }
-            #endregion
-
-            base.Draw();
         }
 
-        void HandleMovement()
+        void HandleControls()
         {
-            Velocity = new Vector2f(0, 0); //Reset the velocity
+            if (Input.isKeyTap(Keyboard.Key.B))
+            {
+                buildMode = !buildMode;
+            }
 
+            if (Input.isKeyDown(Keyboard.Key.LShift))
+            {
+                MovementSpeed = 3;
+            }
+            else
+            {
+                MovementSpeed = DefaultMovementSpeed;
+            }
+
+            Velocity = new Vector2f(0, 0); //Reset the velocity
             if (Input.isKeyDown(Keyboard.Key.A))
             {
                 Velocity.X = -MovementSpeed;
@@ -101,8 +128,15 @@ namespace Ares
             {
                 Velocity.Y = MovementSpeed;
             }
+        }
 
-            var delta = Game.getDeltaRatio();
+        void HandleMovement()
+        {
+            
+       
+
+
+            //var delta = Game.getDeltaRatio();
 
             //if (Game.map.getTileInWorld(Position.X + Velocity.X, Position.Y) is GroundTile)
             Position.X += Velocity.X;
@@ -114,62 +148,64 @@ namespace Ares
         void HandleBuilding()
         {
 
-
-            if (Input.isKeyTap(Keyboard.Key.Up))
+            if (buildMode)
             {
-                Vector2i pos = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32) - 1); //One block above
+                if (Input.isKeyTap(Keyboard.Key.Up))
+                {
+                    Vector2i pos = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32) - 1); //One block above
 
-                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                outGoingMessage.Write("BUILD");
-                outGoingMessage.Write(pos.X);
-                outGoingMessage.Write(pos.Y);
-                outGoingMessage.Write(currentBlockType);
+                    NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                    outGoingMessage.Write("BUILD");
+                    outGoingMessage.Write(pos.X);
+                    outGoingMessage.Write(pos.Y);
+                    outGoingMessage.Write(currentBlockType);
 
-                Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                    Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
-                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
-            }
-            if (Input.isKeyTap(Keyboard.Key.Left))
-            {
-                Vector2i pos = new Vector2i((int)((Position.X + 16) / 32) - 1, (int)((Position.Y + 16) / 32)); //One block above
+                    Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                }
+                if (Input.isKeyTap(Keyboard.Key.Left))
+                {
+                    Vector2i pos = new Vector2i((int)((Position.X + 16) / 32) - 1, (int)((Position.Y + 16) / 32)); //One block above
 
-                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                outGoingMessage.Write("BUILD");
-                outGoingMessage.Write(pos.X);
-                outGoingMessage.Write(pos.Y);
-                outGoingMessage.Write(currentBlockType);
+                    NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                    outGoingMessage.Write("BUILD");
+                    outGoingMessage.Write(pos.X);
+                    outGoingMessage.Write(pos.Y);
+                    outGoingMessage.Write(currentBlockType);
 
-                Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                    Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
-                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
-            }
-            if (Input.isKeyTap(Keyboard.Key.Right))
-            {
-                Vector2i pos = new Vector2i((int)((Position.X + 16) / 32) + 1, (int)((Position.Y + 16) / 32)); //One block above
+                    Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                }
+                if (Input.isKeyTap(Keyboard.Key.Right))
+                {
+                    Vector2i pos = new Vector2i((int)((Position.X + 16) / 32) + 1, (int)((Position.Y + 16) / 32)); //One block above
 
-                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                outGoingMessage.Write("BUILD");
-                outGoingMessage.Write(pos.X);
-                outGoingMessage.Write(pos.Y);
-                outGoingMessage.Write(currentBlockType);
+                    NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                    outGoingMessage.Write("BUILD");
+                    outGoingMessage.Write(pos.X);
+                    outGoingMessage.Write(pos.Y);
+                    outGoingMessage.Write(currentBlockType);
 
-                Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                    Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
-                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
-            }
-            if (Input.isKeyTap(Keyboard.Key.Down))
-            {
-                Vector2i pos = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32) + 1); //One block above
+                    Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                }
+                if (Input.isKeyTap(Keyboard.Key.Down))
+                {
+                    Vector2i pos = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32) + 1); //One block above
 
-                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                outGoingMessage.Write("BUILD");
-                outGoingMessage.Write(pos.X);
-                outGoingMessage.Write(pos.Y);
-                outGoingMessage.Write(currentBlockType);
+                    NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                    outGoingMessage.Write("BUILD");
+                    outGoingMessage.Write(pos.X);
+                    outGoingMessage.Write(pos.Y);
+                    outGoingMessage.Write(currentBlockType);
 
-                Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                    Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
-                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                    Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                }
             }
 
         }
