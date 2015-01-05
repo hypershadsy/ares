@@ -29,15 +29,15 @@ namespace Ares
 
         public override void Update()
         {
-            Game.camera2D.Center = Position + new Vector2f(-16,16);
+            Game.camera2D.Center = Position + new Vector2f(-16, 16);
             gui.Update();
 
             HandleControls();
             HandleMovement();
             HandleBuilding();
-            
 
-            
+
+
 
 
 
@@ -132,17 +132,17 @@ namespace Ares
 
         void HandleMovement()
         {
-            
-       
+
+
 
 
             //var delta = Game.getDeltaRatio();
 
-            //if (Game.map.getTileInWorld(Position.X + Velocity.X, Position.Y) is GroundTile)
-            Position.X += Velocity.X;
+            if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 16) is GroundTile)
+                Position.X += Velocity.X;
 
-            //if (Game.map.getTileInWorld(Position.X, Position.Y + Velocity.Y) is GroundTile)
-            Position.Y += Velocity.Y;
+            if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 16 + Velocity.Y) is GroundTile)
+                Position.Y += Velocity.Y;
         }
 
         void HandleBuilding()
@@ -154,57 +154,69 @@ namespace Ares
                 {
                     Vector2i pos = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32) - 1); //One block above
 
-                    NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                    outGoingMessage.Write("BUILD");
-                    outGoingMessage.Write(pos.X);
-                    outGoingMessage.Write(pos.Y);
-                    outGoingMessage.Write(currentBlockType);
+                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile)
+                    {
+                        NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                        outGoingMessage.Write("BUILD");
+                        outGoingMessage.Write(pos.X);
+                        outGoingMessage.Write(pos.Y);
+                        outGoingMessage.Write(currentBlockType);
 
-                    Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                        Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
-                    Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                        Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                    }
                 }
                 if (Input.isKeyTap(Keyboard.Key.Left))
                 {
                     Vector2i pos = new Vector2i((int)((Position.X + 16) / 32) - 1, (int)((Position.Y + 16) / 32)); //One block above
 
-                    NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                    outGoingMessage.Write("BUILD");
-                    outGoingMessage.Write(pos.X);
-                    outGoingMessage.Write(pos.Y);
-                    outGoingMessage.Write(currentBlockType);
+                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile)
+                    {
+                        NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                        outGoingMessage.Write("BUILD");
+                        outGoingMessage.Write(pos.X);
+                        outGoingMessage.Write(pos.Y);
+                        outGoingMessage.Write(currentBlockType);
 
-                    Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                        Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
-                    Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                        Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                    }
                 }
                 if (Input.isKeyTap(Keyboard.Key.Right))
                 {
                     Vector2i pos = new Vector2i((int)((Position.X + 16) / 32) + 1, (int)((Position.Y + 16) / 32)); //One block above
 
-                    NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                    outGoingMessage.Write("BUILD");
-                    outGoingMessage.Write(pos.X);
-                    outGoingMessage.Write(pos.Y);
-                    outGoingMessage.Write(currentBlockType);
+                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile)
+                    {
+                        NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                        outGoingMessage.Write("BUILD");
+                        outGoingMessage.Write(pos.X);
+                        outGoingMessage.Write(pos.Y);
+                        outGoingMessage.Write(currentBlockType);
 
-                    Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                        Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
-                    Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                        Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                    }
                 }
                 if (Input.isKeyTap(Keyboard.Key.Down))
                 {
                     Vector2i pos = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32) + 1); //One block above
 
-                    NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                    outGoingMessage.Write("BUILD");
-                    outGoingMessage.Write(pos.X);
-                    outGoingMessage.Write(pos.Y);
-                    outGoingMessage.Write(currentBlockType);
+                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile)
+                    {
+                        NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                        outGoingMessage.Write("BUILD");
+                        outGoingMessage.Write(pos.X);
+                        outGoingMessage.Write(pos.Y);
+                        outGoingMessage.Write(currentBlockType);
 
-                    Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                        Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
-                    Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                        Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                    }
                 }
             }
 
