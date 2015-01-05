@@ -97,16 +97,22 @@ namespace Ares
         /// <param name="id"></param>
         public void addTile(int x, int y, int id, long UID)
         {
-            switch (id)
+            try
             {
-                case 0:
-                    tiles[x, y] = new GrassTile(new Vector2f(x, y), UID);
-                    break;
-                case 1:
-                    tiles[x, y] = new WoodWallTile(new Vector2f(x, y), UID);
-                    break;
+                switch (id)
+                {
+                    case 0:
+                        tiles[x, y] = new GrassTile(new Vector2f(x, y), UID);
+                        break;
+                    case 1:
+                        tiles[x, y] = new WoodWallTile(new Vector2f(x, y), UID);
+                        break;
+                }
             }
+            catch (Exception) { }
         }
+
+
 
         public Tile getTileInArray(int x, int y)
         {

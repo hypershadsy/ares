@@ -49,6 +49,34 @@ namespace Ares
         {
             Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(0, 0), 1);
 
+            #region Temp Preview Draw
+            {
+                Vector2f prevNorth = new Vector2f(
+                    ((int)((Position.X + 16) / 32)) * 32,
+                    ((int)((Position.Y + 16) / 32) - 1) * 32
+                    );
+                Render.Draw(Game.wallTexture, prevNorth, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1);
+
+                Vector2f prevEast = new Vector2f(
+                  ((int)((Position.X + 16) / 32) + 1) * 32,
+                  ((int)((Position.Y + 16) / 32)) * 32
+                  );
+                Render.Draw(Game.wallTexture, prevEast, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1);
+
+                Vector2f prevSouth = new Vector2f(
+                 ((int)((Position.X + 16) / 32)) * 32,
+                 ((int)((Position.Y + 16) / 32) + 1) * 32
+                 );
+                Render.Draw(Game.wallTexture, prevSouth, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1);
+
+                Vector2f prevWest = new Vector2f(
+            ((int)((Position.X + 16) / 32) - 1) * 32,
+            ((int)((Position.Y + 16) / 32)) * 32
+            );
+                Render.Draw(Game.wallTexture, prevWest, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1);
+            }
+            #endregion
+
             base.Draw();
         }
 
@@ -77,14 +105,16 @@ namespace Ares
             var delta = Game.getDeltaRatio();
 
             //if (Game.map.getTileInWorld(Position.X + Velocity.X, Position.Y) is GroundTile)
-                Position.X += Velocity.X;
+            Position.X += Velocity.X;
 
             //if (Game.map.getTileInWorld(Position.X, Position.Y + Velocity.Y) is GroundTile)
-                Position.Y += Velocity.Y;
+            Position.Y += Velocity.Y;
         }
 
         void HandleBuilding()
         {
+
+
             if (Input.isKeyTap(Keyboard.Key.Up))
             {
                 Vector2i pos = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32) - 1); //One block above
@@ -99,6 +129,49 @@ namespace Ares
 
                 Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
             }
+            if (Input.isKeyTap(Keyboard.Key.Left))
+            {
+                Vector2i pos = new Vector2i((int)((Position.X + 16) / 32) - 1, (int)((Position.Y + 16) / 32)); //One block above
+
+                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                outGoingMessage.Write("BUILD");
+                outGoingMessage.Write(pos.X);
+                outGoingMessage.Write(pos.Y);
+                outGoingMessage.Write(currentBlockType);
+
+                Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+
+                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+            }
+            if (Input.isKeyTap(Keyboard.Key.Right))
+            {
+                Vector2i pos = new Vector2i((int)((Position.X + 16) / 32) + 1, (int)((Position.Y + 16) / 32)); //One block above
+
+                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                outGoingMessage.Write("BUILD");
+                outGoingMessage.Write(pos.X);
+                outGoingMessage.Write(pos.Y);
+                outGoingMessage.Write(currentBlockType);
+
+                Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+
+                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+            }
+            if (Input.isKeyTap(Keyboard.Key.Down))
+            {
+                Vector2i pos = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32) + 1); //One block above
+
+                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                outGoingMessage.Write("BUILD");
+                outGoingMessage.Write(pos.X);
+                outGoingMessage.Write(pos.Y);
+                outGoingMessage.Write(currentBlockType);
+
+                Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+
+                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+            }
+
         }
 
         private void sendPos()
