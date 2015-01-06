@@ -26,6 +26,7 @@ namespace Ares
 
         public override void Draw()
         {
+            Render.Draw(Game.doorClosedTexture, Position * 32, Color.White, new Vector2f(0, 0), 1);
             base.Draw();
         }
     }

@@ -108,6 +108,9 @@ namespace Ares
                     case 1:
                         tiles[x, y] = new WoodWallTile(new Vector2f(x, y), UID);
                         break;
+                    case 2:
+                        tiles[x, y] = new Door(new Vector2f(x, y), UID);
+                        break;
                 }
             }
             catch (Exception) { }
