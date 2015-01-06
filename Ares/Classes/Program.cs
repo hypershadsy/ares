@@ -32,7 +32,7 @@ namespace Ares
         public static View camera2D;
 
         public static Font font;
-        public static Texture charTexture, wallTexture, grassTexture;
+        public static Texture charTexture, wallTexture, grassTexture, doorClosedTexture;
 
         public static Map map;
 
@@ -94,6 +94,7 @@ namespace Ares
             charTexture = new Texture("Content/player.png");
             wallTexture = new Texture("Content/wall.png");
             grassTexture = new Texture("Content/grass.png");
+            doorClosedTexture = new Texture("Content/doorClosed.png");
             font = new Font("Content/Font1.ttf");
 
 

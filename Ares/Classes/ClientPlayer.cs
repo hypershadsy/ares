@@ -92,10 +92,20 @@ namespace Ares
             );
                 Render.Draw(Game.wallTexture, prevWest, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1);
             }
+            
         }
 
         void HandleControls()
         {
+            if (Input.isKeyTap(Keyboard.Key.Q))
+            {
+                currentBlockType -= 1;
+            }
+            if (Input.isKeyTap(Keyboard.Key.E))
+            {
+                currentBlockType += 1;
+            }
+
             if (Input.isKeyTap(Keyboard.Key.B))
             {
                 buildMode = !buildMode;
@@ -132,21 +142,23 @@ namespace Ares
 
         void HandleMovement()
         {
-
-
-
-
             //var delta = Game.getDeltaRatio();
 
-            if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 16) is GroundTile)
+
+            if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 16).Walkable)
                 Position.X += Velocity.X;
 
-            if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 16 + Velocity.Y) is GroundTile)
+            if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 16 + Velocity.Y).Walkable)
                 Position.Y += Velocity.Y;
         }
 
         void HandleBuilding()
         {
+
+            if (Input.isKeyDown(Keyboard.Key.LControl))
+            {
+                currentBlockType = 0;
+            }
 
             if (buildMode)
             {
@@ -154,7 +166,8 @@ namespace Ares
                 {
                     Vector2i pos = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32) - 1); //One block above
 
-                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile)
+                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile
+                        || currentBlockType == 0)
                     {
                         NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
                         outGoingMessage.Write("BUILD");
@@ -171,7 +184,8 @@ namespace Ares
                 {
                     Vector2i pos = new Vector2i((int)((Position.X + 16) / 32) - 1, (int)((Position.Y + 16) / 32)); //One block above
 
-                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile)
+                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile
+                       || currentBlockType == 0)
                     {
                         NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
                         outGoingMessage.Write("BUILD");
@@ -188,7 +202,8 @@ namespace Ares
                 {
                     Vector2i pos = new Vector2i((int)((Position.X + 16) / 32) + 1, (int)((Position.Y + 16) / 32)); //One block above
 
-                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile)
+                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile
+                       || currentBlockType == 0)
                     {
                         NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
                         outGoingMessage.Write("BUILD");
@@ -205,7 +220,8 @@ namespace Ares
                 {
                     Vector2i pos = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32) + 1); //One block above
 
-                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile)
+                    if (Game.map.getTileInArray(pos.X, pos.Y) is GroundTile
+                       || currentBlockType == 0)
                     {
                         NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
                         outGoingMessage.Write("BUILD");

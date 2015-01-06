@@ -15,6 +15,7 @@ namespace Ares
 		public Vector2f Position;
         public int id;
         public long UID_BUILD;
+        public bool Walkable;
 
         public Tile(Vector2f position, long UID_Builder)
         {

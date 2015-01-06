@@ -31,6 +31,7 @@ namespace Ares
             if (((ClientPlayer)attachedPlayer).buildMode)
             {
                 Render.DrawString(Game.font, "BUILDING", new Vector2f(Game.window.Size.X - 100, 10), Color.White, .5f, false);
+                Render.DrawString(Game.font, ((ClientPlayer)attachedPlayer).currentBlockType + "", new Vector2f(Game.window.Size.X - 100, 25), Color.White, .5f, false);
             }
         }
     }

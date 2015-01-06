@@ -8,22 +8,26 @@ using SFML.Window;
 using SFML.Audio;
 using Lidgren.Network;
 
+
 namespace Ares
 {
-    public abstract class GroundTile : Tile
+    public class Door : Tile
     {
-        public GroundTile(Vector2f position, long UID_Builder)
-            : base(position, UID_Builder)
+        public Door(Vector2f pos, long builder) :
+            base(pos, builder)
         {
-            Walkable = true;
+            Walkable = false;
         }
 
         public override void Update()
         {
+            base.Update();
         }
 
         public override void Draw()
         {
+            base.Draw();
         }
     }
+
 }
