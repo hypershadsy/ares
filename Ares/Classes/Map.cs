@@ -13,15 +13,16 @@ namespace Ares
     public class Map
     {
         private Tile[,] tiles;
-        public List<Player> players = new List<Player>();
-        public ClientPlayer clientPlayer;
+        public List<Player> Players = new List<Player>();
+        public List<GameObject> GameObjects = new List<GameObject>();
+        public ClientPlayer ClientPlayer;
 
         public Map(int size)
         {
-            clientPlayer = new ClientPlayer();
+            ClientPlayer = new ClientPlayer();
             tiles = new Tile[size, size];
             Load();
-            players.Add(clientPlayer);
+            Players.Add(ClientPlayer);
         }
 
         private void Load()
@@ -61,9 +62,9 @@ namespace Ares
 
         private void UpdatePlayers()
         {
-            for (int i = 0; i < players.Count; i++)
+            for (int i = 0; i < Players.Count; i++)
             {
-                Player thisPlayer = players[i];
+                Player thisPlayer = Players[i];
                 thisPlayer.Update();
             }
         }
@@ -75,7 +76,7 @@ namespace Ares
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
                     Tile thisTile = tiles[x, y];
-                    if (Helper.Distance(thisTile.Position * 32, clientPlayer.Position) < 300) //Tiles are not drawn if they are too far away, 
+                    if (Helper.Distance(thisTile.Position * 32, ClientPlayer.Position) < 300) //Tiles are not drawn if they are too far away, 
                         thisTile.Draw();                                                      //however they will still be updated
                 }
             }
@@ -83,9 +84,9 @@ namespace Ares
 
         private void DrawPlayers()
         {
-            for (int i = 0; i < players.Count; i++)
+            for (int i = 0; i < Players.Count; i++)
             {
-                Player thisPlayer = players[i];
+                Player thisPlayer = Players[i];
                 thisPlayer.Draw();
             }
         }
@@ -109,7 +110,10 @@ namespace Ares
                         tiles[x, y] = new WoodWallTile(new Vector2f(x, y), UID);
                         break;
                     case 2:
-                        tiles[x, y] = new Door(new Vector2f(x, y), UID);
+                        tiles[x, y] = new DoorTile(new Vector2f(x, y), UID);
+                        break;
+                    case 3:
+                        tiles[x, y] = new PathTile(new Vector2f(x, y), UID);
                         break;
                 }
             }

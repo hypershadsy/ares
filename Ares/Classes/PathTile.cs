@@ -8,35 +8,22 @@ using SFML.Window;
 using SFML.Audio;
 using Lidgren.Network;
 
-namespace Ares.Classes
+namespace Ares
 {
-    public class Projectile : GameObject
+    public class PathTile : GroundTile
     {
-        
-
-        public Projectile()
-            : base()
+        public PathTile(Vector2f position, long UID_Builder)
+            : base(position, UID_Builder)
         {
         }
 
         public override void Update()
         {
-            base.Update();
         }
 
         public override void Draw()
         {
-            base.Draw();
-        }
-
-        public override void Activate()
-        {
-            base.Activate();
-        }
-
-        public virtual void Move()
-        {
-            
+            Render.Draw(Game.pathTexture, Position * 32, Color.White, new Vector2f(0, 0), 1);
         }
     }
 }

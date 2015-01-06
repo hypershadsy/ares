@@ -32,7 +32,7 @@ namespace Ares
         public static View camera2D;
 
         public static Font font;
-        public static Texture charTexture, wallTexture, grassTexture, doorClosedTexture;
+        public static Texture charTexture, wallTexture, grassTexture, doorClosedTexture, pathTexture;
 
         public static Map map;
 
@@ -95,6 +95,7 @@ namespace Ares
             wallTexture = new Texture("Content/wall.png");
             grassTexture = new Texture("Content/grass.png");
             doorClosedTexture = new Texture("Content/doorClosed.png");
+            pathTexture = new Texture("Content/path.png");
             font = new Font("Content/Font1.ttf");
 
 
@@ -131,7 +132,7 @@ namespace Ares
 
         public static void DrawOnGUI()
         {
-            map.clientPlayer.gui.Draw();
+            map.ClientPlayer.gui.Draw();
         }
 
         public static void HandleMessages()
@@ -233,28 +234,28 @@ namespace Ares
         }
         private static void handleJoinMessage(long uid)
         {
-            map.players.Add(new NetPlayer(uid));
+            map.Players.Add(new NetPlayer(uid));
             //add a new net player to players 
         }
         private static void handleChatMessage(long uid, string message)
         {
             Player p = getPlayerWithUID(uid);
-            map.clientPlayer.gui.chat.messages.Add(
+            map.ClientPlayer.gui.chat.messages.Add(
                 new ChatMessage(message, p)); 
         }
         private static void handlePartMessage(long uid)
         {
-            map.players.Remove(getPlayerWithUID(uid));
+            map.Players.Remove(getPlayerWithUID(uid));
             //Remove net player from players list
         }
 
 
         private static Player getPlayerWithUID(long id)
         {
-            for (int i = 0; i < map.players.Count; i++)
+            for (int i = 0; i < map.Players.Count; i++)
             {
-                if (map.players[i].UID == id)
-                    return map.players[i];
+                if (map.Players[i].UID == id)
+                    return map.Players[i];
             }
 
             return null;

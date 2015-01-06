@@ -11,9 +11,9 @@ using Lidgren.Network;
 
 namespace Ares
 {
-    public class Door : Tile
+    public class DoorTile : Tile
     {
-        public Door(Vector2f pos, long builder) :
+        public DoorTile(Vector2f pos, long builder) :
             base(pos, builder)
         {
             Walkable = false;

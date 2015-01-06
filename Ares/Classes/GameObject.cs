@@ -10,18 +10,20 @@ using Lidgren.Network;
 
 namespace Ares
 {
-    public class Tile
+    public abstract class GameObject
     {
-		public Vector2f Position;
-        public int id;
-        public long UID_BUILD;
-        public bool Walkable;
-        public bool PillBox;
+        public Vector2f Position;
+        public Vector2f Velocity;
+        public float Speed;
+        public float Angle, Rotation;
 
-        public Tile(Vector2f position, long UID_Builder)
+
+        public GameObject()
         {
-            this.UID_BUILD = UID_Builder;
-			Position = position;
+        }
+
+        public GameObject(Vector2f position)
+        {
         }
 
         public virtual void Update()
@@ -29,6 +31,10 @@ namespace Ares
         }
 
         public virtual void Draw()
+        {
+        }
+
+        public virtual void Activate()
         {
         }
     }
