@@ -98,9 +98,18 @@ namespace Ares
 
         void HandleControls()
         {
-            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+            if (Input.isMouseButtonTap(Mouse.Button.Left))
             {
-                Game.map.GameObjects.Add(new Bullet(Position + new Vector2f(0,16), Helper.AngleBetween(Position + new Vector2f(0,16), Helper.GetWorldMousePosition()), 2));
+                //Game.map.GameObjects.Add(new Bullet(Position + new Vector2f(-16,16), Helper.AngleBetween(Position + new Vector2f(16,16), Helper.GetWorldMousePosition()), 6));
+
+                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                outGoingMessage.Write("FIRE");
+                outGoingMessage.Write(Position.X - 16);
+                outGoingMessage.Write(Position.Y + 16);
+                outGoingMessage.Write(amingAngle);
+                outGoingMessage.Write(5);
+
+                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
             }
 
             if (Input.isKeyTap(Keyboard.Key.Q))

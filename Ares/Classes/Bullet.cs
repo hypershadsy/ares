@@ -12,7 +12,7 @@ namespace Ares
 {
     public class Bullet : Projectile
     {
-        public Bullet(Vector2f pos, float angle, float speed)
+        public Bullet(Vector2f pos, float angle, float speed, long UID)
             : base()
         {
             Position = pos;
@@ -32,9 +32,12 @@ namespace Ares
 
         public override void Draw()
         {
-            
+
+            Console.WriteLine(Helper.DegToRad(Angle));
+
             Render.Draw(Game.bulletTexture, Position, Color.White,
-            new Vector2f(Game.bulletTexture.Size.X, Game.bulletTexture.Size.Y) / 2, 1, Helper.DegToRad(Angle));
+            new Vector2f(Game.bulletTexture.Size.X, Game.bulletTexture.Size.Y) / 2, 1, Helper.RadToDeg(Angle));
+
             base.Draw();
         }
 

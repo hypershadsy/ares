@@ -16,6 +16,7 @@ namespace Ares
         public Vector2f Velocity;
         public float Speed;
         public float Angle, Rotation;
+        public long OwnerUID;
 
 
         public GameObject()

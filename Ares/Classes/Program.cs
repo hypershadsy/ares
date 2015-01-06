@@ -201,6 +201,15 @@ namespace Ares
 
                                 handleBuildMessage(UID_BUILD, X_BUILD, Y_BUILD, TYPE_BUILD);
                                 break;
+                            case "FIRE": //Remove a player
+                                int X_FIRE = msg.ReadInt32();
+                                int Y_FIRE = msg.ReadInt32();
+                                float FIRE_Angle = msg.ReadFloat();
+                                float FIRE_Speed = msg.ReadFloat();
+                                long FIRE_UID = msg.ReadInt64();
+
+                                handleFireMessage(FIRE_UID, X_FIRE, Y_FIRE, FIRE_Angle, FIRE_Speed);
+                                break;
                         }
                         //}
                         break;
@@ -211,6 +220,11 @@ namespace Ares
                 Game.client.Recycle(msg);
             }
 
+        }
+
+        private static void handleFireMessage(long UID_FIRE,int X_FIRE,int Y_FIRE,float FIRE_Angle,float FIRE_Speed)
+        {
+ 	        map.GameObjects.Add(new Bullet(new Vector2f(X_FIRE,Y_FIRE), FIRE_Angle, FIRE_Speed, UID_FIRE));
         }
 
         private static void handleBuildMessage(long uid, int x, int y, int type)
@@ -261,6 +275,7 @@ namespace Ares
 
             return null;
         }
+
         /// <summary>
         /// Gets the delta ratio. If the game is running slowly, this number will be higher,
         /// causing your game object to go further per frame. At 60FPS, this number will be 1.0.
