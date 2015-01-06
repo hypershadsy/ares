@@ -23,7 +23,7 @@ namespace Ares
 
         public override void Draw()
         {
-            Render.Draw(Game.wallTexture, Position * 32, Color.White, new Vector2f(0, 0), 1);
+            Render.Draw(Game.wallTexture, Position * 32, Color.White, new Vector2f(0, 0), 1, 0);
         }
     }
 }

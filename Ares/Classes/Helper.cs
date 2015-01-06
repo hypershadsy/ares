@@ -17,5 +17,27 @@ namespace Ares
         {
             return (float)Math.Sqrt(Math.Pow((vec2.X - vec1.X), 2) + Math.Pow((vec2.Y - vec1.Y), 2));
         }
+
+        public static float AngleBetween(Vector2f vec1, Vector2f vec2)
+        {
+            return (float)Math.PI / 2 + (float)(Math.PI) - (float)Math.Atan2(vec1.X - vec2.X, vec1.Y - vec2.Y);
+        }
+
+        public static Vector2f GetWorldMousePosition()
+        {
+            Vector2i pixel_pos = Mouse.GetPosition(Game.window);
+            Vector2f coord_pos = Game.window.MapPixelToCoords(pixel_pos);
+
+            return coord_pos;
+        }
+
+        public static float DegToRad(float degree)
+        {
+            return degree * ((float)Math.PI / 180f);
+        }
+        public static float RadToDeg(float rad)
+        {
+            return rad * (180f / (float)Math.PI);
+        }
     }
 }

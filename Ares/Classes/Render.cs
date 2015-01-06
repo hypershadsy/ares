@@ -12,7 +12,7 @@ namespace Ares
 {
     public class Render
     {
-        public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing)
+        public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation)
         {
             Sprite sprite = new Sprite(texture);
             sprite.Texture.Smooth = false;
@@ -20,6 +20,7 @@ namespace Ares
             sprite.Origin = origin;
             sprite.Position = position;
             sprite.Color = color;
+            sprite.Rotation = rotation;
             Game.window.Draw(sprite);
         }
 

@@ -16,6 +16,7 @@ namespace Ares
         public GUI gui;
         public int currentBlockType = 1;
         public bool buildMode = false;
+        public float amingAngle = 0;
 
         public ClientPlayer()
             : base()
@@ -48,7 +49,7 @@ namespace Ares
 
         public override void Draw()
         {
-            Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(0, 0), 1);
+            Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(0, 0), 1, 0);
             DrawBuildPreview();
             base.Draw();
         }
@@ -72,31 +73,36 @@ namespace Ares
                     ((int)((Position.X + 16) / 32)) * 32,
                     ((int)((Position.Y + 16) / 32) - 1) * 32
                     );
-                Render.Draw(Game.wallTexture, prevNorth, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1);
+                Render.Draw(Game.wallTexture, prevNorth, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1, 0);
 
                 Vector2f prevEast = new Vector2f(
                   ((int)((Position.X + 16) / 32) + 1) * 32,
                   ((int)((Position.Y + 16) / 32)) * 32
                   );
-                Render.Draw(Game.wallTexture, prevEast, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1);
+                Render.Draw(Game.wallTexture, prevEast, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1, 0);
 
                 Vector2f prevSouth = new Vector2f(
                  ((int)((Position.X + 16) / 32)) * 32,
                  ((int)((Position.Y + 16) / 32) + 1) * 32
                  );
-                Render.Draw(Game.wallTexture, prevSouth, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1);
+                Render.Draw(Game.wallTexture, prevSouth, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1, 0);
 
                 Vector2f prevWest = new Vector2f(
             ((int)((Position.X + 16) / 32) - 1) * 32,
             ((int)((Position.Y + 16) / 32)) * 32
             );
-                Render.Draw(Game.wallTexture, prevWest, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1);
+                Render.Draw(Game.wallTexture, prevWest, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1, 0);
             }
             
         }
 
         void HandleControls()
         {
+            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                Game.map.GameObjects.Add(new Bullet(Position + new Vector2f(0,16), Helper.AngleBetween(Position + new Vector2f(0,16), Helper.GetWorldMousePosition()), 2));
+            }
+
             if (Input.isKeyTap(Keyboard.Key.Q))
             {
                 currentBlockType -= 1;

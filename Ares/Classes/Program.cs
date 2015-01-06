@@ -32,7 +32,7 @@ namespace Ares
         public static View camera2D;
 
         public static Font font;
-        public static Texture charTexture, wallTexture, grassTexture, doorClosedTexture, pathTexture;
+        public static Texture charTexture, wallTexture, grassTexture, doorClosedTexture, pathTexture, bulletTexture;
 
         public static Map map;
 
@@ -45,7 +45,7 @@ namespace Ares
             while (window.IsOpen())
             {
                 UpdateDraw(window);
-                Console.WriteLine(Input.isActive);
+                //Console.WriteLine(Input.isActive);
             }
         }
 
@@ -96,6 +96,7 @@ namespace Ares
             grassTexture = new Texture("Content/grass.png");
             doorClosedTexture = new Texture("Content/doorClosed.png");
             pathTexture = new Texture("Content/path.png");
+            bulletTexture = new Texture("Content/bullet.png");
             font = new Font("Content/Font1.ttf");
 
 
@@ -106,7 +107,7 @@ namespace Ares
             int port = 12345;
             client = new NetClient(config);
 
-            map = new Map(200);
+            map = new Map(20);
 
             //start processing messages
             client.Start();

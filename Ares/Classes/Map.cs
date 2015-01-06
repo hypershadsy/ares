@@ -40,12 +40,14 @@ namespace Ares
         {
             UpdateTiles();
             UpdatePlayers();
+            UpdateGameObjects();
         }
 
         public void Draw()
         {
             DrawTiles();
             DrawPlayers();
+            DrawGameObjects();
         }
 
         private void UpdateTiles()
@@ -88,6 +90,24 @@ namespace Ares
             {
                 Player thisPlayer = Players[i];
                 thisPlayer.Draw();
+            }
+        }
+
+        private void DrawGameObjects()
+        {
+            for (int i = 0; i < GameObjects.Count; i++)
+            {
+                GameObject thisGameObject = GameObjects[i];
+                thisGameObject.Draw();
+            }
+        }
+
+        private void UpdateGameObjects()
+        {
+            for (int i = 0; i < GameObjects.Count; i++)
+            {
+                GameObject thisGameObject = GameObjects[i];
+                thisGameObject.Update();
             }
         }
 

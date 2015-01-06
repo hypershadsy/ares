@@ -14,6 +14,10 @@ namespace Ares
     {
         public static List<string> PressedKeys = new List<string>() { };
         public static List<string> OldPressedKeys = new List<string>() { };
+
+        public static List<string> PressedMouseButtons = new List<string>() { };
+        public static List<string> OldPressedMouseButtons = new List<string>() { };
+
         public static bool isActive = true;
 
         public static void Update()

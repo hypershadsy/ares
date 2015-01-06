@@ -8,7 +8,7 @@ using SFML.Window;
 using SFML.Audio;
 using Lidgren.Network;
 
-namespace Ares.Classes
+namespace Ares
 {
     public class Projectile : GameObject
     {
