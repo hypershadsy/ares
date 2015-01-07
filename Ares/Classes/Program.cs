@@ -202,11 +202,12 @@ namespace Ares
                                 handleBuildMessage(UID_BUILD, X_BUILD, Y_BUILD, TYPE_BUILD);
                                 break;
                             case "FIRE": //Remove a player
+                                long FIRE_UID = msg.ReadInt64();
                                 int X_FIRE = msg.ReadInt32();
                                 int Y_FIRE = msg.ReadInt32();
                                 float FIRE_Angle = msg.ReadFloat();
                                 float FIRE_Speed = msg.ReadFloat();
-                                long FIRE_UID = msg.ReadInt64();
+                                
 
                                 handleFireMessage(FIRE_UID, X_FIRE, Y_FIRE, FIRE_Angle, FIRE_Speed);
                                 break;

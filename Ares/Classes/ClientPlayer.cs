@@ -104,6 +104,7 @@ namespace Ares
 
                 NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
                 outGoingMessage.Write("FIRE");
+                outGoingMessage.Write(Game.client.UniqueIdentifier);
                 outGoingMessage.Write(Position.X - 16);
                 outGoingMessage.Write(Position.Y + 16);
                 outGoingMessage.Write(amingAngle);
