@@ -32,6 +32,8 @@ namespace Ares
         public override void Update()
         {
             Game.camera2D.Center = Position + new Vector2f(-16, 16);
+            amingAngle = Helper.AngleBetween(Position + new Vector2f(16, 16), Helper.GetWorldMousePosition());
+
             gui.Update();
 
             HandleControls();
@@ -101,14 +103,14 @@ namespace Ares
         {
             if (Input.isMouseButtonTap(Mouse.Button.Left))
             {
-                //Game.map.GameObjects.Add(new Bullet(Position + new Vector2f(-16,16), Helper.AngleBetween(Position + new Vector2f(16,16), Helper.GetWorldMousePosition()), 6));
+                //Game.map.GameObjects.Add(new Bullet(Position + new Vector2f(-16,16), Helper.AngleBetween(Position + new Vector2f(16,16), Helper.GetWorldMousePosition()), 6,0));
 
                 NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
                 outGoingMessage.Write("FIRE");
                 outGoingMessage.Write(Position.X - 16);
                 outGoingMessage.Write(Position.Y + 16);
                 outGoingMessage.Write(amingAngle);
-                outGoingMessage.Write(5);
+                outGoingMessage.Write(5f);
 
                 Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
             }

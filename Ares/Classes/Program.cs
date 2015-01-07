@@ -203,8 +203,8 @@ namespace Ares
                                 break;
                             case "FIRE": //Remove a player
                                 long FIRE_UID = msg.ReadInt64();
-                                int X_FIRE = msg.ReadInt32();
-                                int Y_FIRE = msg.ReadInt32();
+                                float X_FIRE = msg.ReadFloat();
+                                float Y_FIRE = msg.ReadFloat();
                                 float FIRE_Angle = msg.ReadFloat();
                                 float FIRE_Speed = msg.ReadFloat();
                                 
@@ -223,7 +223,7 @@ namespace Ares
 
         }
 
-        private static void handleFireMessage(long UID_FIRE,int X_FIRE,int Y_FIRE,float FIRE_Angle,float FIRE_Speed)
+        public static void handleFireMessage(long UID_FIRE,float X_FIRE,float Y_FIRE,float FIRE_Angle,float FIRE_Speed)
         {
  	        map.GameObjects.Add(new Bullet(new Vector2f(X_FIRE,Y_FIRE), FIRE_Angle, FIRE_Speed, UID_FIRE));
         }

@@ -17,7 +17,7 @@ namespace Ares
         public bool DraftEditorOpen = false;
         public float chatScale = .5f;
         public Player PlayerSender;
-        public int lineDispalyCount = 15;
+        public int lineDisplayCount = 15;
 
         public Chat(Player PlayerSender)
         {
@@ -84,7 +84,7 @@ namespace Ares
             }
 
 
-            if (messages.Count > lineDispalyCount)
+            if (messages.Count > lineDisplayCount)
                 messages.RemoveAt(0);
 
             for (int i = 0; i < messages.Count; i++)
