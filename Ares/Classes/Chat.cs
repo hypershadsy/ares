@@ -56,10 +56,10 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.Return))
             {
-
+                
                 if (!ChatDraft.Trim().Equals(""))
                 {
-                    messages.Add(new ChatMessage(ChatDraft, PlayerSender));
+                    //messages.Add(new ChatMessage(ChatDraft, PlayerSender));
 
                     NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
                     outGoingMessage.Write("CHAT");

@@ -38,5 +38,10 @@ namespace Ares
         public virtual void Activate()
         {
         }
+
+        public virtual void Destroy()
+        {
+            Game.map.GameObjects.Remove(this);
+        }
     }
 }

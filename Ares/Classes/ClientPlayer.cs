@@ -168,11 +168,11 @@ namespace Ares
             //var delta = Game.getDeltaRatio();
 
 
-            if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 16).Walkable ||
+            if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 28).Walkable ||
                 noClip)
                 Position.X += Velocity.X;
 
-            if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 16 + Velocity.Y).Walkable ||
+            if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 28 + Velocity.Y).Walkable ||
                 noClip)
                 Position.Y += Velocity.Y;
         }
@@ -200,7 +200,7 @@ namespace Ares
                         outGoingMessage.Write(pos.Y);
                         outGoingMessage.Write(currentBlockType);
 
-                        Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                        //Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
                         Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
                     }
@@ -218,7 +218,7 @@ namespace Ares
                         outGoingMessage.Write(pos.Y);
                         outGoingMessage.Write(currentBlockType);
 
-                        Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                        //Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
                         Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
                     }
@@ -236,7 +236,7 @@ namespace Ares
                         outGoingMessage.Write(pos.Y);
                         outGoingMessage.Write(currentBlockType);
 
-                        Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                        //Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
                         Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
                     }
@@ -254,7 +254,7 @@ namespace Ares
                         outGoingMessage.Write(pos.Y);
                         outGoingMessage.Write(currentBlockType);
 
-                        Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
+                        //Game.map.addTile(pos.X, pos.Y, currentBlockType, Game.client.UniqueIdentifier);
 
                         Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
                     }
