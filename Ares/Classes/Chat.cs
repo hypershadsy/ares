@@ -17,6 +17,7 @@ namespace Ares
         public bool DraftEditorOpen = false;
         public float chatScale = .5f;
         public Player PlayerSender;
+        public int lineDispalyCount = 15;
 
         public Chat(Player PlayerSender)
         {
@@ -81,6 +82,10 @@ namespace Ares
             {
                 Render.DrawString(Game.font, "|", new Vector2f((18 * chatScale) * ChatDraft.Length, 0), Color.White, chatScale, false); //Add Chat Cursor
             }
+
+
+            if (messages.Count > lineDispalyCount)
+                messages.RemoveAt(0);
 
             for (int i = 0; i < messages.Count; i++)
             {

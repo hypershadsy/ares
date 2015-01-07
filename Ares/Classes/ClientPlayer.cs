@@ -17,6 +17,7 @@ namespace Ares
         public int currentBlockType = 1;
         public bool buildMode = false;
         public float amingAngle = 0;
+        public bool noClip = false;
 
         public ClientPlayer()
             : base()
@@ -121,6 +122,11 @@ namespace Ares
                 currentBlockType += 1;
             }
 
+            if (Input.isKeyTap(Keyboard.Key.N))
+            {
+                noClip = !noClip;
+            }
+
             if (Input.isKeyTap(Keyboard.Key.B))
             {
                 buildMode = !buildMode;
@@ -160,10 +166,12 @@ namespace Ares
             //var delta = Game.getDeltaRatio();
 
 
-            if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 16).Walkable)
+            if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 16).Walkable ||
+                noClip)
                 Position.X += Velocity.X;
 
-            if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 16 + Velocity.Y).Walkable)
+            if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 16 + Velocity.Y).Walkable ||
+                noClip)
                 Position.Y += Velocity.Y;
         }
 
