@@ -57,6 +57,9 @@ namespace Ares
         public override void Draw()
         {
             Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(0, 0), 1, 0);
+
+            Render.Draw(Game.charTexture, new Vector2f(Position.X / 32 * 30 - (Position.Y / 32 * 30), Position.Y / 32 * 17 + (Position.X / 32 * 17) - 13), Color.Red, new Vector2f(0, 0), 1, 0f);
+            
             Render.DrawString(Game.font, Name, Position - new Vector2f(15, 10), Color.White, .3f, true);
             DrawBuildPreview();
             base.Draw();
