@@ -107,12 +107,11 @@ namespace Ares
             string ip = "giga.krash.net"; //Jared's IP
             int port = 12345;
             client = new NetClient(config);
-            
+			client.Start();
 
             map = new Map(20);
 
             //start processing messages
-            client.Start();
             client.Connect(ip, port);
         }
 
