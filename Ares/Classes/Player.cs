@@ -13,6 +13,7 @@ namespace Ares
     public class Player : Actor
     {
         public long UID;
+        
 
         public Player()
         {

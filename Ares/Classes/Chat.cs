@@ -52,22 +52,37 @@ namespace Ares
 
         public void Update()
         {
-            
+
 
             if (Input.isKeyTap(Keyboard.Key.Return))
             {
-                
-                if (!ChatDraft.Trim().Equals(""))
+
+                if (ChatDraft.IndexOf("/setname") == 0)
                 {
-                    //messages.Add(new ChatMessage(ChatDraft, PlayerSender));
+                    if (ChatDraft.Substring(0, 8).Equals("/setname"))
+                    {
+                        string username = ChatDraft.Substring(8).Trim();
 
-                    NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                    outGoingMessage.Write("CHAT");
-                    outGoingMessage.Write(ChatDraft);
-                    Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+                        NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                        outGoingMessage.Write("NAME");
+                        outGoingMessage.Write(username);
+                        Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
 
-                    ChatDraft = ""; 
+                        ChatDraft = "";
+                    }
                 }
+                else
+                    if (!ChatDraft.Trim().Equals(""))
+                    {
+                        //messages.Add(new ChatMessage(ChatDraft, PlayerSender));
+
+                        NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                        outGoingMessage.Write("CHAT");
+                        outGoingMessage.Write(ChatDraft);
+                        Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+
+                        ChatDraft = "";
+                    }
 
                 DraftEditorOpen = !DraftEditorOpen;
             }

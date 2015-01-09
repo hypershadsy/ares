@@ -18,6 +18,7 @@ namespace Ares
         public string Name;
         public int Health, MaxHealth;
 
+
         public bool alive { get { return Health > 0; } }
     }
 }

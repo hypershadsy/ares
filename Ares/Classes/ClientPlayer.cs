@@ -27,11 +27,13 @@ namespace Ares
             DefaultMovementSpeed = MovementSpeed;
             UID = Game.client.UniqueIdentifier;
             gui = new GUI(this);
+            Name = "Cactus Fantastico";
         }
 
         public override void Update()
         {
-            Game.camera2D.Center = Position + new Vector2f(-16, 16);
+            //Game.camera2D.Center = Position + new Vector2f(-16, 16);
+            Helper.moveCameraTo(Game.camera2D, this.Position + new Vector2f(-16, 16), .15f);
             amingAngle = Helper.AngleBetween(Position + new Vector2f(16, 16), Helper.GetWorldMousePosition());
 
             gui.Update();
@@ -53,6 +55,7 @@ namespace Ares
         public override void Draw()
         {
             Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(0, 0), 1, 0);
+            Render.DrawString(Game.font, Name, Position - new Vector2f(15, 10), Color.White, .3f, true);
             DrawBuildPreview();
             base.Draw();
         }

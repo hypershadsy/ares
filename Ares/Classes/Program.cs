@@ -239,6 +239,7 @@ namespace Ares
         private static void handleNameMessage(long uid, string newName)
         {
             getPlayerWithUID(uid).Name = newName;
+
         }
         private static void handlePosMessage(long uid, float x, float y)
         {

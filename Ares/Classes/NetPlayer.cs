@@ -19,6 +19,7 @@ namespace Ares
             this.UID = uid;
             Position = new Vector2f(100, 100);
 			PositionGoal = Position;
+            Name = "Cactus Fantastico";
         }
 
         public override void Update()
@@ -30,7 +31,7 @@ namespace Ares
         public override void Draw()
         {
             Render.Draw(Game.charTexture, Position, Color.Yellow, new Vector2f(0, 0), 1, 0);
-           
+            Render.DrawString(Game.font, Name, Position - new Vector2f(15, 10), Color.White, .3f, true);
         }
     }
 }
