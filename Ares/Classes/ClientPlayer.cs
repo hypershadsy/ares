@@ -58,7 +58,7 @@ namespace Ares
         {
             Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(0, 0), 1, 0);
 
-            Render.Draw(Game.charTexture, new Vector2f(Position.X / 32 * 30 - (Position.Y / 32 * 30), Position.Y / 32 * 17 + (Position.X / 32 * 17) - 13), Color.Red, new Vector2f(0, 0), 1, 0f);
+            Render.Draw(Game.charTexture, new Vector2f(Position.X / 32 * 30 - (Position.Y / 32 * 30) - (30/2), Position.Y / 32 * 17 + (Position.X / 32 * 17) - 13 - (17/2)), Color.Red, new Vector2f(0, 0), 1, 0f);
             
             Render.DrawString(Game.font, Name, Position - new Vector2f(15, 10), Color.White, .3f, true);
             DrawBuildPreview();
@@ -176,13 +176,13 @@ namespace Ares
             //var delta = Game.getDeltaRatio();
 
 
-            //if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 28).Walkable ||
-            //    noClip)
+            if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 16).Walkable ||
+                noClip)
             Position.X += Velocity.X;
 
-            //if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 28 + Velocity.Y).Walkable ||
-            //    noClip)
-            Position.Y += Velocity.Y / 30 * 17;
+            if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 16 + Velocity.Y).Walkable ||
+                noClip)
+            Position.Y += Velocity.Y ;
         }
 
         void HandleBuilding()
