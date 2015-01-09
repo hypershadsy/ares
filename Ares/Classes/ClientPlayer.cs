@@ -173,13 +173,13 @@ namespace Ares
             //var delta = Game.getDeltaRatio();
 
 
-            if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 28).Walkable ||
-                noClip)
-                Position.X += Velocity.X;
+            //if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 28).Walkable ||
+            //    noClip)
+            Position.X += Velocity.X;
 
-            if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 28 + Velocity.Y).Walkable ||
-                noClip)
-                Position.Y += Velocity.Y;
+            //if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 28 + Velocity.Y).Walkable ||
+            //    noClip)
+            Position.Y += Velocity.Y / 30 * 17;
         }
 
         void HandleBuilding()

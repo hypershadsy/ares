@@ -78,7 +78,7 @@ namespace Ares
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
                     Tile thisTile = tiles[x, y];
-                    if (Helper.Distance(thisTile.Position * 32, ClientPlayer.Position) < 300) //Tiles are not drawn if they are too far away, 
+                    //if (Helper.Distance(thisTile.Position * 32, ClientPlayer.Position) < 300) //Tiles are not drawn if they are too far away, 
                         thisTile.Draw();                                                      //however they will still be updated
                 }
             }

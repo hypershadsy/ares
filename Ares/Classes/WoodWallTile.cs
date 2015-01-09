@@ -24,6 +24,12 @@ namespace Ares
         public override void Draw()
         {
             Render.Draw(Game.wallTexture, Position * 32, Color.White, new Vector2f(0, 0), 1, 0);
+            
+            Render.Draw(Game.isoBlock, new Vector2f(Position.X * 30 - (Position.Y * 30), Position.Y * 17 + (Position.X * 17) - 13), Color.Red, new Vector2f(0, 0), 1, 0f);
+            Render.Draw(Game.isoBlock, new Vector2f(Position.X * 30 - (Position.Y * 30), Position.Y * 17 + (Position.X * 17) - 26), Color.Red, new Vector2f(0, 0), 1, 0f);
+            
+            //Render.Draw(Game.isoBlock, new Vector2f(Position.X * 60 / 2 - (Position.Y * 31), Position.Y * 17 + (Position.X * 17) - 26), Color.Red, new Vector2f(0, 0), 1, 0f);
+             
         }
     }
 }
