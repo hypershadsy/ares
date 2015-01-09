@@ -155,7 +155,6 @@ namespace Ares
         /// <returns></returns>
         public Tile getTileInWorld(float x, float y)
         {
-            //Console.WriteLine(tiles[(int)(x / 32), (int)(y / 32)].)
             return tiles[(int)(x / 32), (int)(y / 32)];
         }
     }

@@ -15,7 +15,7 @@ namespace Ares
         public Vector2f Position;
         public Vector2f Velocity;
         public float MovementSpeed, DefaultMovementSpeed;
-        public string Name;
+        public string Name = "";
         public int Health, MaxHealth;
 
 

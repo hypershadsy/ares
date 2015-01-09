@@ -103,9 +103,11 @@ namespace Ares
             //Initialize
             NetPeerConfiguration config = new NetPeerConfiguration("ares");
             config.EnableMessageType(NetIncomingMessageType.ConnectionLatencyUpdated);
+            config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             string ip = "giga.krash.net"; //Jared's IP
             int port = 12345;
             client = new NetClient(config);
+            
 
             map = new Map(20);
 
@@ -141,9 +143,9 @@ namespace Ares
             NetIncomingMessage msg;
             while ((msg = Game.client.ReadMessage()) != null)
             {
-
                 switch (msg.MessageType)
                 {
+                    case NetIncomingMessageType.ConnectionApproval:
                     case NetIncomingMessageType.VerboseDebugMessage:
                     case NetIncomingMessageType.DebugMessage:
                     case NetIncomingMessageType.WarningMessage:
@@ -239,7 +241,6 @@ namespace Ares
         private static void handleNameMessage(long uid, string newName)
         {
             getPlayerWithUID(uid).Name = newName;
-
         }
         private static void handlePosMessage(long uid, float x, float y)
         {
