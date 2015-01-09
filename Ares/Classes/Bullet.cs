@@ -48,11 +48,9 @@ namespace Ares
 
         public override void Move()
         {
-
-
             try
             {
-                if (Game.map.getTileInWorld(Position.X + Velocity.X, Position.Y + Velocity.Y).Walkable)
+                if (Game.map.getTileInWorld(Position.X + 32 + Velocity.X, Position.Y + Velocity.Y).Walkable)
                     this.Position += Velocity;
                 else
                 {
