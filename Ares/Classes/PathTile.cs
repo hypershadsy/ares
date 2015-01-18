@@ -17,13 +17,9 @@ namespace Ares
         {
         }
 
-        public override void Update()
-        {
-        }
-
         public override void Draw()
         {
-            Render.Draw(Game.pathTexture, Position * 32, Color.White, new Vector2f(0, 0), 1, 0);
+			DefaultDraw(Game.pathTexture, false);
         }
     }
 }

@@ -17,16 +17,9 @@ namespace Ares
         {
         }
 
-        public override void Update()
-        {
-        }
-
         public override void Draw()
         {
-            Render.Draw(Game.isoBlock, new Vector2f(Position.X * 30 - (Position.Y * 30), Position.Y * 17 + (Position.X * 17) - 13), Color.White, new Vector2f(0, 0), 1, 0f);
-               
-            //Vector2f drawPos = new Vector2f(Position.X * 30, Position.Y * 18);
-            Render.Draw(Game.grassTexture, Position * 32, Color.White, new Vector2f(0, 0), 1, 0);
+			DefaultDraw(Game.grassTexture, false);
         }
     }
 }

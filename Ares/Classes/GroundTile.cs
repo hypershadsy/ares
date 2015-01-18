@@ -17,13 +17,5 @@ namespace Ares
         {
             Walkable = true;
         }
-
-        public override void Update()
-        {
-        }
-
-        public override void Draw()
-        {
-        }
     }
 }

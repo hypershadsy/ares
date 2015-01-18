@@ -17,10 +17,5 @@ namespace Ares
 		{
             Walkable = false;
 		}
-
-		public override void Draw()
-		{
-			base.Draw();
-		}
     }
 }

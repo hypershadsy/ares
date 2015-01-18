@@ -140,8 +140,6 @@ namespace Ares
             catch (Exception) { }
         }
 
-
-
         public Tile getTileInArray(int x, int y)
         {
             return tiles[x, y];

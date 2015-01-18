@@ -173,21 +173,15 @@ namespace Ares
 
         void HandleMovement()
         {
-            //var delta = Game.getDeltaRatio();
+            if (noClip || Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 16).Walkable)
+            	Position.X += Velocity.X;
 
-
-            if (Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 16).Walkable ||
-                noClip)
-            Position.X += Velocity.X;
-
-            if (Game.map.getTileInWorld(Position.X + 16, Position.Y + 16 + Velocity.Y).Walkable ||
-                noClip)
-            Position.Y += Velocity.Y ;
+			if (noClip || Game.map.getTileInWorld(Position.X + 16, Position.Y + 16 + Velocity.Y).Walkable)
+            	Position.Y += Velocity.Y ;
         }
 
         void HandleBuilding()
         {
-
             if (Input.isKeyDown(Keyboard.Key.LControl))
             {
                 currentBlockType = 0;
@@ -273,7 +267,6 @@ namespace Ares
 
         private void sendPos()
         {
-
             NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
             outGoingMessage.Write("POS");
             outGoingMessage.Write(Position.X);

@@ -14,28 +14,21 @@ namespace Ares
     class Game
     {
         public static RenderWindow window;
-        static DateTime startTime;
-        static Vector2f windowSize;
-        static Random r = new Random();
-
-        static DateTime oldDateTime;
-		static TimeSpan deltaTime
+		public static DateTime startTime;
+		public static Vector2f windowSize;
+		public static Random r = new Random();
+		public static DateTime oldDateTime;
+		public static TimeSpan deltaTime
 		{
 			get {
 				return DateTime.Now - oldDateTime;
 			}
 		}
-
-
         public static NetClient client;
-
         public static View camera2D;
-
         public static Font font;
         public static Texture charTexture, wallTexture, grassTexture, doorClosedTexture, pathTexture, bulletTexture, isoBlock;
-
         public static Map map;
-
 
         static void Main(string[] args)
         {
@@ -45,7 +38,6 @@ namespace Ares
             while (window.IsOpen())
             {
                 UpdateDraw(window);
-                //Console.WriteLine(Input.isActive);
             }
         }
 
@@ -60,13 +52,11 @@ namespace Ares
         static void window_LostFocus(object sender, EventArgs e)
         {
             Input.isActive = false;
-            //throw new NotImplementedException();
         }
 
         static void window_GainedFocus(object sender, EventArgs e)
         {
             Input.isActive = true;
-            //throw new NotImplementedException();
         }
 
         private static void LoadContentInitialize()
@@ -79,10 +69,10 @@ namespace Ares
             window.SetFramerateLimit(60);
 
             window.Closed += (a, b) =>
-                {
-                    client.Disconnect("Bye");
-                    window.Close();
-                };
+            {
+                client.Disconnect("Bye");
+				window.Close();
+            };
 
             Game.window.GainedFocus += new EventHandler(window_GainedFocus); { }
             Game.window.LostFocus += new EventHandler(window_LostFocus); { }
@@ -99,7 +89,6 @@ namespace Ares
             bulletTexture = new Texture("Content/bullet.png");
             isoBlock = new Texture("Content/isoBlock.png");
             font = new Font("Content/Font1.ttf");
-
 
             //Initialize
             NetPeerConfiguration config = new NetPeerConfiguration("ares");
@@ -234,14 +223,17 @@ namespace Ares
         {
             map.addTile(x, y, type, uid);
         }
+
         private static void handleLifeMessage(long uid, int health)
         {
             getPlayerWithUID(uid).Health = health;
         }
+
         private static void handleNameMessage(long uid, string newName)
         {
             getPlayerWithUID(uid).Name = newName;
         }
+
         private static void handlePosMessage(long uid, float x, float y)
         {
 			NetPlayer plr = (NetPlayer)getPlayerWithUID(uid);
@@ -250,23 +242,25 @@ namespace Ares
 				plr.PositionGoal = new Vector2f(x, y);
 			}
         }
+
         private static void handleJoinMessage(long uid)
-        {
+		{
+			//add a new net player to players
             map.Players.Add(new NetPlayer(uid));
-            //add a new net player to players 
         }
+
         private static void handleChatMessage(long uid, string message)
         {
             Player p = getPlayerWithUID(uid);
             map.ClientPlayer.gui.chat.messages.Add(
                 new ChatMessage(message, p)); 
         }
-        private static void handlePartMessage(long uid)
-        {
-            map.Players.Remove(getPlayerWithUID(uid));
-            //Remove net player from players list
-        }
 
+        private static void handlePartMessage(long uid)
+		{
+			//remove net player from players list
+            map.Players.Remove(getPlayerWithUID(uid));
+        }
 
         private static Player getPlayerWithUID(long id)
         {
