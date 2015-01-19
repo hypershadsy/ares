@@ -13,7 +13,6 @@ namespace Ares
     public class Player : Actor
     {
         public long UID;
-        
 
         public Player()
         {
@@ -25,7 +24,6 @@ namespace Ares
 
         public virtual void Draw()
         {
-            
         }
     }
 }

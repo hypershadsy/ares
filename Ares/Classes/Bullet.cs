@@ -32,18 +32,10 @@ namespace Ares
 
         public override void Draw()
         {
-
-            //Console.WriteLine(Helper.DegToRad(Angle));
-
             Render.Draw(Game.bulletTexture, Position, Color.White,
-            new Vector2f(Game.bulletTexture.Size.X, Game.bulletTexture.Size.Y) / 2, 1, Helper.RadToDeg(Angle));
+                        new Vector2f(Game.bulletTexture.Size.X, Game.bulletTexture.Size.Y) / 2, 1, Helper.RadToDeg(Angle));
 
             base.Draw();
-        }
-
-        public override void Activate()
-        {
-            base.Activate();
         }
 
         public override void Move()

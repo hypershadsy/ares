@@ -12,7 +12,6 @@ namespace Ares
 {
     public static class Helper
     {
-
         public static float Distance(Vector2f vec1, Vector2f vec2)
         {
             return (float)Math.Sqrt(Math.Pow((vec2.X - vec1.X), 2) + Math.Pow((vec2.Y - vec1.Y), 2));
@@ -35,30 +34,33 @@ namespace Ares
         {
             return degree * ((float)Math.PI / 180f);
         }
+
         public static float RadToDeg(float rad)
         {
             return rad * (180f / (float)Math.PI);
         }
+
         public static void moveCameraTo(View camera, Vector2f focus, float speed)
         {
-
             if (camera.Center.X > focus.X)
             {
                 camera.Center -= new Vector2f((Math.Abs(camera.Center.X - focus.X) * speed), 0);
             }
+
             if (camera.Center.X < focus.X)
             {
                 camera.Center += new Vector2f((Math.Abs(camera.Center.X - focus.X) * speed), 0);
             }
+
             if (camera.Center.Y > focus.Y)
             {
                 camera.Center -= new Vector2f(0, (Math.Abs(camera.Center.Y - focus.Y) * speed));
             }
+
             if (camera.Center.Y < focus.Y)
             {
                 camera.Center += new Vector2f(0, Math.Abs(camera.Center.Y - focus.Y) * speed);
             }
-
         }
     }
 }

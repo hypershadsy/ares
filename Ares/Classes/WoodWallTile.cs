@@ -19,7 +19,7 @@ namespace Ares
 
         public override void Draw()
         {
-			DefaultDraw(Game.wallTexture, true);
+            DefaultDraw(Game.wallTexture, true);
         }
     }
 }

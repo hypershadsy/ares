@@ -12,31 +12,13 @@ namespace Ares
 {
     public class Projectile : GameObject
     {
-        
-
         public Projectile()
             : base()
         {
         }
 
-        public override void Update()
-        {
-            base.Update();
-        }
-
-        public override void Draw()
-        {
-            base.Draw();
-        }
-
-        public override void Activate()
-        {
-            base.Activate();
-        }
-
         public virtual void Move()
         {
-            
         }
     }
 }

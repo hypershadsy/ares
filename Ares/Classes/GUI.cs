@@ -25,6 +25,7 @@ namespace Ares
         {
             chat.Update();
         }
+
         public void Draw()
         {
             chat.Draw();
@@ -35,5 +36,4 @@ namespace Ares
             }
         }
     }
-
 }

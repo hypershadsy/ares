@@ -8,22 +8,24 @@ using SFML.Window;
 using SFML.Audio;
 using Lidgren.Network;
 
-
 namespace Ares
 {
     class Game
     {
         public static RenderWindow window;
-		public static DateTime startTime;
-		public static Vector2f windowSize;
-		public static Random r = new Random();
-		public static DateTime oldDateTime;
-		public static TimeSpan deltaTime
-		{
-			get {
-				return DateTime.Now - oldDateTime;
-			}
-		}
+        public static DateTime startTime;
+        public static Vector2f windowSize;
+        public static Random r = new Random();
+        public static DateTime oldDateTime;
+
+        public static TimeSpan deltaTime
+        {
+            get
+            {
+                return DateTime.Now - oldDateTime;
+            }
+        }
+
         public static NetClient client;
         public static View camera2D;
         public static Font font;
@@ -44,8 +46,8 @@ namespace Ares
         private static void PreRun()
         {
             startTime = DateTime.Now;
-			//pretend value to appease the delta timer gods
-			oldDateTime = DateTime.Now - new TimeSpan((long)expectedTicks);
+            //pretend value to appease the delta timer gods
+            oldDateTime = DateTime.Now - new TimeSpan((long)expectedTicks);
             r = new Random();
         }
 
@@ -71,13 +73,15 @@ namespace Ares
             window.Closed += (a, b) =>
             {
                 client.Disconnect("Bye");
-				window.Close();
+                window.Close();
             };
 
-            Game.window.GainedFocus += new EventHandler(window_GainedFocus); { }
-            Game.window.LostFocus += new EventHandler(window_LostFocus); { }
+            Game.window.GainedFocus += new EventHandler(window_GainedFocus);
+            { }
+            Game.window.LostFocus += new EventHandler(window_LostFocus);
+            { }
 
-            camera2D = new View(new Vector2f(800/2,600/2), new Vector2f(800,600));
+            camera2D = new View(new Vector2f(800 / 2, 600 / 2), new Vector2f(800, 600));
 
             camera2D.Zoom(1.5f);
 
@@ -97,7 +101,7 @@ namespace Ares
             string ip = "giga.krash.net"; //Jared's IP
             int port = 12345;
             client = new NetClient(config);
-			client.Start();
+            client.Start();
 
             map = new Map(20);
 
@@ -117,7 +121,7 @@ namespace Ares
 
             oldDateTime = DateTime.Now;
 
-            window.SetView(new View(new Vector2f(800/2,600/2), new Vector2f(800,600)));
+            window.SetView(new View(new Vector2f(800 / 2, 600 / 2), new Vector2f(800, 600)));
             DrawOnGUI();
             window.Display();
         }
@@ -211,12 +215,11 @@ namespace Ares
                 }
                 Game.client.Recycle(msg);
             }
-
         }
 
-        public static void handleFireMessage(long UID_FIRE,float X_FIRE,float Y_FIRE,float FIRE_Angle,float FIRE_Speed)
+        public static void handleFireMessage(long UID_FIRE, float X_FIRE, float Y_FIRE, float FIRE_Angle, float FIRE_Speed)
         {
- 	        map.GameObjects.Add(new Bullet(new Vector2f(X_FIRE,Y_FIRE), FIRE_Angle, FIRE_Speed, UID_FIRE));
+            map.GameObjects.Add(new Bullet(new Vector2f(X_FIRE, Y_FIRE), FIRE_Angle, FIRE_Speed, UID_FIRE));
         }
 
         private static void handleBuildMessage(long uid, int x, int y, int type)
@@ -236,16 +239,16 @@ namespace Ares
 
         private static void handlePosMessage(long uid, float x, float y)
         {
-			NetPlayer plr = (NetPlayer)getPlayerWithUID(uid);
-			if (plr != null) //stale POS message, player is already gone?
-			{
-				plr.PositionGoal = new Vector2f(x, y);
-			}
+            NetPlayer plr = (NetPlayer)getPlayerWithUID(uid);
+            if (plr != null) //stale POS message, player is already gone?
+            {
+                plr.PositionGoal = new Vector2f(x, y);
+            }
         }
 
         private static void handleJoinMessage(long uid)
-		{
-			//add a new net player to players
+        {
+            //add a new net player to players
             map.Players.Add(new NetPlayer(uid));
         }
 
@@ -257,8 +260,8 @@ namespace Ares
         }
 
         private static void handlePartMessage(long uid)
-		{
-			//remove net player from players list
+        {
+            //remove net player from players list
             map.Players.Remove(getPlayerWithUID(uid));
         }
 
@@ -276,36 +279,37 @@ namespace Ares
         /// <summary>
         /// Gets the delta ratio. If the game is running slowly, this number will be higher,
         /// causing your game object to go further per frame. At 60FPS, this number will be 1.0.
-		/// To take care of flukes in frametime, the ratio is averaged out over a period of
-		/// <c>deltaPeriod</c> frames.
+        /// To take care of flukes in frametime, the ratio is averaged out over a period of
+        /// <c>deltaPeriod</c> frames.
         /// </summary>
         /// <returns>The delta ratio.</returns>
-		static Queue<double> pastFrameTimes;
-		const double expectedTicks = (1000.0 / 63.0) * 10000.0;
-		const int deltaPeriod = 100;
+        static Queue<double> pastFrameTimes;
+        const double expectedTicks = (1000.0 / 63.0) * 10000.0;
+        const int deltaPeriod = 100;
+
         public static float getDeltaRatio()
         {
             double actualTicks = deltaTime.Ticks;
-			double ratio = actualTicks / expectedTicks;
+            double ratio = actualTicks / expectedTicks;
             //debugging screws up timestep, we'll assume it's running fine
             if (double.IsInfinity(ratio) || double.IsNaN(ratio))
             {
                 ratio = 1.0;
             }
 
-			if (pastFrameTimes == null)
-			{
-				pastFrameTimes = new Queue<double>(Enumerable.Repeat(1.0, deltaPeriod).ToList());
-				ratio = 1.0; //initialization is tough... ignore the first frame
-			}
+            if (pastFrameTimes == null)
+            {
+                pastFrameTimes = new Queue<double>(Enumerable.Repeat(1.0, deltaPeriod).ToList());
+                ratio = 1.0; //initialization is tough... ignore the first frame
+            }
 
-			//prune the old ratio, add this one
-			pastFrameTimes.Dequeue();
-			pastFrameTimes.Enqueue(ratio);
+            //prune the old ratio, add this one
+            pastFrameTimes.Dequeue();
+            pastFrameTimes.Enqueue(ratio);
 
-			var avg = pastFrameTimes.Average();
+            var avg = pastFrameTimes.Average();
 
-			return (float)avg;
+            return (float)avg;
         }
     }
 }

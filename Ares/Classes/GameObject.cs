@@ -18,7 +18,6 @@ namespace Ares
         public float Angle, Rotation;
         public long OwnerUID;
 
-
         public GameObject()
         {
         }

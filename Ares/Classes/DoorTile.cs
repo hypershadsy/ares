@@ -8,7 +8,6 @@ using SFML.Window;
 using SFML.Audio;
 using Lidgren.Network;
 
-
 namespace Ares
 {
     public class DoorTile : Tile
@@ -21,8 +20,7 @@ namespace Ares
 
         public override void Draw()
         {
-			DefaultDraw(Game.doorClosedTexture, true);
+            DefaultDraw(Game.doorClosedTexture, true);
         }
     }
-
 }

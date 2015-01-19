@@ -46,7 +46,6 @@ namespace Ares
             Game.window.Draw(sprite);
         }
 
-
         private static IntRect RunAnimation(Sprite texture, int widthOfFrame, int heightOfFrame, ref int CurrFrame, int currentRow, int totalRows)
         {
             IntRect source = new IntRect(0, 0, 0, 0);

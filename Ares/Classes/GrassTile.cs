@@ -19,7 +19,7 @@ namespace Ares
 
         public override void Draw()
         {
-			DefaultDraw(Game.grassTexture, false);
+            DefaultDraw(Game.grassTexture, false);
         }
     }
 }
