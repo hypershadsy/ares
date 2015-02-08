@@ -185,28 +185,28 @@ namespace Ares
 
             if (buildMode)
             {
-                Vector2i placePos = new Vector2i();
                 bool didBuild = false;
-                Vector2i playerTile = new Vector2i((int)((Position.X + 16) / 32), (int)((Position.Y + 16) / 32));
+                //player's standing tile
+                Vector2i placePos = new Vector2i((int)(Position.X / 32), (int)(Position.Y / 32));
 
                 if (Input.isKeyTap(Keyboard.Key.Up))
                 {
-                    playerTile.Y--;
+                    placePos.Y--;
                     didBuild = true;
                 }
                 if (Input.isKeyTap(Keyboard.Key.Left))
                 {
-                    playerTile.X--;
+                    placePos.X--;
                     didBuild = true;
                 }
                 if (Input.isKeyTap(Keyboard.Key.Right))
                 {
-                    playerTile.X++;
+                    placePos.X++;
                     didBuild = true;
                 }
                 if (Input.isKeyTap(Keyboard.Key.Down))
                 {
-                    playerTile.Y++;
+                    placePos.Y++;
                     didBuild = true;
                 }
 
