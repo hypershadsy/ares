@@ -81,7 +81,7 @@ namespace Ares
             Game.window.LostFocus += new EventHandler(window_LostFocus);
             { }
 
-            camera2D = new View(new Vector2f(800 / 2, 600 / 2), new Vector2f(800, 600));
+            camera2D = new View(window.DefaultView);
 
             camera2D.Zoom(1.5f);
 
@@ -121,7 +121,8 @@ namespace Ares
 
             oldDateTime = DateTime.Now;
 
-            window.SetView(new View(new Vector2f(800 / 2, 600 / 2), new Vector2f(800, 600)));
+            window.SetView(window.DefaultView);
+
             DrawOnGUI();
             window.Display();
         }
