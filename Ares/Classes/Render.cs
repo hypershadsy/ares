@@ -12,11 +12,12 @@ namespace Ares
 {
     public class Render
     {
+        //TODO: fix facing origin (-1 doesn't reflect about its center)
         public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation)
         {
             Sprite sprite = new Sprite(texture);
             sprite.Texture.Smooth = false;
-            sprite.Scale = new Vector2f(-facing, 1);
+            sprite.Scale = new Vector2f(facing, 1);
             sprite.Origin = origin;
             sprite.Position = position;
             sprite.Color = color;
@@ -38,7 +39,7 @@ namespace Ares
         public static void DrawAnimation(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, int frames, int rows, int currentFrame, int frameRow)
         {
             Sprite sprite = new Sprite(texture);
-            sprite.Scale = new Vector2f(-facing, 1);
+            sprite.Scale = new Vector2f(facing, 1);
             sprite.Origin = origin;
             sprite.Position = position;
             sprite.Color = color;

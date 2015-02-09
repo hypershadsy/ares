@@ -32,11 +32,10 @@ namespace Ares
 
         public override void Update()
         {
-            //Game.camera2D.Center = Position + new Vector2f(-16, 16);
             setUID();
 
-            Helper.moveCameraTo(Game.camera2D, this.Position + new Vector2f(-16, 16), .15f);
-            amingAngle = Helper.AngleBetween(Position + new Vector2f(16, 16), Helper.GetWorldMousePosition());
+            Helper.moveCameraTo(Game.camera2D, this.Position, 0.15f);
+            amingAngle = Helper.AngleBetween(Position, Helper.GetWorldMousePosition());
 
             gui.Update();
 
@@ -51,11 +50,11 @@ namespace Ares
 
         public override void Draw()
         {
-            Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(0, 0), 1, 0);
+            Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(16f, 28f), 1, 0);
 
             Render.Draw(Game.charTexture, new Vector2f(Position.X / 32 * 30 - (Position.Y / 32 * 30) - (30 / 2), Position.Y / 32 * 17 + (Position.X / 32 * 17) - 13 - (17 / 2)), Color.Red, new Vector2f(0, 0), 1, 0f);
             
-            Render.DrawString(Game.font, Name, Position - new Vector2f(15, 10), Color.White, .3f, true);
+            Render.DrawString(Game.font, Name, Position - new Vector2f(0, 40), Color.White, 0.3f, true);
             DrawBuildPreview();
             base.Draw();
         }
@@ -75,29 +74,17 @@ namespace Ares
         {
             if (buildMode)
             {
-                Vector2f prevNorth = new Vector2f(
-                    ((int)((Position.X + 16) / 32)) * 32,
-                    ((int)((Position.Y + 16) / 32) - 1) * 32
-                );
-                Render.Draw(Game.wallTexture, prevNorth, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1, 0);
+                Vector2i standingTile = new Vector2i((int)(Position.X / 32), (int)(Position.Y / 32));
 
-                Vector2f prevEast = new Vector2f(
-                    ((int)((Position.X + 16) / 32) + 1) * 32,
-                    ((int)((Position.Y + 16) / 32)) * 32
-                );
-                Render.Draw(Game.wallTexture, prevEast, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1, 0);
+                Vector2i prevN = standingTile + new Vector2i(0, -1);
+                Vector2i prevE = standingTile + new Vector2i(1, 0);
+                Vector2i prevS = standingTile + new Vector2i(0, 1);
+                Vector2i prevW = standingTile + new Vector2i(-1, 0);
 
-                Vector2f prevSouth = new Vector2f(
-                    ((int)((Position.X + 16) / 32)) * 32,
-                    ((int)((Position.Y + 16) / 32) + 1) * 32
-                );
-                Render.Draw(Game.wallTexture, prevSouth, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1, 0);
-
-                Vector2f prevWest = new Vector2f(
-                    ((int)((Position.X + 16) / 32) - 1) * 32,
-                    ((int)((Position.Y + 16) / 32)) * 32
-                );
-                Render.Draw(Game.wallTexture, prevWest, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1, 0);
+                foreach (Vector2i prev in new Vector2i[] { prevN, prevE, prevS, prevW }) {
+                    Vector2f prevWorld = new Vector2f(prev.X * 32, prev.Y * 32);
+                    Render.Draw(Game.wallTexture, prevWorld, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1, 0);
+                }
             }
 
         }
@@ -106,12 +93,10 @@ namespace Ares
         {
             if (Input.isMouseButtonTap(Mouse.Button.Left))
             {
-                //Game.map.GameObjects.Add(new Bullet(Position + new Vector2f(-16,16), Helper.AngleBetween(Position + new Vector2f(16,16), Helper.GetWorldMousePosition()), 6,0));
-
                 NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
                 outGoingMessage.Write("FIRE");
-                outGoingMessage.Write(Position.X - 16);
-                outGoingMessage.Write(Position.Y + 16);
+                outGoingMessage.Write(Position.X);
+                outGoingMessage.Write(Position.Y);
                 outGoingMessage.Write(amingAngle);
                 outGoingMessage.Write(5f);
 
@@ -169,10 +154,10 @@ namespace Ares
 
         void HandleMovement()
         {
-            if (noClip || Game.map.getTileInWorld(Position.X + 16 + Velocity.X, Position.Y + 16).Walkable)
+            if (noClip || Game.map.getTileInWorld(Position.X + Velocity.X, Position.Y).Walkable)
                 Position.X += Velocity.X;
 
-            if (noClip || Game.map.getTileInWorld(Position.X + 16, Position.Y + 16 + Velocity.Y).Walkable)
+            if (noClip || Game.map.getTileInWorld(Position.X, Position.Y + Velocity.Y).Walkable)
                 Position.Y += Velocity.Y;
         }
 
