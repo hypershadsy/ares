@@ -143,8 +143,12 @@
     <None Include="sfmlnet-audio-2.dll" />
     <None Include="sfmlnet-graphics-2.dll" />
     <None Include="sfmlnet-window-2.dll" />
-    <None Include="Content\tile\bedug.png" />
-    <None Include="Content\wall\redbrick.png" />
+    <None Include="Content\tile\bedug.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\wall\redbrick.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
