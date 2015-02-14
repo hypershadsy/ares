@@ -143,6 +143,8 @@
     <None Include="sfmlnet-audio-2.dll" />
     <None Include="sfmlnet-graphics-2.dll" />
     <None Include="sfmlnet-window-2.dll" />
+    <None Include="Content\tile\bedug.png" />
+    <None Include="Content\wall\redbrick.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -161,4 +163,8 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Content\tile\" />
+    <Folder Include="Content\wall\" />
+  </ItemGroup>
 </Project>
