@@ -31,7 +31,7 @@ namespace Ares
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    tiles[x, y] = new GrassTile(new Vector2f(x, y), -1);
+                    tiles[x, y] = new GrassTile(new Vector2i(x, y), -1);
                 }
             }
         }
@@ -124,16 +124,16 @@ namespace Ares
                 switch (id)
                 {
                     case 0:
-                        tiles[x, y] = new GrassTile(new Vector2f(x, y), UID);
+                        tiles[x, y] = new GrassTile(new Vector2i(x, y), UID);
                         break;
                     case 1:
-                        tiles[x, y] = new WoodWallTile(new Vector2f(x, y), UID);
+                        tiles[x, y] = new WoodWallTile(new Vector2i(x, y), UID);
                         break;
                     case 2:
-                        tiles[x, y] = new DoorTile(new Vector2f(x, y), UID);
+                        tiles[x, y] = new DoorTile(new Vector2i(x, y), UID);
                         break;
                     case 3:
-                        tiles[x, y] = new PathTile(new Vector2f(x, y), UID);
+                        tiles[x, y] = new PathTile(new Vector2i(x, y), UID);
                         break;
                 }
             }

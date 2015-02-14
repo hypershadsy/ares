@@ -22,8 +22,8 @@ namespace Ares
         public ClientPlayer()
             : base()
         {
-            Position = new Vector2f(500, 500);
-            MovementSpeed = 1.5f;
+            Position = new Vector2i(500, 500);
+            MovementSpeed = 2;
             DefaultMovementSpeed = MovementSpeed;
 
             gui = new GUI(this);
@@ -34,8 +34,8 @@ namespace Ares
         {
             setUID();
 
-            Helper.moveCameraTo(Game.camera2D, this.Position, 0.15f);
-            amingAngle = Helper.AngleBetween(Position, Helper.GetWorldMousePosition());
+            Helper.moveCameraTo(Game.camera2D, this.Position.ToF(), 0.15f);
+            amingAngle = Helper.AngleBetween(Position.ToF(), Helper.GetWorldMousePosition());
 
             gui.Update();
 
@@ -50,11 +50,11 @@ namespace Ares
 
         public override void Draw()
         {
-            Render.Draw(Game.charTexture, Position, Color.White, new Vector2f(16f, 28f), 1, 0);
+            Render.Draw(Game.charTexture, Position.ToF(), Color.White, new Vector2f(16f, 28f), 1, 0);
 
-            Render.Draw(Game.charTexture, new Vector2f(Position.X / 32 * 30 - (Position.Y / 32 * 30) - (30 / 2), Position.Y / 32 * 17 + (Position.X / 32 * 17) - 13 - (17 / 2)), Color.Red, new Vector2f(0, 0), 1, 0f);
-            
-            Render.DrawString(Game.font, Name, Position - new Vector2f(0, 40), Color.White, 0.3f, true);
+            Render.Draw(Game.charTexture, Position.ToF(), Color.Red, new Vector2f(0, 0), 1, 0f);
+
+            Render.DrawString(Game.font, Name, Position.ToF() - new Vector2f(0, 40), Color.White, 0.3f, true);
             DrawBuildPreview();
             base.Draw();
         }
@@ -132,7 +132,7 @@ namespace Ares
                 MovementSpeed = DefaultMovementSpeed;
             }
 
-            Velocity = new Vector2f(0, 0); //Reset the velocity
+            Velocity = new Vector2i(0, 0); //Reset the velocity
             if (Input.isKeyDown(Keyboard.Key.A))
             {
                 Velocity.X = -MovementSpeed;

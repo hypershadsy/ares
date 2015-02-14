@@ -29,7 +29,7 @@ namespace Ares
         public static NetClient client;
         public static View camera2D;
         public static Font font;
-        public static Texture charTexture, wallTexture, grassTexture, doorClosedTexture, pathTexture, bulletTexture, isoBlock;
+        public static Texture charTexture, wallTexture, grassTexture, doorClosedTexture, pathTexture, bulletTexture, isoBlock, tileBedug;
         public static Map map;
 
         static void Main(string[] args)
@@ -93,6 +93,7 @@ namespace Ares
             bulletTexture = new Texture("Content/bullet.png");
             isoBlock = new Texture("Content/isoBlock.png");
             font = new Font("Content/Font1.ttf");
+            tileBedug = new Texture("Content/tile/bedug.png");
 
             //Initialize
             NetPeerConfiguration config = new NetPeerConfiguration("ares");
@@ -171,7 +172,7 @@ namespace Ares
                                 long UID_POS = msg.ReadInt64();
                                 float xPos = msg.ReadFloat();
                                 float yPos = msg.ReadFloat();
-                                handlePosMessage(UID_POS, xPos, yPos);
+                                handlePosMessage(UID_POS, (int)xPos, (int)yPos);
                                 break;
 
                             case "JOIN": //Add a player
@@ -238,12 +239,12 @@ namespace Ares
             getPlayerWithUID(uid).Name = newName;
         }
 
-        private static void handlePosMessage(long uid, float x, float y)
+        private static void handlePosMessage(long uid, int x, int y)
         {
             NetPlayer plr = (NetPlayer)getPlayerWithUID(uid);
             if (plr != null) //stale POS message, player is already gone?
             {
-                plr.PositionGoal = new Vector2f(x, y);
+                plr.Position = new Vector2i(x, y);
             }
         }
 

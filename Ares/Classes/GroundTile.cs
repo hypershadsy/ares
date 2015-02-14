@@ -12,7 +12,7 @@ namespace Ares
 {
     public abstract class GroundTile : Tile
     {
-        public GroundTile(Vector2f position, long UID_Builder)
+        public GroundTile(Vector2i position, long UID_Builder)
             : base(position, UID_Builder)
         {
             Walkable = true;

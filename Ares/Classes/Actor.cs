@@ -12,9 +12,9 @@ namespace Ares
 {
     public class Actor
     {
-        public Vector2f Position;
-        public Vector2f Velocity;
-        public float MovementSpeed, DefaultMovementSpeed;
+        public Vector2i Position;
+        public Vector2i Velocity;
+        public int MovementSpeed, DefaultMovementSpeed;
         public string Name = "";
         public int Health, MaxHealth;
 

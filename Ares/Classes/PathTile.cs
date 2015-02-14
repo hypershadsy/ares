@@ -12,14 +12,14 @@ namespace Ares
 {
     public class PathTile : GroundTile
     {
-        public PathTile(Vector2f position, long UID_Builder)
+        public PathTile(Vector2i position, long UID_Builder)
             : base(position, UID_Builder)
         {
         }
 
         public override void Draw()
         {
-            DefaultDraw(Game.pathTexture, false);
+            DefaultDraw(Game.pathTexture);
         }
     }
 }

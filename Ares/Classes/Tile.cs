@@ -12,7 +12,7 @@ namespace Ares
 {
     public class Tile
     {
-        public Vector2f Position;
+        public Vector2i Position;
         public int id;
         public long UID_BUILD;
         public bool Walkable;
@@ -22,11 +22,17 @@ namespace Ares
         {
             get
             {
-                return new Vector2f(Position.X * 30 - (Position.Y * 30), Position.Y * 17 + (Position.X * 17) - 13);
+                int realX = 0;
+                int realY = 0;
+                realX += Position.X * 32;
+                realX -= Position.Y * 32;
+                realY += Position.Y * 16;
+                realY += Position.X * 16;
+                return new Vector2f(realX, realY);
             }
         }
 
-        public Tile(Vector2f position, long UID_Builder)
+        public Tile(Vector2i position, long UID_Builder)
         {
             this.UID_BUILD = UID_Builder;
             Position = position;
@@ -40,21 +46,14 @@ namespace Ares
         {
         }
 
-        protected void DefaultDraw(Texture texture, bool drawTopBlock)
+        protected void DefaultDraw(Texture texture)
         {
             //iso: bottom, then top
             var tOrigin = new Vector2f(0, 0);
             var tFacing = 1;
             var tRot = 0f;
-            Render.Draw(Game.isoBlock, IsoCoords, Color.White, tOrigin, tFacing, tRot);
-            if (drawTopBlock)
-            {
-                var tTopPos = new Vector2f(IsoCoords.X, IsoCoords.Y - 13);
-                Render.Draw(Game.isoBlock, tTopPos, Color.Magenta, tOrigin, tFacing, tRot);
-            }
-
-            //topdown
-            Render.Draw(texture, Position * 32, Color.White, new Vector2f(0, 0), 1, 0);
+            Color tCol = Walkable ? Color.White : Color.Red;
+            Render.Draw(Game.tileBedug, IsoCoords, tCol, tOrigin, tFacing, tRot);
         }
     }
 }

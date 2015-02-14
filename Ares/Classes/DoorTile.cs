@@ -12,7 +12,7 @@ namespace Ares
 {
     public class DoorTile : Tile
     {
-        public DoorTile(Vector2f pos, long builder) :
+        public DoorTile(Vector2i pos, long builder) :
             base(pos, builder)
         {
             Walkable = false;
@@ -20,7 +20,7 @@ namespace Ares
 
         public override void Draw()
         {
-            DefaultDraw(Game.doorClosedTexture, true);
+            DefaultDraw(Game.doorClosedTexture);
         }
     }
 }

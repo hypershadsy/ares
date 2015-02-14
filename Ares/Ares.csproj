@@ -96,6 +96,7 @@
     <Compile Include="Classes\Render.cs" />
     <Compile Include="Classes\Tile.cs" />
     <Compile Include="Classes\WallTile.cs" />
+    <Compile Include="Classes\Extension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bullet.png">

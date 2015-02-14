@@ -12,26 +12,26 @@ namespace Ares
 {
     public class NetPlayer : Player
     {
-        public Vector2f PositionGoal;
+        public Vector2f PositionInter;
 
         public NetPlayer(long uid)
         {
             this.UID = uid;
-            Position = new Vector2f(100, 100);
-            PositionGoal = Position;
+            Position = new Vector2i(100, 100);
+            PositionInter = Position.ToF();
             Name = "Cactus Fantastico";
         }
 
         public override void Update()
         {
-            Vector2f diff = PositionGoal - Position;
-            Position = Position + diff / 2f;
+            Vector2f diff = PositionInter - Position.ToF();
+            PositionInter = Position.ToF() + (diff / 2f);
         }
 
         public override void Draw()
         {
-            Render.Draw(Game.charTexture, Position, Color.Yellow, new Vector2f(0, 0), 1, 0);
-            Render.DrawString(Game.font, Name, Position - new Vector2f(15, 10), Color.White, .3f, true);
+            Render.Draw(Game.charTexture, PositionInter, Color.Yellow, new Vector2f(0, 0), 1, 0);
+            Render.DrawString(Game.font, Name, PositionInter - new Vector2f(15, 10), Color.White, .3f, true);
         }
     }
 }

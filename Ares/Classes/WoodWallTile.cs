@@ -12,14 +12,14 @@ namespace Ares
 {
     public class WoodWallTile : WallTile
     {
-        public WoodWallTile(Vector2f position, long UID_Builder)
+        public WoodWallTile(Vector2i position, long UID_Builder)
             : base(position, UID_Builder)
         {
         }
 
         public override void Draw()
         {
-            DefaultDraw(Game.wallTexture, true);
+            DefaultDraw(Game.wallTexture);
         }
     }
 }

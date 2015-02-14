@@ -12,7 +12,7 @@ namespace Ares
 {
     public abstract class WallTile : Tile
     {
-        public WallTile(Vector2f position, long UID_Builder)
+        public WallTile(Vector2i position, long UID_Builder)
 			: base(position, UID_Builder)
         {
             Walkable = false;
