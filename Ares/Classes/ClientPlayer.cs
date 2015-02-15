@@ -22,25 +22,22 @@ namespace Ares
         public ClientPlayer()
             : base()
         {
-            Position = new Vector2i(500, 500);
-            MovementSpeed = 2;
-            DefaultMovementSpeed = MovementSpeed;
+            Position = new Vector2i(1, 1);
 
             gui = new GUI(this);
-            Name = "Player";
+            Name = "Cactus Fantastico";
         }
 
         public override void Update()
         {
             setUID();
 
-            Helper.moveCameraTo(Game.camera2D, this.Position.ToF(), 0.15f);
-            amingAngle = Helper.AngleBetween(Position.ToF(), Helper.GetWorldMousePosition());
+            Helper.moveCameraTo(Game.camera2D, IsoPosition.ToF(), 0.15f);
+            amingAngle = Helper.AngleBetween(IsoPosition.ToF(), Helper.GetWorldMousePosition());
 
             gui.Update();
 
             HandleControls();
-            HandleMovement();
             HandleBuilding();
 
             HandlePositionSending();
@@ -50,11 +47,10 @@ namespace Ares
 
         public override void Draw()
         {
-            Render.Draw(Game.charTexture, Position.ToF(), Color.White, new Vector2f(16f, 28f), 1, 0);
+            Vector2f origin = new Vector2f(16f, 28f);
+            Render.Draw(Game.charTexture, IsoPosition.ToF(), Color.Red, origin, 1, 0f);
 
-            Render.Draw(Game.charTexture, Position.ToF(), Color.Red, new Vector2f(0, 0), 1, 0f);
-
-            Render.DrawString(Game.font, Name, Position.ToF() - new Vector2f(0, 40), Color.White, 0.3f, true);
+            Render.DrawString(Game.font, Name, IsoPosition.ToF() - new Vector2f(0, 40), Color.White, 0.3f, true);
             DrawBuildPreview();
             base.Draw();
         }
@@ -95,8 +91,8 @@ namespace Ares
             {
                 NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
                 outGoingMessage.Write("FIRE");
-                outGoingMessage.Write(Position.X);
-                outGoingMessage.Write(Position.Y);
+                outGoingMessage.Write(Position.X * 32f);
+                outGoingMessage.Write(Position.Y * 32f);
                 outGoingMessage.Write(amingAngle);
                 outGoingMessage.Write(5f);
 
@@ -123,42 +119,23 @@ namespace Ares
                 buildMode = !buildMode;
             }
 
-            if (Input.isKeyDown(Keyboard.Key.LShift))
+            if (Input.isKeyTap(Keyboard.Key.A))
             {
-                MovementSpeed = 3;
+                Position.X--;
             }
-            else
+            if (Input.isKeyTap(Keyboard.Key.D))
             {
-                MovementSpeed = DefaultMovementSpeed;
-            }
-
-            Velocity = new Vector2i(0, 0); //Reset the velocity
-            if (Input.isKeyDown(Keyboard.Key.A))
-            {
-                Velocity.X = -MovementSpeed;
-            }
-            if (Input.isKeyDown(Keyboard.Key.D))
-            {
-                Velocity.X = MovementSpeed;
+                Position.X++;
             }
 
-            if (Input.isKeyDown(Keyboard.Key.W))
+            if (Input.isKeyTap(Keyboard.Key.W))
             {
-                Velocity.Y = -MovementSpeed;
+                Position.Y--;
             }
-            if (Input.isKeyDown(Keyboard.Key.S))
+            if (Input.isKeyTap(Keyboard.Key.S))
             {
-                Velocity.Y = MovementSpeed;
+                Position.Y++;
             }
-        }
-
-        void HandleMovement()
-        {
-            if (noClip || Game.map.getTileInWorld(Position.X + Velocity.X, Position.Y).Walkable)
-                Position.X += Velocity.X;
-
-            if (noClip || Game.map.getTileInWorld(Position.X, Position.Y + Velocity.Y).Walkable)
-                Position.Y += Velocity.Y;
         }
 
         void HandleBuilding()

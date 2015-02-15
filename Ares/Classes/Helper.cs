@@ -26,6 +26,7 @@ namespace Ares
         {
             Vector2i pixel_pos = Mouse.GetPosition(Game.window);
             Vector2f coord_pos = Game.window.MapPixelToCoords(pixel_pos);
+            //TODO: isometric
 
             return coord_pos;
         }
@@ -38,6 +39,22 @@ namespace Ares
         public static float RadToDeg(float rad)
         {
             return rad * (180f / (float)Math.PI);
+        }
+
+        /// <summary>
+        /// Converts tilespace to isospace.
+        /// Given a position expressed as tile coordinates (e.g. 3,5), get the isometric position at the top
+        /// left hand corner of the tile.
+        /// </summary>
+        public static Vector2i TileToIso(Vector2i tileSpace)
+        {
+            int realX = 0;
+            int realY = 0;
+            realX += tileSpace.X * 32;
+            realX -= tileSpace.Y * 32;
+            realY += tileSpace.Y * 16;
+            realY += tileSpace.X * 16;
+            return new Vector2i(realX, realY);
         }
 
         public static void moveCameraTo(View camera, Vector2f focus, float speed)

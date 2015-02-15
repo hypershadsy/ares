@@ -18,17 +18,11 @@ namespace Ares
         public bool Walkable;
         public bool PillBox;
 
-        public Vector2f IsoCoords
+        public Vector2i IsoCoords
         {
             get
             {
-                int realX = 0;
-                int realY = 0;
-                realX += Position.X * 32;
-                realX -= Position.Y * 32;
-                realY += Position.Y * 16;
-                realY += Position.X * 16;
-                return new Vector2f(realX, realY);
+                return Helper.TileToIso(Position);
             }
         }
 
@@ -49,11 +43,11 @@ namespace Ares
         protected void DefaultDraw(Texture texture)
         {
             //iso: bottom, then top
-            var tOrigin = new Vector2f(0, 0);
+            var tOrigin = new Vector2f(32, 0);
             var tFacing = 1;
             var tRot = 0f;
             Color tCol = Walkable ? Color.White : Color.Red;
-            Render.Draw(Game.tileBedug, IsoCoords, tCol, tOrigin, tFacing, tRot);
+            Render.Draw(Game.tileBedug, IsoCoords.ToF(), tCol, tOrigin, tFacing, tRot);
         }
     }
 }

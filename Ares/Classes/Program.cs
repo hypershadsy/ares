@@ -169,10 +169,10 @@ namespace Ares
                                 break;
 
                             case "POS": //Update a player's position
-                                long UID_POS = msg.ReadInt64();
-                                float xPos = msg.ReadFloat();
-                                float yPos = msg.ReadFloat();
-                                handlePosMessage(UID_POS, (int)xPos, (int)yPos);
+                                var UID_POS = msg.ReadInt64();
+                                var xPos = msg.ReadInt32();
+                                var yPos = msg.ReadInt32();
+                                handlePosMessage(UID_POS, xPos, yPos);
                                 break;
 
                             case "JOIN": //Add a player
