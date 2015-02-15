@@ -20,7 +20,6 @@ namespace Ares
             get
             {
                 Vector2i ret = Helper.TileToIso(Position);
-                ret.X += 32;
                 ret.Y += 16;
                 return ret; //isospace pos of feet standing at center of tile
             }
