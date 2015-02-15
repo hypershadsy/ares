@@ -83,7 +83,7 @@ namespace Ares
 
             camera2D = new View(window.DefaultView);
 
-            camera2D.Zoom(1.5f);
+            camera2D.Zoom(0.5f);
 
             charTexture = new Texture("Content/player.png");
             wallTexture = new Texture("Content/wall.png");
