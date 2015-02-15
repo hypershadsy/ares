@@ -17,20 +17,21 @@ namespace Ares
         public NetPlayer(long uid)
         {
             this.UID = uid;
-            Position = new Vector2i(100, 100);
-            PositionInter = Position.ToF();
+            Position = new Vector2i(1, 1);
+            PositionInter = IsoPosition.ToF();
             Name = "Cactus Fantastico";
         }
 
         public override void Update()
         {
-            Vector2f diff = PositionInter - Position.ToF();
-            PositionInter = Position.ToF() + (diff / 2f);
+            Vector2f diff = PositionInter - IsoPosition.ToF();
+            PositionInter = IsoPosition.ToF() + (diff / 2f);
         }
 
         public override void Draw()
         {
-            Render.Draw(Game.charTexture, PositionInter, Color.Yellow, new Vector2f(0, 0), 1, 0);
+            Vector2f origin = new Vector2f(16f, 28f);
+            Render.Draw(Game.charTexture, PositionInter, Color.Yellow, origin, 1, 0);
             Render.DrawString(Game.font, Name, PositionInter - new Vector2f(15, 10), Color.White, .3f, true);
         }
     }
