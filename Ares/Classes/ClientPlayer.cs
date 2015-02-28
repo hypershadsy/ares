@@ -50,13 +50,12 @@ namespace Ares
         public override void Draw()
         {
             IncrementAnimationFrame();
-            Vector2f origin = new Vector2f(16f, 28f);
+            Vector2f origin = new Vector2f(16f, 40f); //16,40 places his feet approx at the middle of the tile
             //Render.Draw(Game.charTexture, IsoPosition.ToF(), Color.Red, origin, 1, 0f);
 
             Render.DrawAnimation(Game.idletest, IsoPosition.ToF(), Color.White, origin, 1, 3, 1,ref frame, 1);
             
-            
-            Render.DrawString(Game.font, Name, IsoPosition.ToF() - new Vector2f(0, 40), Color.Green, 0.3f, true);
+            Render.DrawString(Game.font, Name, IsoPosition.ToF() - new Vector2f(0, 50), Color.Green, 0.3f, true);
 
             DrawBuildPreview();
             base.Draw();
