@@ -49,12 +49,7 @@ namespace Ares
 
         public override void Draw()
         {
-            frameDelta += (float)Game.deltaTime.TotalMilliseconds;
-            if (frameDelta > 150f)
-            {
-                frameDelta = 0;
-                frame++;
-            }
+            IncrementAnimationFrame();
             Vector2f origin = new Vector2f(16f, 28f);
             //Render.Draw(Game.charTexture, IsoPosition.ToF(), Color.Red, origin, 1, 0f);
 
@@ -65,6 +60,16 @@ namespace Ares
 
             DrawBuildPreview();
             base.Draw();
+        }
+
+        void IncrementAnimationFrame()
+        {
+            frameDelta += (float)Game.deltaTime.TotalMilliseconds;
+            if (frameDelta > 150f)
+            {
+                frameDelta = 0;
+                frame++;
+            }
         }
 
         void HandlePositionSending()
@@ -99,18 +104,6 @@ namespace Ares
 
         void HandleControls()
         {
-            if (Input.isMouseButtonTap(Mouse.Button.Left))
-            {
-                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                outGoingMessage.Write("FIRE");
-                outGoingMessage.Write(Position.X * 32f);
-                outGoingMessage.Write(Position.Y * 32f);
-                outGoingMessage.Write(amingAngle);
-                outGoingMessage.Write(5f);
-
-                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
-            }
-
             if (Input.isKeyTap(Keyboard.Key.Q))
             {
                 currentBlockType -= 1;

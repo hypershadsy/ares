@@ -47,7 +47,9 @@ namespace Ares
             var tFacing = 1;
             var tRot = 0f;
             Color tCol = Walkable ? Color.White : Color.Red;
-            Render.Draw(Game.tileBedug, IsoCoords.ToF(), tCol, tOrigin, tFacing, tRot);
+            if (IsoCoords.X / 32 % 2 == 0)
+                tCol = new Color(190, 190, 190);
+            Render.Draw(Game.woodfloor, IsoCoords.ToF(), tCol, tOrigin, tFacing, tRot);
         }
     }
 }

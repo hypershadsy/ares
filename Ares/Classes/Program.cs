@@ -29,7 +29,7 @@ namespace Ares
         public static NetClient client;
         public static View camera2D;
         public static Font font;
-        public static Texture charTexture, wallTexture, grassTexture, walktest,
+        public static Texture charTexture, wallTexture, grassTexture, walktest, woodfloor,
             doorClosedTexture, pathTexture, bulletTexture, isoBlock, tileBedug, idletest;
 
         public static Map map;
@@ -98,6 +98,7 @@ namespace Ares
             idletest = new Texture("Content/debug/idletest.png");
             walktest = new Texture("Content/debug/walktest.png");
             tileBedug = new Texture("Content/tile/bedug.png");
+            woodfloor = new Texture("Content/tile/woodfloor.png");
 
             //Initialize
             NetPeerConfiguration config = new NetPeerConfiguration("ares");
