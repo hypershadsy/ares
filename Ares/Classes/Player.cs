@@ -14,6 +14,9 @@ namespace Ares
     {
         public long UID;
 
+        protected int frame = 0;
+        protected float frameDelta = 0;
+
         public Player()
         {
         }
@@ -24,6 +27,16 @@ namespace Ares
 
         public virtual void Draw()
         {
+        }
+
+        protected void IncrementAnimationFrame()
+        {
+            frameDelta += (float)Game.deltaTime.TotalMilliseconds;
+            if (frameDelta > 150f)
+            {
+                frameDelta = 0;
+                frame++;
+            }
         }
     }
 }

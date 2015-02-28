@@ -18,8 +18,7 @@ namespace Ares
         public bool buildMode = false;
         public float amingAngle = 0;
         public bool noClip = false;
-        public int frame = 0;
-        public float frameDelta = 0;
+        
 
         public ClientPlayer()
             : base()
@@ -61,15 +60,7 @@ namespace Ares
             base.Draw();
         }
 
-        void IncrementAnimationFrame()
-        {
-            frameDelta += (float)Game.deltaTime.TotalMilliseconds;
-            if (frameDelta > 150f)
-            {
-                frameDelta = 0;
-                frame++;
-            }
-        }
+        
 
         void HandlePositionSending()
         {
