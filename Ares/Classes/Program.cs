@@ -29,7 +29,9 @@ namespace Ares
         public static NetClient client;
         public static View camera2D;
         public static Font font;
-        public static Texture charTexture, wallTexture, grassTexture, doorClosedTexture, pathTexture, bulletTexture, isoBlock, tileBedug;
+        public static Texture charTexture, wallTexture, grassTexture, walktest,
+            doorClosedTexture, pathTexture, bulletTexture, isoBlock, tileBedug, idletest;
+
         public static Map map;
 
         static void Main(string[] args)
@@ -93,6 +95,8 @@ namespace Ares
             bulletTexture = new Texture("Content/bullet.png");
             isoBlock = new Texture("Content/isoBlock.png");
             font = new Font("Content/Font1.ttf");
+            idletest = new Texture("Content/debug/idletest.png");
+            walktest = new Texture("Content/debug/walktest.png");
             tileBedug = new Texture("Content/tile/bedug.png");
 
             //Initialize

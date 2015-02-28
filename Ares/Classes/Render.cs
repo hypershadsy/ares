@@ -36,7 +36,7 @@ namespace Ares
             Game.window.Draw(text);
         }
 
-        public static void DrawAnimation(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, int frames, int rows, int currentFrame, int frameRow)
+        public static void DrawAnimation(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, int frames, int rows, ref int currentFrame, int frameRow)
         {
             Sprite sprite = new Sprite(texture);
             sprite.Scale = new Vector2f(facing, 1);

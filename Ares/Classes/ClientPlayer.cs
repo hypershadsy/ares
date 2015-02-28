@@ -18,6 +18,8 @@ namespace Ares
         public bool buildMode = false;
         public float amingAngle = 0;
         public bool noClip = false;
+        public int frame = 0;
+        public float frameDelta = 0;
 
         public ClientPlayer()
             : base()
@@ -47,10 +49,20 @@ namespace Ares
 
         public override void Draw()
         {
+            frameDelta += (float)Game.deltaTime.TotalMilliseconds;
+            if (frameDelta > 150f)
+            {
+                frameDelta = 0;
+                frame++;
+            }
             Vector2f origin = new Vector2f(16f, 28f);
-            Render.Draw(Game.charTexture, IsoPosition.ToF(), Color.Red, origin, 1, 0f);
+            //Render.Draw(Game.charTexture, IsoPosition.ToF(), Color.Red, origin, 1, 0f);
 
-            Render.DrawString(Game.font, Name, IsoPosition.ToF() - new Vector2f(0, 40), Color.White, 0.3f, true);
+            Render.DrawAnimation(Game.idletest, IsoPosition.ToF(), Color.White, origin, 1, 3, 1,ref frame, 1);
+            
+            
+            Render.DrawString(Game.font, Name, IsoPosition.ToF() - new Vector2f(0, 40), Color.Green, 0.3f, true);
+
             DrawBuildPreview();
             base.Draw();
         }
