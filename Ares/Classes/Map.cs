@@ -43,21 +43,6 @@ namespace Ares
                 }
             }
 
-            for (int x = 0; x < topWalls.GetLength(0); x++)
-            {
-                for (int y = 0; y < topWalls.GetLength(1); y++)
-                {
-                    topWalls[x, y] = null;
-                }
-            }
-            for (int x = 0; x < leftWalls.GetLength(0); x++)
-            {
-                for (int y = 0; y < leftWalls.GetLength(1); y++)
-                {
-                    leftWalls[x, y] = null;
-                }
-            }
-
             HARDCODEWALLS();
             
         }
