@@ -15,7 +15,6 @@ namespace Ares
         public GUI gui;
         public int currentBlockType = 1;
         public bool buildMode = false;
-        public float amingAngle = 0;
         public bool noClip = false;
         
 
@@ -33,7 +32,6 @@ namespace Ares
             setUID();
 
             Helper.moveCameraTo(Game.camera2D, IsoPosition.ToF(), 0.15f);
-            amingAngle = Helper.AngleBetween(IsoPosition.ToF(), Helper.GetWorldMousePosition());
 
             gui.Update();
 
