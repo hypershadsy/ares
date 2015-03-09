@@ -13,10 +13,7 @@ namespace Ares
     public class ClientPlayer : Player
     {
         public GUI gui;
-        public int currentBlockType = 1;
-        public bool buildMode = false;
         public bool noClip = false;
-        
 
         public ClientPlayer()
             : base()
@@ -50,42 +47,11 @@ namespace Ares
             
             Render.DrawString(Game.font, Name, IsoPosition.ToF() - new Vector2f(0, 50), Color.Green, 0.3f, true);
 
-            DrawBuildPreview();
             base.Draw();
-        }
-
-        
-        void DrawBuildPreview()
-        {
-            if (buildMode)
-            {
-                Vector2i standingTile = new Vector2i((int)(Position.X / 32), (int)(Position.Y / 32));
-
-                Vector2i prevN = standingTile + new Vector2i(0, -1);
-                Vector2i prevE = standingTile + new Vector2i(1, 0);
-                Vector2i prevS = standingTile + new Vector2i(0, 1);
-                Vector2i prevW = standingTile + new Vector2i(-1, 0);
-
-                foreach (Vector2i prev in new Vector2i[] { prevN, prevE, prevS, prevW }) {
-                    Vector2f prevWorld = new Vector2f(prev.X * 32, prev.Y * 32);
-                    Render.Draw(Game.wallTexture, prevWorld, new Color(50, 50, 50, 100), new Vector2f(0, 0), 1, 0);
-                }
-            }
-
         }
 
         void HandleControls()
         {
-            if (Input.isKeyTap(Keyboard.Key.Q))
-            {
-                currentBlockType -= 1;
-            }
-
-            if (Input.isKeyTap(Keyboard.Key.E))
-            {
-                currentBlockType += 1;
-            }
-
             if (Input.isKeyTap(Keyboard.Key.N))
             {
                 noClip = !noClip;
