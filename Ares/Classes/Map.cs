@@ -57,6 +57,8 @@ namespace Ares
                     leftWalls[x, y] = null;
                 }
             }
+
+            topWalls[4, 4] = new BrickWall( new Vector2i(4, 4));
         }
 
         public void Update()
