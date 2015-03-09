@@ -66,16 +66,16 @@ namespace Ares
         {
             for (int i = 0; i < 20; i++)
             {
-                leftWalls[0, i] = new RedBrick(new Vector2i(0, i), true);
+                leftWalls[0, i] = new RedBrickWall(new Vector2i(0, i), true);
             }
             for (int i = 0; i < 20; i++)
             {
-                leftWalls[20, i] = new RedBrick(new Vector2i(20, i), true);
+                leftWalls[20, i] = new RedBrickWall(new Vector2i(20, i), true);
             }
 
             for (int i = 0; i < 20; i++)
             {
-                topWalls[i, 0] = new RedBrick(new Vector2i(i, 0), false);
+                topWalls[i, 0] = new RedBrickWall(new Vector2i(i, 0), false);
             }
 
         }

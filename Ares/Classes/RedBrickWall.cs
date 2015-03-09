@@ -10,9 +10,9 @@ using Lidgren.Network;
 
 namespace Ares
 {
-    public class RedBrick : Wall
+    public class RedBrickWall : Wall
     {
-        public RedBrick(Vector2i position, bool leftFacing)
+        public RedBrickWall(Vector2i position, bool leftFacing)
             : base(position, leftFacing)
         {
         }

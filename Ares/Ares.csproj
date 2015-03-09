@@ -75,7 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Actor.cs" />
-    <Compile Include="Classes\BrickWall.cs" />
+    <Compile Include="Classes\RedBrickWall.cs" />
     <Compile Include="Classes\Chat.cs" />
     <Compile Include="Classes\ClientPlayer.cs" />
     <Compile Include="Classes\GameObject.cs" />

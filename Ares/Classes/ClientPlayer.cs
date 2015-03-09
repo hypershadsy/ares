@@ -12,7 +12,6 @@ namespace Ares
 {
     public class ClientPlayer : Player
     {
-        DateTime lastPosSent;
         public GUI gui;
         public int currentBlockType = 1;
         public bool buildMode = false;
@@ -40,8 +39,6 @@ namespace Ares
 
             HandleControls();
 
-            HandlePositionSending();
-
             base.Update();
         }
 
@@ -60,18 +57,6 @@ namespace Ares
         }
 
         
-
-        void HandlePositionSending()
-        {
-            //var sinceLastPosSent = DateTime.Now - lastPosSent;
-            //if (sinceLastPosSent.TotalMilliseconds >= 50)
-            //{
-            //    sendPos();
-
-            //    lastPosSent = DateTime.Now;
-            //}
-        }
-
         void DrawBuildPreview()
         {
             if (buildMode)
@@ -110,30 +95,34 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.A))
             {
+                sendPos(new Vector2i(Position.X - 1, Position.Y));
                 //Position.X--;
             }
             if (Input.isKeyTap(Keyboard.Key.D))
             {
+                sendPos(new Vector2i(Position.X + 1, Position.Y));
                 //Position.X++;
             }
 
             if (Input.isKeyTap(Keyboard.Key.W))
             {
+                sendPos(new Vector2i(Position.X, Position.Y - 1));
                 //Position.Y--;
             }
             if (Input.isKeyTap(Keyboard.Key.S))
             {
+                sendPos(new Vector2i(Position.X, Position.Y + 1));
                 //Position.Y++;
             }
         }
 
 
-        private void sendPos()
+        private void sendPos(Vector2i pos)
         {
             NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
             outGoingMessage.Write("POS");
-            outGoingMessage.Write(Position.X);
-            outGoingMessage.Write(Position.Y);
+            outGoingMessage.Write(pos.X);
+            outGoingMessage.Write(pos.Y);
 
             Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
         }

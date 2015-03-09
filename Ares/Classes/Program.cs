@@ -233,7 +233,7 @@ namespace Ares
 
         private static void handlePosMessage(long uid, int x, int y)
         {
-            NetPlayer plr = (NetPlayer)getPlayerWithUID(uid);
+            Actor plr = getPlayerWithUID(uid);
             if (plr != null) //stale POS message, player is already gone?
             {
                 plr.Position = new Vector2i(x, y);
