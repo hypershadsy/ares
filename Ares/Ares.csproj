@@ -79,7 +79,6 @@
     <Compile Include="Classes\Chat.cs" />
     <Compile Include="Classes\ClientPlayer.cs" />
     <Compile Include="Classes\GameObject.cs" />
-    <Compile Include="Classes\FloorTile.cs" />
     <Compile Include="Classes\GUI.cs" />
     <Compile Include="Classes\Helper.cs" />
     <Compile Include="Classes\Input.cs" />
@@ -92,6 +91,7 @@
     <Compile Include="Classes\Render.cs" />
     <Compile Include="Classes\Tile.cs" />
     <Compile Include="Classes\Extension.cs" />
+    <Compile Include="Classes\WoodTile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bullet.png">
