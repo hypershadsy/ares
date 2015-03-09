@@ -192,18 +192,9 @@ namespace Ares
                                 string message = msg.ReadString();
                                 handleChatMessage(UID_CHAT, message);
                                 break;
-
                             case "PART": //Remove a player
                                 long UID_PART = msg.ReadInt64();
                                 handlePartMessage(UID_PART);
-                                break;
-                            case "BUILD": //Remove a player
-                                long UID_BUILD = msg.ReadInt64();
-                                int X_BUILD = msg.ReadInt32();
-                                int Y_BUILD = msg.ReadInt32();
-                                int TYPE_BUILD = msg.ReadInt32();
-
-                                handleBuildMessage(UID_BUILD, X_BUILD, Y_BUILD, TYPE_BUILD);
                                 break;
                         }
                         //}
@@ -214,11 +205,6 @@ namespace Ares
                 }
                 Game.client.Recycle(msg);
             }
-        }
-
-        private static void handleBuildMessage(long uid, int x, int y, int type)
-        {
-            map.addTile(x, y, type, uid);
         }
 
         private static void handleLifeMessage(long uid, int health)
