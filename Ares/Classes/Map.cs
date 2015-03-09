@@ -13,10 +13,10 @@ namespace Ares
     public class Map
     {
         private Tile[,] tiles;
-        
+
         private Wall[,] topWalls;
         private Wall[,] leftWalls;
-        
+
         public List<Player> Players = new List<Player>();
         public List<GameObject> GameObjects = new List<GameObject>();
         public ClientPlayer ClientPlayer;
@@ -25,6 +25,10 @@ namespace Ares
         {
             ClientPlayer = new ClientPlayer();
             tiles = new Tile[size, size];
+
+            topWalls = new Wall[size + 1, size + 1];
+            leftWalls = new Wall[size + 1, size + 1];
+
             Load();
             Players.Add(ClientPlayer);
         }
@@ -43,14 +47,14 @@ namespace Ares
             {
                 for (int y = 0; y < topWalls.GetLength(1); y++)
                 {
-                    tiles[x, y] = null;
+                    topWalls[x, y] = null;
                 }
             }
             for (int x = 0; x < leftWalls.GetLength(0); x++)
             {
                 for (int y = 0; y < leftWalls.GetLength(1); y++)
                 {
-                    tiles[x, y] = null;
+                    leftWalls[x, y] = null;
                 }
             }
         }
