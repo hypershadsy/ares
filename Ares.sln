@@ -14,6 +14,9 @@ Global
 		{5556D3DA-C271-4374-87A3-211E2F83721C}.Release|x86.ActiveCfg = Release|x86
 		{5556D3DA-C271-4374-87A3-211E2F83721C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Ares\Ares.csproj
 		Policies = $0
@@ -184,8 +187,5 @@ Global
 		$27.NamingStyle = PascalCase
 		$27.IncludeInstanceMembers = True
 		$27.IncludeStaticEntities = True
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

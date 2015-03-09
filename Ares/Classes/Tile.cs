@@ -13,7 +13,6 @@ namespace Ares
     public class Tile
     {
         public Vector2i Position;
-        public int id;
         public long UID_BUILD;
         public bool Walkable;
         public bool PillBox;

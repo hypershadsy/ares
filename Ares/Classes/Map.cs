@@ -13,6 +13,10 @@ namespace Ares
     public class Map
     {
         private Tile[,] tiles;
+        
+        private Wall[,] topWalls;
+        private Wall[,] leftWalls;
+        
         public List<Player> Players = new List<Player>();
         public List<GameObject> GameObjects = new List<GameObject>();
         public ClientPlayer ClientPlayer;
@@ -31,7 +35,22 @@ namespace Ares
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    tiles[x, y] = new GrassTile(new Vector2i(x, y), -1);
+                    tiles[x, y] = new FloorTile(new Vector2i(x, y), -1);
+                }
+            }
+
+            for (int x = 0; x < topWalls.GetLength(0); x++)
+            {
+                for (int y = 0; y < topWalls.GetLength(1); y++)
+                {
+                    tiles[x, y] = null;
+                }
+            }
+            for (int x = 0; x < leftWalls.GetLength(0); x++)
+            {
+                for (int y = 0; y < leftWalls.GetLength(1); y++)
+                {
+                    tiles[x, y] = null;
                 }
             }
         }
@@ -124,16 +143,7 @@ namespace Ares
                 switch (id)
                 {
                     case 0:
-                        tiles[x, y] = new GrassTile(new Vector2i(x, y), UID);
-                        break;
-                    case 1:
-                        tiles[x, y] = new WoodWallTile(new Vector2i(x, y), UID);
-                        break;
-                    case 2:
-                        tiles[x, y] = new DoorTile(new Vector2i(x, y), UID);
-                        break;
-                    case 3:
-                        tiles[x, y] = new PathTile(new Vector2i(x, y), UID);
+                        tiles[x, y] = new FloorTile(new Vector2i(x, y), UID);
                         break;
                 }
             }

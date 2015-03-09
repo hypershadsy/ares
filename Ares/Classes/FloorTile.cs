@@ -10,9 +10,9 @@ using Lidgren.Network;
 
 namespace Ares
 {
-    public class GrassTile : GroundTile
+    public class FloorTile : Tile
     {
-        public GrassTile(Vector2i position, long UID_Builder)
+        public FloorTile(Vector2i position, long UID_Builder)
             : base(position, UID_Builder)
         {
         }
