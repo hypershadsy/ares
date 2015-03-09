@@ -41,14 +41,13 @@ namespace Ares
 
         protected void DefaultDraw(Texture texture)
         {
-            //iso: bottom, then top
-            var wOrigin = new Vector2f(32, 0);
-            var wFacing = 1;
-            var wRot = 0f;
-            Color wCol = Color.White;//= Walkable ? Color.White : Color.Red;
+            var tOrigin = new Vector2f(32, 0);
+            var tRot = 0f;
+            Color tCol = Color.White;
             if (IsoCoords.X / 32 % 2 == 0)
-                wCol = new Color(190, 190, 190);
-            Render.Draw(Game.woodfloor, IsoCoords.ToF(), wCol, wOrigin, wFacing, wRot);
+                tCol = new Color(190, 190, 190);
+            int tFacing = LeftFacing ? 1 : -1;
+            Render.Draw(texture, IsoCoords.ToF(), tCol, tOrigin, tFacing, tRot);
         }
 
     }
