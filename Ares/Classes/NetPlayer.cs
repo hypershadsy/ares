@@ -35,7 +35,7 @@ namespace Ares
             //Render.DrawString(Game.font, Name, PositionInter - new Vector2f(15, 10), Color.White, .3f, true);
 
             IncrementAnimationFrame();
-            Vector2f origin = new Vector2f(16f, 40f); //16,40 places his feet approx at the middle of the tile
+            Vector2f origin = new Vector2f(12f, 55f); //12,55 places his feet approx at the middle of the tile
 
             Render.DrawAnimation(Game.idletest, IsoPosition.ToF(), Color.White, origin, 1, 3, 1, ref frame, 1);
 

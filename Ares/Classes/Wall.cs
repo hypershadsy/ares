@@ -41,7 +41,7 @@ namespace Ares
 
         protected void DefaultDraw(Texture texture)
         {
-            var tOrigin = new Vector2f(32, 0);
+            var tOrigin = new Vector2f(32f, 47f);
             var tRot = 0f;
             Color tCol = Color.White;
             if (IsoCoords.X / 32 % 2 == 0)
