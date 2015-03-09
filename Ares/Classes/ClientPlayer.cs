@@ -39,7 +39,6 @@ namespace Ares
             gui.Update();
 
             HandleControls();
-            HandleBuilding();
 
             HandlePositionSending();
 
@@ -64,13 +63,13 @@ namespace Ares
 
         void HandlePositionSending()
         {
-            var sinceLastPosSent = DateTime.Now - lastPosSent;
-            if (sinceLastPosSent.TotalMilliseconds >= 50)
-            {
-                sendPos();
+            //var sinceLastPosSent = DateTime.Now - lastPosSent;
+            //if (sinceLastPosSent.TotalMilliseconds >= 50)
+            //{
+            //    sendPos();
 
-                lastPosSent = DateTime.Now;
-            }
+            //    lastPosSent = DateTime.Now;
+            //}
         }
 
         void DrawBuildPreview()
@@ -109,77 +108,25 @@ namespace Ares
                 noClip = !noClip;
             }
 
-            if (Input.isKeyTap(Keyboard.Key.B))
-            {
-                buildMode = !buildMode;
-            }
-
             if (Input.isKeyTap(Keyboard.Key.A))
             {
-                Position.X--;
+                //Position.X--;
             }
             if (Input.isKeyTap(Keyboard.Key.D))
             {
-                Position.X++;
+                //Position.X++;
             }
 
             if (Input.isKeyTap(Keyboard.Key.W))
             {
-                Position.Y--;
+                //Position.Y--;
             }
             if (Input.isKeyTap(Keyboard.Key.S))
             {
-                Position.Y++;
+                //Position.Y++;
             }
         }
 
-        void HandleBuilding()
-        {
-            if (Input.isKeyDown(Keyboard.Key.LControl))
-            {
-                currentBlockType = 0;
-            }
-
-            if (buildMode)
-            {
-                bool didBuild = false;
-                //player's standing tile
-                Vector2i placePos = new Vector2i((int)(Position.X / 32), (int)(Position.Y / 32));
-
-                if (Input.isKeyTap(Keyboard.Key.Up))
-                {
-                    placePos.Y--;
-                    didBuild = true;
-                }
-                if (Input.isKeyTap(Keyboard.Key.Left))
-                {
-                    placePos.X--;
-                    didBuild = true;
-                }
-                if (Input.isKeyTap(Keyboard.Key.Right))
-                {
-                    placePos.X++;
-                    didBuild = true;
-                }
-                if (Input.isKeyTap(Keyboard.Key.Down))
-                {
-                    placePos.Y++;
-                    didBuild = true;
-                }
-
-                if (didBuild)
-                {
-                    NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                    outGoingMessage.Write("BUILD");
-                    outGoingMessage.Write(placePos.X);
-                    outGoingMessage.Write(placePos.Y);
-                    outGoingMessage.Write(currentBlockType);
-
-                    Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
-                }
-            }
-
-        }
 
         private void sendPos()
         {
@@ -188,7 +135,7 @@ namespace Ares
             outGoingMessage.Write(Position.X);
             outGoingMessage.Write(Position.Y);
 
-            Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.Unreliable);
+            Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
         }
 
         private void setUID()

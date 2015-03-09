@@ -58,7 +58,26 @@ namespace Ares
                 }
             }
 
-            topWalls[4, 4] = new BrickWall( new Vector2i(4, 4));
+            HARDCODEWALLS();
+            
+        }
+
+        private void HARDCODEWALLS() //Delete this eventually
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                leftWalls[0, i] = new RedBrick(new Vector2i(0, i), true);
+            }
+            for (int i = 0; i < 20; i++)
+            {
+                leftWalls[20, i] = new RedBrick(new Vector2i(20, i), true);
+            }
+
+            for (int i = 0; i < 20; i++)
+            {
+                topWalls[i, 0] = new RedBrick(new Vector2i(i, 0), false);
+            }
+
         }
 
         public void Update()
@@ -71,6 +90,7 @@ namespace Ares
         public void Draw()
         {
             DrawTiles();
+            DrawWalls();
             DrawPlayers();
             DrawGameObjects();
         }
@@ -105,6 +125,30 @@ namespace Ares
                     Tile thisTile = tiles[x, y];
                     //if (Helper.Distance(thisTile.Position * 32, ClientPlayer.Position) < 300) //draw distance
                     thisTile.Draw();
+                }
+            }
+        }
+
+        private void DrawWalls() //Not for future use: Must be rewritten for draw order
+        {
+            for (int x = 0; x < leftWalls.GetLength(0); x++)
+            {
+                for (int y = 0; y < leftWalls.GetLength(1); y++)
+                {
+                    Wall thisWall = leftWalls[x, y];
+                    //if (Helper.Distance(thisTile.Position * 32, ClientPlayer.Position) < 300) //draw distance
+                    if (thisWall != null)
+                        thisWall.Draw();
+                }
+            }
+            for (int x = 0; x < topWalls.GetLength(0); x++)
+            {
+                for (int y = 0; y < topWalls.GetLength(1); y++)
+                {
+                    Wall thisWall = topWalls[x, y];
+                    //if (Helper.Distance(thisTile.Position * 32, ClientPlayer.Position) < 300) //draw distance
+                    if (thisWall != null)
+                        thisWall.Draw();
                 }
             }
         }
