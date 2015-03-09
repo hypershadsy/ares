@@ -203,16 +203,6 @@ namespace Ares
 
                                 handleBuildMessage(UID_BUILD, X_BUILD, Y_BUILD, TYPE_BUILD);
                                 break;
-                            case "FIRE": //Remove a player
-                                long FIRE_UID = msg.ReadInt64();
-                                float X_FIRE = msg.ReadFloat();
-                                float Y_FIRE = msg.ReadFloat();
-                                float FIRE_Angle = msg.ReadFloat();
-                                float FIRE_Speed = msg.ReadFloat();
-                                
-
-                                handleFireMessage(FIRE_UID, X_FIRE, Y_FIRE, FIRE_Angle, FIRE_Speed);
-                                break;
                         }
                         //}
                         break;
@@ -222,11 +212,6 @@ namespace Ares
                 }
                 Game.client.Recycle(msg);
             }
-        }
-
-        public static void handleFireMessage(long UID_FIRE, float X_FIRE, float Y_FIRE, float FIRE_Angle, float FIRE_Speed)
-        {
-            map.GameObjects.Add(new Bullet(new Vector2f(X_FIRE, Y_FIRE), FIRE_Angle, FIRE_Speed, UID_FIRE));
         }
 
         private static void handleBuildMessage(long uid, int x, int y, int type)
