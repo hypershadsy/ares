@@ -10,7 +10,7 @@ using Lidgren.Network;
 
 namespace Ares
 {
-    public class Render
+    public static class Render
     {
         //TODO: fix facing origin (-1 doesn't reflect about its center)
         public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation)
