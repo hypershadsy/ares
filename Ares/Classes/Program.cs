@@ -132,6 +132,7 @@ namespace Ares
             window.SetView(window.DefaultView);
 
             DrawOnGUI();
+            Render.SpitToWindow();
             window.Display();
         }
 

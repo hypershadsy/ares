@@ -12,17 +12,21 @@ namespace Ares
 {
     public static class Render
     {
+        public static List<LayeredSprite> spriteBatch = new List<LayeredSprite>();
+
         //TODO: fix facing origin (-1 doesn't reflect about its center)
-        public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation)
+        public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, float depth = 0.0f)
         {
-            Sprite sprite = new Sprite(texture);
+            LayeredSprite sprite = new LayeredSprite(texture);
             sprite.Texture.Smooth = false;
             sprite.Scale = new Vector2f(facing, 1);
             sprite.Origin = origin;
             sprite.Position = position;
             sprite.Color = color;
             sprite.Rotation = rotation;
-            Game.window.Draw(sprite);
+            sprite.Layer = depth;
+            //TODO: if we don't care about the depth, skip the list and draw anyway
+            spriteBatch.Add(sprite);
         }
 
         public static void DrawString(Font font, String message, Vector2f position, Color color, float scale, bool centered)
@@ -61,6 +65,20 @@ namespace Ares
             source.Height = heightOfFrame;
 
             return source;
+        }
+
+        public static void SpitToWindow()
+        {
+            spriteBatch.Sort((x, y) => {
+                return x.Layer.CompareTo(y.Layer);
+            });
+
+            foreach (LayeredSprite sprite in spriteBatch)
+            {
+                Game.window.Draw(sprite);
+            }
+
+            spriteBatch.Clear();
         }
     }
 }
