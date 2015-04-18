@@ -126,13 +126,13 @@ namespace Ares
             Input.Update();
             map.Update();
             map.Draw();
+            Render.SpitToWindow();
 
             oldDateTime = DateTime.Now;
 
             window.SetView(window.DefaultView);
 
             DrawOnGUI();
-            Render.SpitToWindow();
             window.Display();
         }
 
