@@ -93,7 +93,7 @@
     <Compile Include="Classes\Tile.cs" />
     <Compile Include="Classes\Extension.cs" />
     <Compile Include="Classes\WoodTile.cs" />
-    <Compile Include="Classes\SortedSprite.cs" />
+    <Compile Include="Classes\LayeredSprite.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bullet.png">
