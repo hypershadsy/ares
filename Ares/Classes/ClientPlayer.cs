@@ -43,7 +43,7 @@ namespace Ares
             Vector2f origin = new Vector2f(12f, 55f); //12,55 places his feet approx at the middle of the tile
             //Render.Draw(Game.charTexture, IsoPosition.ToF(), Color.Red, origin, 1, 0f);
 
-            Render.DrawAnimation(Game.idletest, IsoPosition.ToF(), Color.White, origin, 1, 3, 1,ref frame, 1);
+            Render.DrawAnimation(Game.idletest, IsoPosition.ToF(), Color.White, origin, 1, 3, 1, frame, 1);
             
             Render.DrawString(Game.font, Name, IsoPosition.ToF() - new Vector2f(0, 50), Color.Green, 0.3f, true);
 

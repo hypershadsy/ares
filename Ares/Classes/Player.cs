@@ -36,6 +36,7 @@ namespace Ares
             {
                 frameDelta = 0;
                 frame++;
+                frame %= 3; //total frames
             }
         }
     }

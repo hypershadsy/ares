@@ -14,19 +14,9 @@ namespace Ares
     {
         public static List<LayeredSprite> spriteBatch = new List<LayeredSprite>();
 
-        //TODO: fix facing origin (-1 doesn't reflect about its center)
-        public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, float depth = 0.0f)
+        public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, float layer = 0.0f)
         {
-            LayeredSprite sprite = new LayeredSprite(texture);
-            sprite.Texture.Smooth = false;
-            sprite.Scale = new Vector2f(facing, 1);
-            sprite.Origin = origin;
-            sprite.Position = position;
-            sprite.Color = color;
-            sprite.Rotation = rotation;
-            sprite.Layer = depth;
-            //TODO: if we don't care about the depth, skip the list and draw anyway
-            spriteBatch.Add(sprite);
+            DrawGeneric(texture, position, color, origin, facing, rotation, null, layer);
         }
 
         public static void DrawString(Font font, String message, Vector2f position, Color color, float scale, bool centered)
@@ -40,31 +30,38 @@ namespace Ares
             Game.window.Draw(text);
         }
 
-        public static void DrawAnimation(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, int frames, int rows, ref int currentFrame, int frameRow)
+        public static void DrawAnimation(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, int totalFrames, int totalRows, int currentFrame, int currentRow, float layer = 0.0f)
         {
-            Sprite sprite = new Sprite(texture);
+            int widthOfFrame = (int)(texture.Size.X / totalFrames);
+            int heightOfFrame = (int)(texture.Size.Y / totalRows);
+
+            IntRect source = new IntRect(
+                widthOfFrame * currentFrame,
+                heightOfFrame * (currentRow - 1),
+                widthOfFrame,
+                heightOfFrame
+            );
+
+            DrawGeneric(texture, position, color, origin, facing, 0f, source, layer);
+        }
+
+        //TODO: fix facing origin (-1 doesn't reflect about its center)
+        private static void DrawGeneric(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, IntRect? textureRect, float layer)
+        {
+            LayeredSprite sprite = new LayeredSprite(texture);
+            sprite.Texture.Smooth = false;
             sprite.Scale = new Vector2f(facing, 1);
             sprite.Origin = origin;
             sprite.Position = position;
             sprite.Color = color;
-            sprite.TextureRect = RunAnimation(sprite, (int)(sprite.Texture.Size.X / frames), (int)(sprite.Texture.Size.Y), ref currentFrame, frameRow, rows);
-            Game.window.Draw(sprite);
-        }
-
-        private static IntRect RunAnimation(Sprite texture, int widthOfFrame, int heightOfFrame, ref int CurrFrame, int currentRow, int totalRows)
-        {
-            IntRect source = new IntRect(0, 0, 0, 0);
-
-            if (CurrFrame >= (texture.Texture.Size.X / widthOfFrame))
-                CurrFrame = 0;
-
-            source.Left = (CurrFrame * widthOfFrame);
-            source.Width = widthOfFrame;
-            heightOfFrame = (int)texture.Texture.Size.Y / totalRows;
-            source.Top = (int)((heightOfFrame) * (currentRow - 1));
-            source.Height = heightOfFrame;
-
-            return source;
+            sprite.Rotation = rotation;
+            if (textureRect.HasValue)
+            {
+                sprite.TextureRect = textureRect.Value;
+            }
+            sprite.Layer = layer;
+            //TODO: if we don't care about the depth, skip the list and draw anyway
+            spriteBatch.Add(sprite);
         }
 
         public static void SpitToWindow()
