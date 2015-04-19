@@ -41,7 +41,7 @@ namespace Ares
 
             IntRect source = new IntRect(
                 widthOfFrame * currentFrame,
-                heightOfFrame * (currentRow - 1),
+                heightOfFrame * currentRow,
                 widthOfFrame,
                 heightOfFrame
             );
