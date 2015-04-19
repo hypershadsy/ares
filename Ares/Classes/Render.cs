@@ -12,14 +12,14 @@ namespace Ares
 {
     public static class Render
     {
-        public static List<LayeredSprite> spriteBatch = new List<LayeredSprite>();
+        public static List<LayeredDrawable> spriteBatch = new List<LayeredDrawable>();
 
         public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, float layer = 0.0f)
         {
-            DrawGeneric(texture, position, color, origin, facing, rotation, null, layer);
+            DrawGenericTexture(texture, position, color, origin, facing, rotation, null, layer);
         }
 
-        public static void DrawString(Font font, String message, Vector2f position, Color color, float scale, bool centered)
+        public static void DrawString(Font font, String message, Vector2f position, Color color, float scale, bool centered, float layer = 0.0f)
         {
             Text text = new Text(message, font);
             text.Scale = new Vector2f(scale, scale);
@@ -27,7 +27,11 @@ namespace Ares
             text.Color = color;
             if (centered)
                 text.Position = new Vector2f(text.Position.X - ((text.GetLocalBounds().Width * scale) / 2), text.Position.Y);
-            Game.window.Draw(text);
+
+            LayeredDrawable layeredText = new LayeredDrawable();
+            layeredText.Layer = layer;
+            layeredText.Drawable = text;
+            spriteBatch.Add(layeredText);
         }
 
         public static void DrawAnimation(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, int totalFrames, int totalRows, int currentFrame, int currentRow, float layer = 0.0f)
@@ -42,13 +46,13 @@ namespace Ares
                 heightOfFrame
             );
 
-            DrawGeneric(texture, position, color, origin, facing, 0f, source, layer);
+            DrawGenericTexture(texture, position, color, origin, facing, 0f, source, layer);
         }
 
         //TODO: fix facing origin (-1 doesn't reflect about its center)
-        private static void DrawGeneric(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, IntRect? textureRect, float layer)
+        private static void DrawGenericTexture(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, IntRect? textureRect, float layer)
         {
-            LayeredSprite sprite = new LayeredSprite(texture);
+            Sprite sprite = new Sprite(texture);
             sprite.Texture.Smooth = false;
             sprite.Scale = new Vector2f(facing, 1);
             sprite.Origin = origin;
@@ -59,20 +63,22 @@ namespace Ares
             {
                 sprite.TextureRect = textureRect.Value;
             }
-            sprite.Layer = layer;
-            //TODO: if we don't care about the depth, skip the list and draw anyway
-            spriteBatch.Add(sprite);
+
+            LayeredDrawable layeredSprite = new LayeredDrawable();
+            layeredSprite.Drawable = sprite;
+            layeredSprite.Layer = layer;
+            spriteBatch.Add(layeredSprite);
         }
 
         public static void SpitToWindow()
         {
-            spriteBatch.Sort((x, y) => {
-                return x.Layer.CompareTo(y.Layer);
-            });
+            spriteBatch.OrderBy(drawable => drawable.Layer); //stable sort, 0 near, 1 far
 
-            foreach (LayeredSprite sprite in spriteBatch)
+            //TODO: if we don't care about the depth, skip the list and draw anyway
+            foreach (LayeredDrawable layered in spriteBatch)
             {
-                Game.window.Draw(sprite);
+                Drawable drawable = layered.Drawable;
+                Game.window.Draw(drawable);
             }
 
             spriteBatch.Clear();

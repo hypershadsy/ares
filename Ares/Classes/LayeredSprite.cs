@@ -3,14 +3,9 @@ using SFML.Graphics;
 
 namespace Ares
 {
-    public class LayeredSprite : Sprite
+    public class LayeredDrawable
     {
         public float Layer { get; set; }
-
-        public LayeredSprite(Texture t)
-            : base (t)
-        {
-        }
+        public Drawable Drawable { get; set; }
     }
 }
-
