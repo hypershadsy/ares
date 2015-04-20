@@ -72,10 +72,12 @@ namespace Ares
 
         public static void SpitToWindow()
         {
-            spriteBatch.OrderBy(drawable => drawable.Layer); //stable sort, 0 near, 1 far
+            //stable sort, 0 near, 1 far
+            IOrderedEnumerable<LayeredDrawable> sorted = spriteBatch.OrderByDescending(drawable => drawable.Layer);
+
 
             //TODO: if we don't care about the depth, skip the list and draw anyway
-            foreach (LayeredDrawable layered in spriteBatch)
+            foreach (LayeredDrawable layered in sorted)
             {
                 Drawable drawable = layered.Drawable;
                 Game.window.Draw(drawable);
