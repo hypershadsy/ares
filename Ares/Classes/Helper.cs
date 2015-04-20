@@ -79,5 +79,10 @@ namespace Ares
                 camera.Center += new Vector2f(0, Math.Abs(camera.Center.Y - focus.Y) * speed);
             }
         }
+
+        public float Lerp(float v0, float v1, float t)
+        {
+            return (1 - t) * v0 + t * v1;
+        }
     }
 }
