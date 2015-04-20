@@ -16,6 +16,7 @@ namespace Ares
 
         private Wall[,] topWalls;
         private Wall[,] leftWalls;
+        private int MaxRealY;
 
         public List<Player> Players = new List<Player>();
         public List<GameObject> GameObjects = new List<GameObject>();
@@ -25,6 +26,7 @@ namespace Ares
         {
             ClientPlayer = new ClientPlayer();
             tiles = new Tile[size, size];
+            MaxRealY = Helper.TileToIso(new Vector2i(size - 1, size - 1)).Y;
 
             topWalls = new Wall[size + 1, size + 1];
             leftWalls = new Wall[size + 1, size + 1];
@@ -115,24 +117,28 @@ namespace Ares
 
         private void DrawWalls() //Not for future use: Must be rewritten for draw order
         {
-            for (int x = 0; x < leftWalls.GetLength(0); x++)
+            var width = leftWalls.GetLength(0);
+            var height = leftWalls.GetLength(1);
+
+            for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < leftWalls.GetLength(1); y++)
+                for (int y = 0; y < height; y++)
                 {
-                    Wall thisWall = leftWalls[x, y];
-                    //if (Helper.Distance(thisTile.Position * 32, ClientPlayer.Position) < 300) //draw distance
-                    if (thisWall != null)
-                        thisWall.Draw();
-                }
-            }
-            for (int x = 0; x < topWalls.GetLength(0); x++)
-            {
-                for (int y = 0; y < topWalls.GetLength(1); y++)
-                {
-                    Wall thisWall = topWalls[x, y];
-                    //if (Helper.Distance(thisTile.Position * 32, ClientPlayer.Position) < 300) //draw distance
-                    if (thisWall != null)
-                        thisWall.Draw();
+                    Wall thisLeftWall = leftWalls[x, y];
+                    Wall thisTopWall = topWalls[x, y];
+                    int thisRealY = Helper.TileToIso(new Vector2i(x, y)).Y;
+                    float lerpVal = thisRealY / (float)MaxRealY;
+                    float layer = Helper.Lerp(Layer.WallFar, Layer.WallNear, lerpVal);
+
+                    //TODO: draw distance
+                    if (thisLeftWall != null)
+                    {
+                        thisLeftWall.Draw(layer);
+                    }
+                    if (thisTopWall != null)
+                    {
+                        thisTopWall.Draw(layer);
+                    }
                 }
             }
         }
@@ -142,7 +148,11 @@ namespace Ares
             for (int i = 0; i < Players.Count; i++)
             {
                 Player thisPlayer = Players[i];
-                thisPlayer.Draw();
+                //it's -1 because there's a corner case with topWall directly down, leftWall directly right
+                int thisRealY = thisPlayer.IsoPosition.Y - 1;
+                float lerpVal = thisRealY / (float)MaxRealY;
+                float layer = Helper.Lerp(Layer.WallFar, Layer.WallNear, lerpVal);
+                thisPlayer.Draw(layer);
             }
         }
 

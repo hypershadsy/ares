@@ -17,9 +17,9 @@ namespace Ares
         {
         }
 
-        public override void Draw()
+        public override void Draw(float drawLayer)
         {
-            DefaultDraw(Game.brickWallTexture);
+            DefaultDraw(Game.brickWallTexture, drawLayer);
         }
     }
 }

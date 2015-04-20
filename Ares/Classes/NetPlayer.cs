@@ -28,7 +28,7 @@ namespace Ares
             PositionInter = IsoPosition.ToF() + (diff / 2f);
         }
 
-        public override void Draw()
+        public override void Draw(float layer)
         {
             //Vector2f origin = new Vector2f(16f, 28f);
             //Render.Draw(Game.charTexture, PositionInter, Color.Yellow, origin, 1, 0);
@@ -37,7 +37,7 @@ namespace Ares
             IncrementAnimationFrame();
             Vector2f origin = new Vector2f(12f, 55f); //12,55 places his feet approx at the middle of the tile
 
-            Render.DrawAnimation(Game.idletest, IsoPosition.ToF(), Color.White, origin, 1, 3, 1, frame, 0);
+            Render.DrawAnimation(Game.idletest, IsoPosition.ToF(), Color.White, origin, 1, 3, 1, frame, 0, layer);
 
             Render.DrawString(Game.font, Name, IsoPosition.ToF() - new Vector2f(0, 50), Color.Green, 0.3f, true);
         }

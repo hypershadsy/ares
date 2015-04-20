@@ -35,11 +35,11 @@ namespace Ares
         {
         }
 
-        public virtual void Draw()
+        public virtual void Draw(float drawLayer)
         {
         }
 
-        protected void DefaultDraw(Texture texture)
+        protected void DefaultDraw(Texture texture, float drawLayer)
         {
             var tOrigin = new Vector2f(32f, 47f);
             var tRot = 0f;
@@ -47,7 +47,7 @@ namespace Ares
             if (IsoCoords.X / 32 % 2 == 0)
                 tCol = new Color(190, 190, 190);
             int tFacing = LeftFacing ? 1 : -1;
-            Render.Draw(texture, IsoCoords.ToF(), tCol, tOrigin, tFacing, tRot);
+            Render.Draw(texture, IsoCoords.ToF(), tCol, tOrigin, tFacing, tRot, drawLayer);
         }
 
     }
