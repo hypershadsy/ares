@@ -44,25 +44,24 @@ namespace Ares
             }
 
             HARDCODEWALLS();
-            
         }
 
-        private void HARDCODEWALLS() //Delete this eventually
+        private void HARDCODEWALLS()
         {
-            for (int i = 0; i < 20; i++)
+            for (int y = 0; y < 20; y++) //left side
             {
-                leftWalls[0, i] = new RedBrickWall(new Vector2i(0, i), true);
-            }
-            for (int i = 0; i < 20; i++)
-            {
-                leftWalls[20, i] = new RedBrickWall(new Vector2i(20, i), true);
+                leftWalls[0, y] = new RedBrickWall(new Vector2i(0, y), true);
             }
 
-            for (int i = 0; i < 20; i++)
+            for (int y = 0; y < 20; y++) //right side
             {
-                topWalls[i, 0] = new RedBrickWall(new Vector2i(i, 0), false);
+                leftWalls[20, y] = new RedBrickWall(new Vector2i(20, y), true);
             }
 
+            for (int x = 0; x < 20; x++) //top side
+            {
+                topWalls[x, 0] = new RedBrickWall(new Vector2i(x, 0), false);
+            }
         }
 
         public void Update()
