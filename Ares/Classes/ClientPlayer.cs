@@ -21,7 +21,7 @@ namespace Ares
             Position = new Vector2i(1, 1);
 
             gui = new GUI(this);
-            Name = "Cactus Fantastico";
+            Name = "Cactus Fagtastico";
         }
 
         public override void Update()
@@ -44,8 +44,8 @@ namespace Ares
             //Render.Draw(Game.charTexture, IsoPosition.ToF(), Color.Red, origin, 1, 0f);
 
             Render.DrawAnimation(Game.idletest, IsoPosition.ToF(), Color.White, origin, 1, 3, 1, frame, 0, layer);
-            
-            Render.DrawString(Game.font, Name, IsoPosition.ToF() - new Vector2f(0, 50), Color.Green, 0.3f, true);
+
+            Render.DrawString(Game.font, Name, IsoPosition.ToF() - new Vector2f(0, 70), Color.Green, 0.3f, true);
         }
 
         void HandleControls()
@@ -57,23 +57,27 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.A))
             {
-                sendPos(new Vector2i(Position.X - 1, Position.Y));
+                if (Game.map.getLeftWallInArray(Position.X, Position.Y) == null)// Vector2i(Position.X, Position.Y)
+                    sendPos(new Vector2i(Position.X - 1, Position.Y));
                 //Position.X--;
             }
             if (Input.isKeyTap(Keyboard.Key.D))
             {
-                sendPos(new Vector2i(Position.X + 1, Position.Y));
+                if (Game.map.getLeftWallInArray(Position.X + 1, Position.Y) == null)
+                    sendPos(new Vector2i(Position.X + 1, Position.Y));
                 //Position.X++;
             }
 
             if (Input.isKeyTap(Keyboard.Key.W))
             {
-                sendPos(new Vector2i(Position.X, Position.Y - 1));
+                if (Game.map.getTopWallInArray(Position.X, Position.Y) == null)
+                    sendPos(new Vector2i(Position.X, Position.Y - 1));
                 //Position.Y--;
             }
             if (Input.isKeyTap(Keyboard.Key.S))
             {
-                sendPos(new Vector2i(Position.X, Position.Y + 1));
+                if (Game.map.getTopWallInArray(Position.X, Position.Y + 1) == null)
+                    sendPos(new Vector2i(Position.X, Position.Y + 1));
                 //Position.Y++;
             }
         }

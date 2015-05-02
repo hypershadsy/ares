@@ -64,6 +64,14 @@ namespace Ares
             {
                 topWalls[x, 0] = new RedBrickWall(new Vector2i(x, 0), false);
             }
+            for (int x = 0; x < 20; x++) //top side
+            {
+                topWalls[x, 20] = new RedBrickWall(new Vector2i(x, 20), false);
+            }
+
+            topWalls[10, 10] = new RedBrickWall(new Vector2i(10, 10), false);
+            topWalls[10, 11] = new RedBrickWall(new Vector2i(10, 11), false);
+            leftWalls[10, 10] = new RedBrickWall(new Vector2i(10, 10), true);
         }
 
         public void Update()
@@ -210,6 +218,29 @@ namespace Ares
         public Tile getTileInWorld(float x, float y)
         {
             return tiles[(int)(x / 32), (int)(y / 32)];
+        }
+
+        public Wall getTopWallInArray(int x, int y)
+        {
+            try
+            {
+                return topWalls[(int)(x), (int)(y)];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return null;
+            }
+        }
+        public Wall getLeftWallInArray(int x, int y)
+        {
+            try
+            {
+                return leftWalls[(int)(x), (int)(y)];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return null;
+            }
         }
     }
 }
