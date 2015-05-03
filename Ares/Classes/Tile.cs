@@ -13,8 +13,6 @@ namespace Ares
     public class Tile
     {
         public Vector2i Position;
-        public bool Walkable;
-        public bool PillBox;
 
         public Vector2i IsoCoords
         {
@@ -43,7 +41,7 @@ namespace Ares
             var tOrigin = new Vector2f(32, 0);
             var tFacing = 1;
             var tRot = 0f;
-            Color tCol = Walkable ? Color.White : Color.Red;
+            Color tCol;
             if (IsoCoords.X / 32 % 2 == 0)
                 tCol = new Color(190, 190, 190);
             Render.Draw(texture, IsoCoords.ToF(), tCol, tOrigin, tFacing, tRot, Layer.Floor);
