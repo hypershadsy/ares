@@ -7,5 +7,18 @@ namespace Ares
 {
     public class InternalGame : GameState
     {
+        public Map map;
+
+        public override void Update()
+        {
+            map.Update();
+            base.Update();
+        }
+
+        public override void Draw()
+        {
+            map.Draw();
+            base.Draw();
+        }
     }
 }

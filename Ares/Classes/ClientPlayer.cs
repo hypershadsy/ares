@@ -71,26 +71,26 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.A))
             {
-                if (Game.map.getLeftWallInArray(Position.X, Position.Y) == null)// Vector2i(Position.X, Position.Y)
+                if (Game.internalGame.map.getLeftWallInArray(Position.X, Position.Y) == null)// Vector2i(Position.X, Position.Y)
                     sendPos(new Vector2i(Position.X - 1, Position.Y));
                 //Position.X--;
             }
             if (Input.isKeyTap(Keyboard.Key.D))
             {
-                if (Game.map.getLeftWallInArray(Position.X + 1, Position.Y) == null)
+                if (Game.internalGame.map.getLeftWallInArray(Position.X + 1, Position.Y) == null)
                     sendPos(new Vector2i(Position.X + 1, Position.Y));
                 //Position.X++;
             }
 
             if (Input.isKeyTap(Keyboard.Key.W))
             {
-                if (Game.map.getTopWallInArray(Position.X, Position.Y) == null)
+                if (Game.internalGame.map.getTopWallInArray(Position.X, Position.Y) == null)
                     sendPos(new Vector2i(Position.X, Position.Y - 1));
                 //Position.Y--;
             }
             if (Input.isKeyTap(Keyboard.Key.S))
             {
-                if (Game.map.getTopWallInArray(Position.X, Position.Y + 1) == null)
+                if (Game.internalGame.map.getTopWallInArray(Position.X, Position.Y + 1) == null)
                     sendPos(new Vector2i(Position.X, Position.Y + 1));
                 //Position.Y++;
             }

@@ -18,6 +18,9 @@ namespace Ares
         public static Random r = new Random();
         public static DateTime oldDateTime;
 
+        public static InternalGame internalGame;
+        public static GameState gameState; //The holy and righteous GameState
+
         public static TimeSpan deltaTime
         {
             get
@@ -32,8 +35,6 @@ namespace Ares
         public static Texture charTexture, wallTexture, grassTexture, walktest, woodfloor,
             doorClosedTexture, pathTexture, bulletTexture, isoBlock, tileBedug, idletest,
             brickWallTexture;
-
-        public static Map map;
 
         static void Main(string[] args)
         {
@@ -52,6 +53,8 @@ namespace Ares
             //pretend value to appease the delta timer gods
             oldDateTime = DateTime.Now - new TimeSpan((long)expectedTicks);
             r = new Random();
+            internalGame = new InternalGame();
+            gameState = internalGame;
         }
 
         static void window_LostFocus(object sender, EventArgs e)
@@ -111,7 +114,7 @@ namespace Ares
             client = new NetClient(config);
             client.Start();
 
-            map = new Map(20);
+            internalGame.map = new Map(20);
 
             //start processing messages
             client.Connect(ip, port);
@@ -124,8 +127,8 @@ namespace Ares
             HandleMessages();
             window.DispatchEvents();
             Input.Update();
-            map.Update();
-            map.Draw();
+            gameState.Update();
+            gameState.Draw();
             Render.SpitToWindow();
 
             oldDateTime = DateTime.Now;
@@ -139,7 +142,7 @@ namespace Ares
 
         public static void DrawOnGUI()
         {
-            map.ClientPlayer.gui.Draw();
+            internalGame.map.ClientPlayer.gui.Draw();
         }
 
         public static void HandleMessages()
@@ -161,7 +164,16 @@ namespace Ares
                         //while (msg.PeekString() != string.Empty)
                         //{
                         //read the incoming string
-                        string messageType = msg.ReadString();
+
+                        string messageType = ""; //Unsafe code
+                        try
+                        {
+                            messageType = msg.ReadString();
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.ToString());
+                        }
 
                         switch (messageType)
                         {
@@ -247,28 +259,28 @@ namespace Ares
         private static void handleJoinMessage(long uid)
         {
             //add a new net player to players
-            map.Players.Add(new NetPlayer(uid));
+            internalGame.map.Players.Add(new NetPlayer(uid));
         }
 
         private static void handleChatMessage(long uid, string message)
         {
             Player p = getPlayerWithUID(uid);
-            map.ClientPlayer.gui.chat.messages.Add(
+            internalGame.map.ClientPlayer.gui.chat.messages.Add(
                 new ChatMessage(message, p));
         }
 
         private static void handlePartMessage(long uid)
         {
             //remove net player from players list
-            map.Players.Remove(getPlayerWithUID(uid));
+            Game.internalGame.map.Players.Remove(getPlayerWithUID(uid));
         }
 
         private static Player getPlayerWithUID(long id)
         {
-            for (int i = 0; i < map.Players.Count; i++)
+            for (int i = 0; i < internalGame.map.Players.Count; i++)
             {
-                if (map.Players[i].UID == id)
-                    return map.Players[i];
+                if (internalGame.map.Players[i].UID == id)
+                    return internalGame.map.Players[i];
             }
 
             return null;
@@ -276,12 +288,12 @@ namespace Ares
 
         private static void handleTileMessage(Vector2i pos, int type)
         {
-            map.addTile(pos.X, pos.Y, type);
+            internalGame.map.addTile(pos.X, pos.Y, type);
         }
 
         private static void handleWallMessage(Vector2i pos, int type, bool leftFacing)
         {
-            map.addWall(pos.X, pos.Y, type, leftFacing);
+            internalGame.map.addWall(pos.X, pos.Y, type, leftFacing);
         }
 
 

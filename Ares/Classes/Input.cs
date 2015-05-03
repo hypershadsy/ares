@@ -71,14 +71,14 @@ namespace Ares
 
         public static bool isKeyDown(Keyboard.Key key)
         {
-            if (!isActive || Game.map.ClientPlayer.gui.chat.DraftEditorOpen)
+            if (!isActive || Game.internalGame.map.ClientPlayer.gui.chat.DraftEditorOpen)
                 return false;
             return Keyboard.IsKeyPressed(key);
         }
 
         public static bool isKeyUp(Keyboard.Key key)
         {
-            if (!isActive || Game.map.ClientPlayer.gui.chat.DraftEditorOpen)
+            if (!isActive || Game.internalGame.map.ClientPlayer.gui.chat.DraftEditorOpen)
                 return false;
             return !Keyboard.IsKeyPressed(key);
         }

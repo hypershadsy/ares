@@ -40,7 +40,7 @@ namespace Ares
 
         public virtual void Destroy()
         {
-            Game.map.GameObjects.Remove(this);
+            Game.internalGame.map.GameObjects.Remove(this);
         }
     }
 }
