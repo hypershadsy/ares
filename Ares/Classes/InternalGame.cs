@@ -11,14 +11,14 @@ namespace Ares
 
         public override void Update()
         {
-            map.Update();
             base.Update();
+            map.Update();
         }
 
         public override void Draw()
         {
-            map.Draw();
             base.Draw();
+            map.Draw();
         }
     }
 }
