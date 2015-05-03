@@ -76,6 +76,8 @@
   <ItemGroup>
     <Compile Include="Classes\Actor.cs" />
     <Compile Include="Classes\Door.cs" />
+    <Compile Include="Classes\GameState.cs" />
+    <Compile Include="Classes\InternalGame.cs" />
     <Compile Include="Classes\RedBrickWall.cs" />
     <Compile Include="Classes\Chat.cs" />
     <Compile Include="Classes\ClientPlayer.cs" />

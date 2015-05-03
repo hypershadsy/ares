@@ -183,19 +183,44 @@ namespace Ares
         }
 
         /// <summary>
-        /// Used to get a tile at an array index, not world coordinates
+        /// Used to add a tile at an array index, not world coordinates
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="id"></param>
-        public void addTile(int x, int y, int id)
+        /// <param name="type"></param>
+        public void addTile(int x, int y, int type)
         {
             try
             {
-                switch (id)
+                switch (type)
                 {
                     case 0:
                         tiles[x, y] = new WoodTile(new Vector2i(x, y));
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        /// <summary>
+        /// Used to get a wall at an array index, not world coordinates
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="type"></param>
+        public void addWall(int x, int y, int type, bool leftFacing)
+        {
+            try
+            {
+                switch (type)
+                {
+                    case 0:
+                        if (leftFacing)
+                            leftWalls[x, y] = new RedBrickWall(new Vector2i(x, y), true);
+                        else
+                            topWalls[x, y] = new RedBrickWall(new Vector2i(x, y), false);
                         break;
                 }
             }
@@ -231,6 +256,7 @@ namespace Ares
                 return null;
             }
         }
+
         public Wall getLeftWallInArray(int x, int y)
         {
             try

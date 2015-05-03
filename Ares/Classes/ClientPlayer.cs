@@ -26,6 +26,20 @@ namespace Ares
 
         public override void Update()
         {
+            if (Input.isKeyTap(Keyboard.Key.E))
+            {
+                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                outGoingMessage.Write("WALL");
+                outGoingMessage.Write(Position.X / 32);
+                outGoingMessage.Write(Position.Y / 32);
+                outGoingMessage.Write(0);
+                outGoingMessage.Write(true);
+
+                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
+            }
+
+           
+
             setUID();
 
             Helper.moveCameraTo(Game.camera2D, IsoPosition.ToF(), 0.15f);

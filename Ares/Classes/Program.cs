@@ -198,14 +198,21 @@ namespace Ares
                                 long UID_PART = msg.ReadInt64();
                                 handlePartMessage(UID_PART);
                                 break;
-                            case "TILE": //Remove a player
-                                var xTilePos = msg.ReadInt64();
-                                var yTilePos = msg.ReadInt64();
-                                var tileType = msg.ReadInt64();
+                            case "TILE": //Recieves a tile of type 'tileType'
+                                var xTilePos = msg.ReadInt32();
+                                var yTilePos = msg.ReadInt32();
+                                var tileType = msg.ReadInt32();
                                 handleTileMessage(new Vector2i(xTilePos, yTilePos), tileType);
                                 break;
-                            case "WALL": //Remove a player
-                                handleWallMessage(Vector2i );
+                            case "WALL": //Recieves a wall of type 'wallType'
+                                var xWallPos = msg.ReadInt32();
+                                var yWallPos = msg.ReadInt32();
+                                var wallType = msg.ReadInt32();
+                                bool leftFacing = msg.ReadBoolean();
+                                handleWallMessage(new Vector2i(xWallPos, yWallPos), wallType, leftFacing);
+                                break;
+                            case "INFO": //Recieved when server has completed sending all newbie initialization
+                                
                                 break;
                         }
                         //}
@@ -247,7 +254,7 @@ namespace Ares
         {
             Player p = getPlayerWithUID(uid);
             map.ClientPlayer.gui.chat.messages.Add(
-                new ChatMessage(message, p)); 
+                new ChatMessage(message, p));
         }
 
         private static void handlePartMessage(long uid)
@@ -269,10 +276,14 @@ namespace Ares
 
         private static void handleTileMessage(Vector2i pos, int type)
         {
-            switch (type)
-            {
-            }
+            map.addTile(pos.X, pos.Y, type);
         }
+
+        private static void handleWallMessage(Vector2i pos, int type, bool leftFacing)
+        {
+            map.addWall(pos.X, pos.Y, type, leftFacing);
+        }
+
 
         /// <summary>
         /// Gets the delta ratio. If the game is running slowly, this number will be higher,
