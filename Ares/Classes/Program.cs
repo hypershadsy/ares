@@ -198,6 +198,15 @@ namespace Ares
                                 long UID_PART = msg.ReadInt64();
                                 handlePartMessage(UID_PART);
                                 break;
+                            case "TILE": //Remove a player
+                                var xTilePos = msg.ReadInt64();
+                                var yTilePos = msg.ReadInt64();
+                                var tileType = msg.ReadInt64();
+                                handleTileMessage(new Vector2i(xTilePos, yTilePos), tileType);
+                                break;
+                            case "WALL": //Remove a player
+                                handleWallMessage(Vector2i );
+                                break;
                         }
                         //}
                         break;
@@ -256,6 +265,13 @@ namespace Ares
             }
 
             return null;
+        }
+
+        private static void handleTileMessage(Vector2i pos, int type)
+        {
+            switch (type)
+            {
+            }
         }
 
         /// <summary>
