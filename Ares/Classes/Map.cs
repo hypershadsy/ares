@@ -41,7 +41,7 @@ namespace Ares
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    tiles[x, y] = new WoodTile(new Vector2i(x, y), -1);
+                    tiles[x, y] = new WoodTile(new Vector2i(x, y));
                 }
             }
 
@@ -188,14 +188,14 @@ namespace Ares
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="id"></param>
-        public void addTile(int x, int y, int id, long UID)
+        public void addTile(int x, int y, int id)
         {
             try
             {
                 switch (id)
                 {
                     case 0:
-                        tiles[x, y] = new WoodTile(new Vector2i(x, y), UID);
+                        tiles[x, y] = new WoodTile(new Vector2i(x, y));
                         break;
                 }
             }

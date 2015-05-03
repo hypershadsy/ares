@@ -13,7 +13,6 @@ namespace Ares
     public class Tile
     {
         public Vector2i Position;
-        public long UID_BUILD;
         public bool Walkable;
         public bool PillBox;
 
@@ -25,9 +24,8 @@ namespace Ares
             }
         }
 
-        public Tile(Vector2i position, long UID_Builder)
+        public Tile(Vector2i position)
         {
-            this.UID_BUILD = UID_Builder;
             Position = position;
         }
 

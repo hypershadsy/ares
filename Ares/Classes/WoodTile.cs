@@ -12,8 +12,8 @@ namespace Ares
 {
     public class WoodTile : Tile
     {
-        public WoodTile(Vector2i position, long UID_Builder)
-            : base(position, UID_Builder)
+        public WoodTile(Vector2i position)
+            : base(position)
         {
         }
 
