@@ -31,49 +31,9 @@ namespace Ares
             topWalls = new Wall[size + 1, size + 1];
             leftWalls = new Wall[size + 1, size + 1];
 
-            Load();
             Players.Add(ClientPlayer);
         }
 
-        private void Load()
-        {
-            for (int x = 0; x < tiles.GetLength(0); x++)
-            {
-                for (int y = 0; y < tiles.GetLength(1); y++)
-                {
-                    tiles[x, y] = new WoodTile(new Vector2i(x, y));
-                }
-            }
-
-            HARDCODEWALLS();
-        }
-
-        private void HARDCODEWALLS()
-        {
-            for (int y = 0; y < 20; y++) //left side
-            {
-                leftWalls[0, y] = new RedBrickWall(new Vector2i(0, y), true);
-            }
-
-            for (int y = 0; y < 20; y++) //right side
-            {
-                leftWalls[20, y] = new RedBrickWall(new Vector2i(20, y), true);
-            }
-
-            for (int x = 0; x < 20; x++) //top side
-            {
-                topWalls[x, 0] = new RedBrickWall(new Vector2i(x, 0), false);
-            }
-            for (int x = 0; x < 20; x++) //top side
-            {
-                topWalls[x, 20] = new RedBrickWall(new Vector2i(x, 20), false);
-            }
-
-            topWalls[10, 10] = new RedBrickWall(new Vector2i(10, 10), false);
-            topWalls[10, 11] = new RedBrickWall(new Vector2i(10, 11), false);
-            leftWalls[10, 10] = new RedBrickWall(new Vector2i(10, 10), true);
-            leftWalls[12, 10] = new WoodDoor(new Vector2i(10, 10), true);
-        }
 
         public void Update()
         {
@@ -97,7 +57,8 @@ namespace Ares
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
                     Tile thisTile = tiles[x, y];
-                    thisTile.Update();
+                    if (thisTile != null)
+                        thisTile.Update();
                 }
             }
         }
@@ -118,8 +79,8 @@ namespace Ares
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
                     Tile thisTile = tiles[x, y];
-                    //if (Helper.Distance(thisTile.Position * 32, ClientPlayer.Position) < 300) //draw distance
-                    thisTile.Draw();
+                    if (thisTile != null)
+                        thisTile.Draw();
                 }
             }
         }

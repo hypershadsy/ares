@@ -37,12 +37,11 @@ namespace Ares
 
         protected void DefaultDraw(Texture texture)
         {
-            //iso: bottom, then top
             var tOrigin = new Vector2f(32, 0);
             var tFacing = 1;
             var tRot = 0f;
             Color tCol = Color.White;
-            if (IsoCoords.X / 32 % 2 == 0)
+            if ((Position.X + Position.Y) % 2 == 0)
                 tCol = new Color(190, 190, 190);
             Render.Draw(texture, IsoCoords.ToF(), tCol, tOrigin, tFacing, tRot, Layer.Floor);
         }
