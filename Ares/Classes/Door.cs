@@ -10,8 +10,11 @@ using Lidgren.Network;
 
 namespace Ares
 {
-    class Door : Wall
+    public class Door : Wall
     {
+        public bool open = false;
+        public bool locked = false;
+
         public Door(Vector2i position, bool leftFacing)
             : base(position, leftFacing)
         {

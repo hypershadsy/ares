@@ -72,6 +72,7 @@ namespace Ares
             topWalls[10, 10] = new RedBrickWall(new Vector2i(10, 10), false);
             topWalls[10, 11] = new RedBrickWall(new Vector2i(10, 11), false);
             leftWalls[10, 10] = new RedBrickWall(new Vector2i(10, 10), true);
+            leftWalls[12, 10] = new WoodDoor(new Vector2i(10, 10), true);
         }
 
         public void Update()
@@ -221,6 +222,12 @@ namespace Ares
                             leftWalls[x, y] = new RedBrickWall(new Vector2i(x, y), true);
                         else
                             topWalls[x, y] = new RedBrickWall(new Vector2i(x, y), false);
+                        break;
+                    case 1:
+                        if (leftFacing)
+                            leftWalls[x, y] = new WoodDoor(new Vector2i(x, y), true);
+                        else
+                            topWalls[x, y] = new WoodDoor(new Vector2i(x, y), false);
                         break;
                 }
             }

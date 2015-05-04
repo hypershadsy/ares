@@ -34,7 +34,7 @@ namespace Ares
         public static Font font;
         public static Texture charTexture, wallTexture, grassTexture, walktest, woodfloor,
             doorClosedTexture, pathTexture, bulletTexture, isoBlock, tileBedug, idletest,
-            brickWallTexture;
+            brickWallTexture, woodDoor1;
 
         static void Main(string[] args)
         {
@@ -104,6 +104,7 @@ namespace Ares
             tileBedug = new Texture("Content/tile/bedug.png");
             woodfloor = new Texture("Content/tile/woodfloor.png");
             brickWallTexture = new Texture("Content/wall/redbrick.png");
+            woodDoor1 = new Texture("Content/wall/door/door2.png");
 
             //Initialize
             NetPeerConfiguration config = new NetPeerConfiguration("ares");
