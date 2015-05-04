@@ -19,5 +19,15 @@ namespace Ares
             : base(position, leftFacing)
         {
         }
+
+        public override void Update()
+        {
+            base.Update();
+        }
+
+        public override void Draw(float drawLayer)
+        {
+            base.Draw(drawLayer);
+        }
     }
 }

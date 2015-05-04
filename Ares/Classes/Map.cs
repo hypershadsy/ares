@@ -38,7 +38,9 @@ namespace Ares
         public void Update()
         {
             UpdateTiles();
+            UpdateWalls();
             UpdatePlayers();
+
             UpdateGameObjects();
         }
 
@@ -62,6 +64,29 @@ namespace Ares
                 }
             }
         }
+
+        private void UpdateWalls()
+        {
+            for (int x = 0; x < leftWalls.GetLength(0); x++)
+            {
+                for (int y = 0; y < leftWalls.GetLength(1); y++)
+                {
+                    Wall thisWall = leftWalls[x, y];
+                    if (thisWall != null)
+                        thisWall.Update();
+                }
+            }
+            for (int x = 0; x < topWalls.GetLength(0); x++)
+            {
+                for (int y = 0; y < topWalls.GetLength(1); y++)
+                {
+                    Wall thisWall = topWalls[x, y];
+                    if (thisWall != null)
+                        thisWall.Update();
+                }
+            }
+        }
+
 
         private void UpdatePlayers()
         {

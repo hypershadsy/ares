@@ -16,6 +16,10 @@ namespace Ares
         {
             return (float)Math.Sqrt(Math.Pow((vec2.X - vec1.X), 2) + Math.Pow((vec2.Y - vec1.Y), 2));
         }
+        public static float Distance(Vector2i vec1, Vector2i vec2)
+        {
+            return (float)Math.Sqrt(Math.Pow((vec2.X - vec1.X), 2) + Math.Pow((vec2.Y - vec1.Y), 2));
+        }
 
         public static float AngleBetween(Vector2f vec1, Vector2f vec2)
         {

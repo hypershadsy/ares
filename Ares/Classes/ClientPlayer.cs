@@ -69,8 +69,13 @@ namespace Ares
                 noClip = !noClip;
             }
 
-            if (Input.isKeyTap(Keyboard.Key.A))
+            if (Input.isKeyTap(Keyboard.Key.B)) //Add a door
             {
+                Game.internalGame.map.addWall(this.Position.X, this.Position.Y, 1, true);
+            }
+
+            if (Input.isKeyTap(Keyboard.Key.A))
+            { 
                 if (Game.internalGame.map.getLeftWallInArray(Position.X, Position.Y) == null)// Vector2i(Position.X, Position.Y)
                     sendPos(new Vector2i(Position.X - 1, Position.Y));
                 //Position.X--;
@@ -95,7 +100,6 @@ namespace Ares
                 //Position.Y++;
             }
         }
-
 
         private void sendPos(Vector2i pos)
         {
