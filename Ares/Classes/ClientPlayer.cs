@@ -38,7 +38,7 @@ namespace Ares
                 Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
             }
 
-           
+
 
             setUID();
 
@@ -73,30 +73,42 @@ namespace Ares
             {
                 Game.internalGame.map.addWall(this.Position.X, this.Position.Y, 1, true);
             }
+            if (Input.isKeyTap(Keyboard.Key.V)) //Add a door
+            {
+                Game.internalGame.map.addWall(this.Position.X, this.Position.Y, 1, false);
+            }
 
             if (Input.isKeyTap(Keyboard.Key.A))
-            { 
-                if (Game.internalGame.map.getLeftWallInArray(Position.X, Position.Y) == null)// Vector2i(Position.X, Position.Y)
+            {
+                Wall wall = Game.internalGame.map.getLeftWallInArray(Position.X, Position.Y);
+                if (wall == null ||
+                    (wall is Door && ((Door)wall).open))// Vector2i(Position.X, Position.Y)
                     sendPos(new Vector2i(Position.X - 1, Position.Y));
                 //Position.X--;
             }
             if (Input.isKeyTap(Keyboard.Key.D))
             {
-                if (Game.internalGame.map.getLeftWallInArray(Position.X + 1, Position.Y) == null)
+                Wall wall = Game.internalGame.map.getLeftWallInArray(Position.X + 1, Position.Y);
+                if (wall == null ||
+                    (wall is Door && ((Door)wall).open))
                     sendPos(new Vector2i(Position.X + 1, Position.Y));
                 //Position.X++;
             }
 
             if (Input.isKeyTap(Keyboard.Key.W))
             {
-                if (Game.internalGame.map.getTopWallInArray(Position.X, Position.Y) == null)
+                Wall wall = Game.internalGame.map.getTopWallInArray(Position.X, Position.Y);
+                if (wall == null ||
+                (wall is Door && ((Door)wall).open))
                     sendPos(new Vector2i(Position.X, Position.Y - 1));
                 //Position.Y--;
             }
             if (Input.isKeyTap(Keyboard.Key.S))
             {
-                if (Game.internalGame.map.getTopWallInArray(Position.X, Position.Y + 1) == null)
-                    sendPos(new Vector2i(Position.X, Position.Y + 1));
+                Wall wall = Game.internalGame.map.getTopWallInArray(Position.X, Position.Y + 1);
+                    if (wall == null ||
+                    (wall is Door && ((Door)wall).open))
+                        sendPos(new Vector2i(Position.X, Position.Y + 1));
                 //Position.Y++;
             }
         }
