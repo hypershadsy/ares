@@ -12,11 +12,18 @@ namespace Ares
 {
     public abstract class GameObject
     {
-        public Vector2f Position;
-        public Vector2f Velocity;
-        public float Speed;
-        public float Angle, Rotation;
+        public Vector2i Position;
+        public float DrawLayer;
+        public bool LeftFacing = false;
         public long OwnerUID;
+
+        public Vector2i IsoCoords
+        {
+            get
+            {
+                return Helper.TileToIso(Position);
+            }
+        }
 
         public GameObject()
         {
@@ -28,10 +35,12 @@ namespace Ares
 
         public virtual void Update()
         {
+            DrawLayer = 0;
         }
 
         public virtual void Draw()
         {
+
         }
 
         public virtual void Activate()

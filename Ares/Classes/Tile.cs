@@ -13,6 +13,7 @@ namespace Ares
     public class Tile
     {
         public Vector2i Position;
+        public bool occupied; //Any item on the tile will declare it "occupied". 
 
         public Vector2i IsoCoords
         {
