@@ -29,7 +29,7 @@ namespace Ares
         {
         }
 
-        public GameObject(Vector2f position)
+        public GameObject(Vector2i position)
         {
         }
 
