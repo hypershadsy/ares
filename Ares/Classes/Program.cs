@@ -34,7 +34,7 @@ namespace Ares
         public static Font font;
         public static Texture charTexture, wallTexture, grassTexture, walktest, woodfloor,
             doorClosedTexture, pathTexture, bulletTexture, isoBlock, tileBedug, idletest,
-            brickWallTexture, woodDoor1, tableBrown;
+            brickWallTexture, woodDoor1, tableBrown, cityBackground;
 
         static void Main(string[] args)
         {
@@ -106,6 +106,7 @@ namespace Ares
             brickWallTexture = new Texture("Content/wall/redbrick.png");
             woodDoor1 = new Texture("Content/wall/door/door2.png");
             tableBrown = new Texture("Content/furniture/tableBrown.png");
+            cityBackground = new Texture("Content/debug/background.png");
             //Initialize
             NetPeerConfiguration config = new NetPeerConfiguration("ares");
             config.EnableMessageType(NetIncomingMessageType.ConnectionLatencyUpdated);
@@ -130,6 +131,7 @@ namespace Ares
             Input.Update();
             gameState.Update();
             gameState.Draw();
+            Render.Draw(cityBackground, new Vector2f(0, 0), Color.White, new Vector2f(1091, 790), 1, 0f, 1);
             Render.SpitToWindow();
 
             oldDateTime = DateTime.Now;

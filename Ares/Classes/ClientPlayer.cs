@@ -77,9 +77,9 @@ namespace Ares
             {
                 Game.internalGame.map.addWall(this.Position.X, this.Position.Y, 1, false);
             }
-            if (Input.isKeyTap(Keyboard.Key.N)) //Add a door
+            if (Input.isKeyTap(Keyboard.Key.C)) //Add a table
             {
-                Game.internalGame.map.GameObjects.Add(new BasicBrownTable());
+                Game.internalGame.map.GameObjects.Add(new BasicBrownTable(Position));
             }
 
             if (Input.isKeyTap(Keyboard.Key.A))

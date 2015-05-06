@@ -27,13 +27,13 @@ namespace Ares
 
         public override void Draw()
         {
-            var gOrigin = new Vector2f(32,0);
+            var gOrigin = new Vector2f(29,20);
             var gRot = 0f;
             Color gCol = Color.White;
             if (IsoCoords.X / 32 % 2 == 0)
                 gCol = new Color(190, 190, 190);
             int gFacing = LeftFacing ? 1 : -1;
-            Render.Draw(Game.tableBrown, IsoCoords.ToF(), gCol, gOrigin, gFacing, gRot, 0);
+            Render.Draw(Game.tableBrown, IsoCoords.ToF(), gCol, gOrigin, gFacing, gRot, .1f);
             base.Draw();
         }
 
