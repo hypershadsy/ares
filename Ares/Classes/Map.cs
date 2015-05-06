@@ -19,6 +19,7 @@ namespace Ares
         private int MaxRealY;
 
         public List<Player> Players = new List<Player>();
+        //public List<NPC> NPCs = new List<(NPC)(); //
         public List<GameObject> GameObjects = new List<GameObject>();
         public ClientPlayer ClientPlayer;
 

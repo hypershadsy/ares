@@ -24,7 +24,7 @@ namespace Ares
                 for (int i = 0; i < Game.internalGame.map.Players.Count; i++)
                 {
                     Actor iActor = Game.internalGame.map.Players[i]; // This will need to refer to NPCs as well
-                    if (Helper.Distance(iActor.IsoPosition, this.IsoCoords + new Vector2i(20, 53)) < 35)
+                    if (Helper.Distance(iActor.IsoPosition, this.IsoCoords) < 35)
                     {
                         open = true;
                     }
@@ -46,7 +46,7 @@ namespace Ares
             
 
 
-            Console.WriteLine(Helper.Distance(Game.internalGame.map.ClientPlayer.IsoPosition, this.IsoCoords + new Vector2i(20, 53)));
+            //Console.WriteLine(Helper.Distance(Game.internalGame.map.ClientPlayer.IsoPosition, this.IsoCoords + new Vector2i(20, 53)));
 
             base.Update();
         }

@@ -61,6 +61,17 @@ namespace Ares
             return new Vector2i(realX, realY);
         }
 
+        public static Vector2i IsoToTile(Vector2i isoSpace) //This may be broken as fuck
+        {
+            int realX = 0;
+            int realY = 0;
+            realX -= isoSpace.X / 32;
+            realX += isoSpace.Y / 32;
+            realY -= isoSpace.Y / 16;
+            realY -= isoSpace.X / 16;
+            return new Vector2i(realX, realY);
+        }
+
         public static void moveCameraTo(View camera, Vector2f focus, float speed)
         {
             if (camera.Center.X > focus.X)

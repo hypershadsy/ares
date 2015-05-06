@@ -15,24 +15,25 @@ namespace Ares
         public BasicBrownTable(Vector2i Position)
             : base(Position)
         {
-            this.Position = Position;
+            //Vector2i tilePos = Helper.IsoToTile(Position);
+            parentTile = Game.internalGame.map.getTileInArray(Position.X,Position.Y);
         }
 
         public override void Update()
         {
-            
+            parentTile.tCol = Color.Red;
             base.Update();
         }
 
         public override void Draw()
         {
-            var tOrigin = new Vector2f(32f, 47f);
-            var tRot = 0f;
-            Color tCol = Color.White;
+            var gOrigin = new Vector2f(32,0);
+            var gRot = 0f;
+            Color gCol = Color.White;
             if (IsoCoords.X / 32 % 2 == 0)
-                tCol = new Color(190, 190, 190);
-            int tFacing = LeftFacing ? 1 : -1;
-            Render.Draw(Game.tableBrown, IsoCoords.ToF(), tCol, tOrigin, tFacing, tRot, 0);
+                gCol = new Color(190, 190, 190);
+            int gFacing = LeftFacing ? 1 : -1;
+            Render.Draw(Game.tableBrown, IsoCoords.ToF(), gCol, gOrigin, gFacing, gRot, 0);
             base.Draw();
         }
 

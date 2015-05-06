@@ -17,6 +17,8 @@ namespace Ares
         public bool LeftFacing = false;
         public long OwnerUID;
 
+        public Tile parentTile;
+
         public Vector2i IsoCoords
         {
             get
@@ -31,6 +33,7 @@ namespace Ares
 
         public GameObject(Vector2i position)
         {
+            this.Position = position;
         }
 
         public virtual void Update()
