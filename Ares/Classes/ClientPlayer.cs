@@ -21,7 +21,7 @@ namespace Ares
             Position = new Vector2i(1, 1);
 
             gui = new GUI(this);
-            Name = "Cactus Fagtastico";
+            Name = "Cactus Fantastico";
         }
 
         public override void Update()

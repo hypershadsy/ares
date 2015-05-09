@@ -131,7 +131,7 @@ namespace Ares
             Input.Update();
             gameState.Update();
             gameState.Draw();
-            Render.Draw(cityBackground, new Vector2f(0, 0), Color.White, new Vector2f(1091, 790), 1, 0f, 1);
+            Render.Draw(cityBackground, new Vector2f(0, 0), Color.White, new Vector2f(1066, 818), 1, 0f, 1);
             Render.SpitToWindow();
 
             oldDateTime = DateTime.Now;
