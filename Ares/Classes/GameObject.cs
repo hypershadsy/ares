@@ -16,6 +16,7 @@ namespace Ares
         public float DrawLayer;
         public bool LeftFacing = false;
         public long OwnerUID;
+        private int MaxRealY;
 
         public Tile parentTile;
 
@@ -24,6 +25,15 @@ namespace Ares
             get
             {
                 return Helper.TileToIso(Position);
+            }
+        }
+        public Vector2i IsoPosition
+        {
+            get
+            {
+                Vector2i ret = Helper.TileToIso(Position);
+                ret.Y += 16;
+                return ret; //isospace pos of feet standing at center of tile
             }
         }
 

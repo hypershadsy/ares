@@ -33,6 +33,7 @@ namespace Ares
             if (IsoCoords.X / 32 % 2 == 0)
                 gCol = new Color(190, 190, 190);
             int gFacing = LeftFacing ? 1 : -1;
+
             Render.Draw(Game.tableBrown, IsoCoords.ToF(), gCol, gOrigin, gFacing, gRot, .1f);
             base.Draw();
         }
