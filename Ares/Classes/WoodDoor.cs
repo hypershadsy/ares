@@ -19,31 +19,30 @@ namespace Ares
 
         public override void Update()
         {
+            open = false;
             if (!locked)
             {
                 for (int i = 0; i < Game.internalGame.map.Players.Count; i++)
                 {
                     Actor iActor = Game.internalGame.map.Players[i]; // This will need to refer to NPCs as well
-                    if (Helper.Distance(iActor.IsoPosition, this.IsoCoords) < 35)
-                    {
-                        open = true;
-                    }
-                    else
-                        open = false;
+                        if (Helper.Distance(iActor.IsoPosition, this.IsoCoords) < 35)
+                        {
+                            open = true;
+                        }
+
                 }
 
-                if (Helper.Distance(Game.internalGame.map.ClientPlayer.IsoPosition, this.IsoCoords) < 35)
-                {
-                    open = true;
-                }
-                else
-                    open = false;
+                //if (Helper.Distance(Game.internalGame.map.ClientPlayer.IsoPosition, this.IsoCoords) < 35)
+                //{
+                //    open = true;
+                //}
+
             }
             else
             {
                 open = false;
             }
-            
+
 
 
             //Console.WriteLine(Helper.Distance(Game.internalGame.map.ClientPlayer.IsoPosition, this.IsoCoords + new Vector2i(20, 53)));
