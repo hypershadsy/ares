@@ -125,27 +125,13 @@ namespace Ares
         private static void UpdateDraw(RenderWindow window)
         {
             window.Clear(Color.Black);
-            window.SetView(camera2D);
             HandleMessages();
             window.DispatchEvents();
             Input.Update();
             gameState.Update();
             gameState.Draw();
-            Render.Draw(cityBackground, new Vector2f(0, 0), Color.White, new Vector2f(1066, 818), 1, 0f, 1);
-            Render.SpitToWindow();
-
-            oldDateTime = DateTime.Now;
-
-            window.SetView(window.DefaultView);
-
-            DrawOnGUI();
-            Render.SpitToWindow();
             window.Display();
-        }
-
-        public static void DrawOnGUI()
-        {
-            internalGame.map.ClientPlayer.gui.Draw();
+            oldDateTime = DateTime.Now;
         }
 
         public static void HandleMessages()
