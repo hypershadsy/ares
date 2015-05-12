@@ -164,79 +164,90 @@ namespace Ares
                     case NetIncomingMessageType.ConnectionLatencyUpdated:
                         break;
                     case NetIncomingMessageType.Data:
-                        //while (msg.PeekString() != string.Empty)
-                        //{
-                        //read the incoming string
-
-                        string messageType = ""; //Unsafe code
-                        try
+                        //multiple game messages in a single packet
+                        while (msg.Position != msg.LengthBits)
                         {
-                            messageType = msg.ReadString();
+                            HandleAGameMessage(msg);
                         }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.ToString());
-                        }
-
-                        switch (messageType)
-                        {
-                            case "LIFE":
-                                long UID_LIFE = msg.ReadInt64();
-                                int hp = msg.ReadInt32();
-                                handleLifeMessage(UID_LIFE, hp);
-                                break;
-
-                            case "NAME":
-                                long UID_NAME = msg.ReadInt64();
-                                string newName = msg.ReadString();
-                                handleNameMessage(UID_NAME, newName);
-                                break;
-
-                            case "POS": //Update a player's position
-                                var UID_POS = msg.ReadInt64();
-                                var xPos = msg.ReadInt32();
-                                var yPos = msg.ReadInt32();
-                                handlePosMessage(UID_POS, xPos, yPos);
-                                break;
-
-                            case "JOIN": //Add a player
-                                long UID_JOIN = msg.ReadInt64();
-                                handleJoinMessage(UID_JOIN);
-                                break;
-
-                            case "CHAT": //Add chat
-                                long UID_CHAT = msg.ReadInt64();
-                                string message = msg.ReadString();
-                                handleChatMessage(UID_CHAT, message);
-                                break;
-                            case "PART": //Remove a player
-                                long UID_PART = msg.ReadInt64();
-                                handlePartMessage(UID_PART);
-                                break;
-                            case "TILE": //Recieves a tile of type 'tileType'
-                                var xTilePos = msg.ReadInt32();
-                                var yTilePos = msg.ReadInt32();
-                                var tileType = msg.ReadInt32();
-                                handleTileMessage(new Vector2i(xTilePos, yTilePos), tileType);
-                                break;
-                            case "WALL": //Recieves a wall of type 'wallType'
-                                var xWallPos = msg.ReadInt32();
-                                var yWallPos = msg.ReadInt32();
-                                var wallType = msg.ReadInt32();
-                                bool leftFacing = msg.ReadBoolean();
-                                handleWallMessage(new Vector2i(xWallPos, yWallPos), wallType, leftFacing);
-                                break;
-                            case "INFO": //Recieved when server has completed sending all newbie initialization
-                                
-                                break;
-                        }
-                        //}
                         break;
                     default:
-                        Console.WriteLine("Unrecognized Message Recieved:" + msg.ToString());
+                        Console.WriteLine("Unrecognized Lidgren Message Recieved:" + msg.ToString());
                         break;
                 }
                 Game.client.Recycle(msg);
+            }
+        }
+
+        private static void HandleAGameMessage(NetIncomingMessage msg)
+        {
+            string messageType = ""; //Unsafe code
+            try
+            {
+                messageType = msg.ReadString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            switch (messageType)
+            {
+                case "LIFE":
+                    long UID_LIFE = msg.ReadInt64();
+                    int hp = msg.ReadInt32();
+                    handleLifeMessage(UID_LIFE, hp);
+                    break;
+
+                case "NAME":
+                    long UID_NAME = msg.ReadInt64();
+                    string newName = msg.ReadString();
+                    handleNameMessage(UID_NAME, newName);
+                    break;
+
+                case "POS": //Update a player's position
+                    var UID_POS = msg.ReadInt64();
+                    var xPos = msg.ReadInt32();
+                    var yPos = msg.ReadInt32();
+                    handlePosMessage(UID_POS, xPos, yPos);
+                    break;
+
+                case "JOIN": //Add a player
+                    long UID_JOIN = msg.ReadInt64();
+                    handleJoinMessage(UID_JOIN);
+                    break;
+
+                case "CHAT": //Add chat
+                    long UID_CHAT = msg.ReadInt64();
+                    string message = msg.ReadString();
+                    handleChatMessage(UID_CHAT, message);
+                    break;
+
+                case "PART": //Remove a player
+                    long UID_PART = msg.ReadInt64();
+                    handlePartMessage(UID_PART);
+                    break;
+
+                case "TILE": //Recieves a tile of type 'tileType'
+                    var xTilePos = msg.ReadInt32();
+                    var yTilePos = msg.ReadInt32();
+                    var tileType = msg.ReadInt32();
+                    handleTileMessage(new Vector2i(xTilePos, yTilePos), tileType);
+                    break;
+
+                case "WALL": //Recieves a wall of type 'wallType'
+                    var xWallPos = msg.ReadInt32();
+                    var yWallPos = msg.ReadInt32();
+                    var wallType = msg.ReadInt32();
+                    bool leftFacing = msg.ReadBoolean();
+                    handleWallMessage(new Vector2i(xWallPos, yWallPos), wallType, leftFacing);
+                    break;
+
+                case "INFO": //Recieved when server has completed sending all newbie initialization
+                    break;
+                
+                default:
+                    Console.WriteLine("Unrecognized Game Message Recieved: {0}\n{1}", msg.ToString(), messageType);
+                    break;
             }
         }
 
