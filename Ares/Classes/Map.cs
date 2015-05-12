@@ -16,12 +16,12 @@ namespace Ares
 
         private Wall[,] topWalls;
         private Wall[,] leftWalls;
-        private int MaxRealY;
 
         public List<Player> Players = new List<Player>();
         //public List<NPC> NPCs = new List<(NPC)(); //
         public List<GameObject> GameObjects = new List<GameObject>();
         public ClientPlayer ClientPlayer;
+        public float MaxRealY { get; private set; }
 
         public Map(int size)
         {
@@ -122,9 +122,7 @@ namespace Ares
                 {
                     Wall thisLeftWall = leftWalls[x, y];
                     Wall thisTopWall = topWalls[x, y];
-                    int thisRealY = Helper.TileToIso(new Vector2i(x, y)).Y;
-                    float lerpVal = thisRealY / (float)MaxRealY;
-                    float layer = Helper.Lerp(Layer.WallFar, Layer.WallNear, lerpVal);
+                    var layer = Helper.TilePosToLayer(new Vector2i(x, y));
 
                     //TODO: draw distance
                     if (thisLeftWall != null)

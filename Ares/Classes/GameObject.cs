@@ -13,7 +13,6 @@ namespace Ares
     public abstract class GameObject
     {
         public Vector2i Position;
-        public float DrawLayer;
         public bool LeftFacing = false;
         public long OwnerUID;
 
@@ -38,7 +37,6 @@ namespace Ares
 
         public virtual void Update()
         {
-            DrawLayer = 0;
         }
 
         public virtual void Draw()

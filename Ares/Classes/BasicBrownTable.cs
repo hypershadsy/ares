@@ -21,21 +21,18 @@ namespace Ares
 
         public override void Update()
         {
-            parentTile.tCol = Color.Red;
             base.Update();
         }
 
         public override void Draw()
         {
+            base.Draw();
             var gOrigin = new Vector2f(29,20);
             var gRot = 0f;
-            Color gCol = Color.White;
-            if (IsoCoords.X / 32 % 2 == 0)
-                gCol = new Color(190, 190, 190);
             int gFacing = LeftFacing ? 1 : -1;
+            float gLayer = Helper.TilePosToLayer(Position);
 
-            Render.Draw(Game.tableBrown, IsoCoords.ToF(), gCol, gOrigin, gFacing, gRot, 0f);
-            base.Draw();
+            Render.Draw(Game.tableBrown, IsoCoords.ToF(), Color.White, gOrigin, gFacing, gRot, gLayer);
         }
 
         public override void Activate()

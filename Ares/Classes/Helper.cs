@@ -72,6 +72,14 @@ namespace Ares
             return new Vector2i(realX, realY);
         }
 
+        public static float TilePosToLayer(Vector2i input)
+        {
+            int thisRealY = Helper.TileToIso(input).Y;
+            float lerpVal = thisRealY / (float)(Game.internalGame.map.MaxRealY);
+            float layer = Helper.Lerp(Layer.WallFar, Layer.WallNear, lerpVal);
+            return layer;
+        }
+
         public static void moveCameraTo(View camera, Vector2f focus, float speed)
         {
             if (camera.Center.X > focus.X)
