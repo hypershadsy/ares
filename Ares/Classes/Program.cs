@@ -151,7 +151,17 @@ namespace Ares
                         break;
                     case NetIncomingMessageType.Data:
                         //multiple game messages in a single packet
-                        while (msg.Position != msg.LengthBits)
+                        if (msg.PeekString() == "MULTION")
+                        {
+                            //consume start marker
+                            msg.ReadString();
+                            //read until end marker is reached
+                            while (msg.PeekString() != "MULTIOFF")
+                            {
+                                HandleAGameMessage(msg);
+                            }
+                        }
+                        else //regular single message
                         {
                             HandleAGameMessage(msg);
                         }
