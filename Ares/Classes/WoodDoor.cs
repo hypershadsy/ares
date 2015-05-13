@@ -22,9 +22,9 @@ namespace Ares
             open = false;
             if (!locked)
             {
-                for (int i = 0; i < Game.internalGame.map.Players.Count; i++)
+                for (int i = 0; i < Game.internalGame.map.Actors.Count; i++)
                 {
-                    Actor iActor = Game.internalGame.map.Players[i]; // This will need to refer to NPCs as well
+                    Actor iActor = Game.internalGame.map.Actors[i]; // This will need to refer to NPCs as well
                         if (Helper.Distance(iActor.IsoPosition, this.IsoCoords) < 35)
                         {
                             open = true;

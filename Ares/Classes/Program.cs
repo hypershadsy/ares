@@ -259,7 +259,7 @@ namespace Ares
         private static void handleJoinMessage(long uid)
         {
             //add a new net player to players
-            internalGame.map.Players.Add(new NetPlayer(uid));
+            internalGame.map.Actors.Add(new NetPlayer(uid));
         }
 
         private static void handleChatMessage(long uid, string message)
@@ -272,15 +272,15 @@ namespace Ares
         private static void handlePartMessage(long uid)
         {
             //remove net player from players list
-            Game.internalGame.map.Players.Remove(getPlayerWithUID(uid));
+            Game.internalGame.map.Actors.Remove(getPlayerWithUID(uid));
         }
 
         private static Player getPlayerWithUID(long id)
         {
-            for (int i = 0; i < internalGame.map.Players.Count; i++)
+            for (int i = 0; i < internalGame.map.Actors.Count; i++)
             {
-                if (internalGame.map.Players[i].UID == id)
-                    return internalGame.map.Players[i];
+                if (internalGame.map.Actors[i] is Player && ((Player)internalGame.map.Actors[i]).UID == id)
+                    return (Player)internalGame.map.Actors[i];
             }
 
             return null;

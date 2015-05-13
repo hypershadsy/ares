@@ -17,7 +17,7 @@ namespace Ares
         private Wall[,] topWalls;
         private Wall[,] leftWalls;
 
-        public List<Player> Players = new List<Player>();
+        public List<Actor> Actors = new List<Actor>();
         //public List<NPC> NPCs = new List<(NPC)(); //
         public List<GameObject> GameObjects = new List<GameObject>();
         public ClientPlayer ClientPlayer;
@@ -32,7 +32,7 @@ namespace Ares
             topWalls = new Wall[size + 1, size + 1];
             leftWalls = new Wall[size + 1, size + 1];
 
-            Players.Add(ClientPlayer);
+            Actors.Add(ClientPlayer);
         }
 
 
@@ -91,9 +91,9 @@ namespace Ares
 
         private void UpdatePlayers()
         {
-            for (int i = 0; i < Players.Count; i++)
+            for (int i = 0; i < Actors.Count; i++)
             {
-                Player thisPlayer = Players[i];
+                Player thisPlayer = (Player)Actors[i];
                 thisPlayer.Update();
             }
         }
@@ -139,9 +139,9 @@ namespace Ares
 
         private void DrawPlayers()
         {
-            for (int i = 0; i < Players.Count; i++)
+            for (int i = 0; i < Actors.Count; i++)
             {
-                Player thisPlayer = Players[i];
+                Player thisPlayer = (Player)Actors[i];
                 //it's -1 because there's a corner case with topWall directly down, leftWall directly right
                 int thisRealY = thisPlayer.IsoPosition.Y - 1;
                 float lerpVal = thisRealY / (float)MaxRealY;
