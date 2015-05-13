@@ -79,7 +79,13 @@ namespace Ares
             }
             if (Input.isKeyTap(Keyboard.Key.C)) //Add a table
             {
-                Game.internalGame.map.GameObjects.Add(new BasicBrownTable(Position));
+                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
+                outGoingMessage.Write("OBJ_CREATE");
+                outGoingMessage.Write(0);
+                outGoingMessage.Write(Position.X);
+                outGoingMessage.Write(Position.Y);
+
+                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
             }
 
             if (Input.isKeyTap(Keyboard.Key.A))

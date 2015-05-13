@@ -151,12 +151,12 @@ namespace Ares
                         break;
                     case NetIncomingMessageType.Data:
                         //multiple game messages in a single packet
-                        if (msg.PeekString() == "MULTION")
+                        if (msg.PeekString() == "MULTI_ON")
                         {
                             //consume start marker
                             msg.ReadString();
                             //read until end marker is reached
-                            while (msg.PeekString() != "MULTIOFF")
+                            while (msg.PeekString() != "MULTI_OFF")
                             {
                                 HandleAGameMessage(msg);
                             }
@@ -228,6 +228,22 @@ namespace Ares
                     var wallType = msg.ReadInt32();
                     bool leftFacing = msg.ReadBoolean();
                     handleWallMessage(new Vector2i(xWallPos, yWallPos), wallType, leftFacing);
+                    break;
+
+                case "OBJ_CREATE":
+                    int objUID = msg.ReadInt32();
+                    int objType = msg.ReadInt32();
+
+                    switch (objType)
+                    {
+                        case 0: //Basic Brown Table
+                            int objX = msg.ReadInt32();
+                            int objY = msg.ReadInt32();
+                            bool objLeftFacing = msg.ReadBoolean();
+
+                            internalGame.map.GameObjects.Add(new BasicBrownTable(new Vector2i(objX, objY),objUID, objLeftFacing));
+                            break;
+                    }
                     break;
 
                 case "INFO": //Recieved when server has completed sending all newbie initialization

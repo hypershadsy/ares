@@ -14,7 +14,7 @@ namespace Ares
     {
         public Vector2i Position;
         public bool LeftFacing = false;
-        public long OwnerUID;
+        public long UID;
 
         public Tile parentTile;
 
@@ -30,9 +30,11 @@ namespace Ares
         {
         }
 
-        public GameObject(Vector2i position)
+        public GameObject(Vector2i position, int UID, bool leftFacing)
         {
             this.Position = position;
+            this.LeftFacing = leftFacing;
+            this.UID = UID;
         }
 
         public virtual void Update()

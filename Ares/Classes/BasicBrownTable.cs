@@ -12,11 +12,11 @@ namespace Ares
 {
     public class BasicBrownTable : GameObject
     {
-        public BasicBrownTable(Vector2i Position)
-            : base(Position)
+        public BasicBrownTable(Vector2i Position, int UID, bool leftFacing)
+            : base(Position, UID, leftFacing)
         {
             //Vector2i tilePos = Helper.IsoToTile(Position);
-            parentTile = Game.internalGame.map.getTileInArray(Position.X,Position.Y);
+            parentTile = Game.internalGame.map.getTileInArray(Position.X, Position.Y);
         }
 
         public override void Update()
