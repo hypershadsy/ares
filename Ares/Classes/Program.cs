@@ -167,7 +167,7 @@ namespace Ares
                         }
                         break;
                     default:
-                        Console.WriteLine("Unrecognized Lidgren Message Recieved:" + msg.ToString());
+                        Console.WriteLine("Unrecognized Lidgren Message Recieved: {0}", msg.MessageType);
                         break;
                 }
                 Game.client.Recycle(msg);
@@ -176,15 +176,7 @@ namespace Ares
 
         private static void HandleAGameMessage(NetIncomingMessage msg)
         {
-            string messageType = ""; //Unsafe code
-            try
-            {
-                messageType = msg.ReadString();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            string messageType = msg.ReadString(); //Unsafe code
 
             switch (messageType)
             {
