@@ -38,6 +38,7 @@ namespace Ares
 
         static void Main(string[] args)
         {
+           
             PreRun();
             LoadContentInitialize();
 
@@ -71,7 +72,7 @@ namespace Ares
         {
             //Load
             window = new RenderWindow(
-                new VideoMode(800, 600), "Project Ares");
+                new VideoMode(800, 600), "Project Ares",Styles.Titlebar);
 
             windowSize = new Vector2f(800, 600);
             window.SetFramerateLimit(60);
@@ -132,6 +133,11 @@ namespace Ares
             gameState.Draw();
             window.Display();
             oldDateTime = DateTime.Now;
+
+            if (Input.isKeyDown(Keyboard.Key.Escape))
+            {
+                window.Close();
+            }
         }
 
         public static void HandleMessages()
