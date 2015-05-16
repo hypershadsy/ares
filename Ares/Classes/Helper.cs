@@ -75,7 +75,7 @@ namespace Ares
         public static float TilePosToLayer(Vector2i input)
         {
             int thisRealY = Helper.TileToIso(input).Y;
-            float lerpVal = thisRealY / (float)(Game.internalGame.map.MaxRealY);
+            float lerpVal = thisRealY / (float)(Game.internalGame.getCurrentFloor().MaxRealY);
             float layer = Helper.Lerp(Layer.WallFar, Layer.WallNear, lerpVal);
             return layer;
         }

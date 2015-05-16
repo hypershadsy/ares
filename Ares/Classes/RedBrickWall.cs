@@ -12,8 +12,8 @@ namespace Ares
 {
     public class RedBrickWall : Wall
     {
-        public RedBrickWall(Vector2i position, bool leftFacing)
-            : base(position, leftFacing)
+        public RedBrickWall(Map currentMap, Vector2i position, bool leftFacing)
+            : base(currentMap, position, leftFacing)
         {
         }
 

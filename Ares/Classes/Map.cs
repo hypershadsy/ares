@@ -17,22 +17,18 @@ namespace Ares
         private Wall[,] topWalls;
         private Wall[,] leftWalls;
 
-        public List<Actor> Actors = new List<Actor>();
-        //public List<NPC> NPCs = new List<(NPC)(); //
-        public List<GameObject> GameObjects = new List<GameObject>();
-        public ClientPlayer ClientPlayer;
         public float MaxRealY { get; private set; }
+        public int floor;
 
-        public Map(int size)
+        public Map(int size, int floor)
         {
-            ClientPlayer = new ClientPlayer();
+            this.floor = floor;
             tiles = new Tile[size, size];
             MaxRealY = Helper.TileToIso(new Vector2i(size - 1, size - 1)).Y;
 
             topWalls = new Wall[size + 1, size + 1];
             leftWalls = new Wall[size + 1, size + 1];
 
-            Actors.Add(ClientPlayer);
         }
 
 
@@ -40,17 +36,12 @@ namespace Ares
         {
             UpdateTiles();
             UpdateWalls();
-            UpdatePlayers();
-
-            UpdateGameObjects();
         }
 
         public void Draw()
         {
             DrawTiles();
             DrawWalls();
-            DrawPlayers();
-            DrawGameObjects();
         }
 
         private void UpdateTiles()
@@ -85,16 +76,6 @@ namespace Ares
                     if (thisWall != null)
                         thisWall.Update();
                 }
-            }
-        }
-
-
-        private void UpdatePlayers()
-        {
-            for (int i = 0; i < Actors.Count; i++)
-            {
-                Player thisPlayer = (Player)Actors[i];
-                thisPlayer.Update();
             }
         }
 
@@ -137,37 +118,6 @@ namespace Ares
             }
         }
 
-        private void DrawPlayers()
-        {
-            for (int i = 0; i < Actors.Count; i++)
-            {
-                Player thisPlayer = (Player)Actors[i];
-                //it's -1 because there's a corner case with topWall directly down, leftWall directly right
-                int thisRealY = thisPlayer.IsoPosition.Y - 1;
-                float lerpVal = thisRealY / (float)MaxRealY;
-                float layer = Helper.Lerp(Layer.WallFar, Layer.WallNear, lerpVal);
-                thisPlayer.Draw(layer);
-            }
-        }
-
-        private void DrawGameObjects()
-        {
-            for (int i = 0; i < GameObjects.Count; i++)
-            {
-                GameObject thisGameObject = GameObjects[i];
-                thisGameObject.Draw();
-            }
-        }
-
-        private void UpdateGameObjects()
-        {
-            for (int i = 0; i < GameObjects.Count; i++)
-            {
-                GameObject thisGameObject = GameObjects[i];
-                thisGameObject.Update();
-            }
-        }
-
         /// <summary>
         /// Used to add a tile at an array index, not world coordinates
         /// </summary>
@@ -204,15 +154,15 @@ namespace Ares
                 {
                     case 0:
                         if (leftFacing)
-                            leftWalls[x, y] = new RedBrickWall(new Vector2i(x, y), true);
+                            leftWalls[x, y] = new RedBrickWall(this, new Vector2i(x, y), true);
                         else
-                            topWalls[x, y] = new RedBrickWall(new Vector2i(x, y), false);
+                            topWalls[x, y] = new RedBrickWall(this, new Vector2i(x, y), false);
                         break;
                     case 1:
                         if (leftFacing)
-                            leftWalls[x, y] = new WoodDoor(new Vector2i(x, y), true);
+                            leftWalls[x, y] = new WoodDoor(this, new Vector2i(x, y), true);
                         else
-                            topWalls[x, y] = new WoodDoor(new Vector2i(x, y), false);
+                            topWalls[x, y] = new WoodDoor(this, new Vector2i(x, y), false);
                         break;
                 }
             }

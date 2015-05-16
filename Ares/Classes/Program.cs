@@ -38,7 +38,7 @@ namespace Ares
 
         static void Main(string[] args)
         {
-           
+
             PreRun();
             LoadContentInitialize();
 
@@ -72,7 +72,7 @@ namespace Ares
         {
             //Load
             window = new RenderWindow(
-                new VideoMode(800, 600), "Project Ares",Styles.Titlebar);
+                new VideoMode(800, 600), "Project Ares", Styles.Titlebar);
 
             windowSize = new Vector2f(800, 600);
             window.SetFramerateLimit(60);
@@ -117,7 +117,7 @@ namespace Ares
             client = new NetClient(config);
             client.Start();
 
-            internalGame.map = new Map(20);
+            
 
             //start processing messages
             client.Connect(ip, port);
@@ -224,16 +224,18 @@ namespace Ares
                 case "TILE": //Recieves a tile of type 'tileType'
                     var xTilePos = msg.ReadInt32();
                     var yTilePos = msg.ReadInt32();
+                    var zTilePos = msg.ReadInt32();
                     var tileType = msg.ReadInt32();
-                    handleTileMessage(new Vector2i(xTilePos, yTilePos), tileType);
+                    handleTileMessage(zTilePos, new Vector2i(xTilePos, yTilePos), tileType);
                     break;
 
                 case "WALL": //Recieves a wall of type 'wallType'
                     var xWallPos = msg.ReadInt32();
                     var yWallPos = msg.ReadInt32();
+                    var zWallPos = msg.ReadInt32();
                     var wallType = msg.ReadInt32();
                     bool leftFacing = msg.ReadBoolean();
-                    handleWallMessage(new Vector2i(xWallPos, yWallPos), wallType, leftFacing);
+                    handleWallMessage(zWallPos, new Vector2i(xWallPos, yWallPos), wallType, leftFacing);
                     break;
 
                 case "OBJ_CREATE":
@@ -245,21 +247,32 @@ namespace Ares
                         case 0: //Basic Brown Table
                             int objX = msg.ReadInt32();
                             int objY = msg.ReadInt32();
+                            int objZ = msg.ReadInt32();
                             bool objLeftFacing = msg.ReadBoolean();
 
-                            internalGame.map.GameObjects.Add(new BasicBrownTable(new Vector2i(objX, objY),objUID, objLeftFacing));
+                            internalGame.GameObjects.Add(new BasicBrownTable(getMapWithZValue(objZ), new Vector2i(objX, objY), objUID, objLeftFacing));
                             break;
                     }
                     break;
 
                 case "INFO": //Recieved when server has completed sending all newbie initialization
                     break;
-                
+
                 default:
                     Console.WriteLine("Unrecognized Game Message Recieved: {0}\n{1}", msg.ToString(), messageType);
                     break;
             }
         }
+        private static Map getMapWithZValue(int zValue)
+        {
+            for (int i = 0; i < internalGame.getFloors().Count; i++)
+            {
+                if (internalGame.getFloors()[i].floor == zValue)
+                    return internalGame.getFloors()[i];
+            }
+            return null;
+        }
+
 
         private static void handleLifeMessage(long uid, int health)
         {
@@ -283,44 +296,43 @@ namespace Ares
         private static void handleJoinMessage(long uid)
         {
             //add a new net player to players
-            internalGame.map.Actors.Add(new NetPlayer(uid));
+            internalGame.Actors.Add(new NetPlayer(uid));
         }
 
         private static void handleChatMessage(long uid, string message)
         {
             Player p = getPlayerWithUID(uid);
-            internalGame.map.ClientPlayer.gui.chat.messages.Add(
+            internalGame.ClientPlayer.gui.chat.messages.Add(
                 new ChatMessage(message, p));
         }
 
         private static void handlePartMessage(long uid)
         {
             //remove net player from players list
-            Game.internalGame.map.Actors.Remove(getPlayerWithUID(uid));
+            Game.internalGame.Actors.Remove(getPlayerWithUID(uid));
         }
 
         private static Player getPlayerWithUID(long id)
         {
-            for (int i = 0; i < internalGame.map.Actors.Count; i++)
+            for (int i = 0; i < internalGame.Actors.Count; i++)
             {
-                if (internalGame.map.Actors[i] is Player && ((Player)internalGame.map.Actors[i]).UID == id)
-                    return (Player)internalGame.map.Actors[i];
+                if (internalGame.Actors[i] is Player && ((Player)internalGame.Actors[i]).UID == id)
+                    return (Player)internalGame.Actors[i];
             }
+
 
             return null;
         }
 
-        private static void handleTileMessage(Vector2i pos, int type)
+        private static void handleTileMessage(int floorIndex, Vector2i pos, int type)
         {
-            internalGame.map.addTile(pos.X, pos.Y, type);
+            internalGame.getFloors()[floorIndex].addTile(pos.X, pos.Y, type);
         }
 
-        private static void handleWallMessage(Vector2i pos, int type, bool leftFacing)
+        private static void handleWallMessage(int floorIndex, Vector2i pos, int type, bool leftFacing)
         {
-            internalGame.map.addWall(pos.X, pos.Y, type, leftFacing);
+            internalGame.getFloors()[floorIndex].addWall(pos.X, pos.Y, type, leftFacing);
         }
-
-
         /// <summary>
         /// Gets the delta ratio. If the game is running slowly, this number will be higher,
         /// causing your game object to go further per frame. At 60FPS, this number will be 1.0.

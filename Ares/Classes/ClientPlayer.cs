@@ -15,10 +15,10 @@ namespace Ares
         public GUI gui;
         public bool noClip = false;
 
-        public ClientPlayer()
+        public ClientPlayer(Map currentMap, Vector2i Position)
             : base()
         {
-            Position = new Vector2i(1, 1);
+            this.Position = Position;
 
             gui = new GUI(this);
             Name = "Cactus Fantastico";
@@ -71,11 +71,11 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.B)) //Add a door
             {
-                Game.internalGame.map.addWall(this.Position.X, this.Position.Y, 1, true);
+                currentMap.addWall(this.Position.X, this.Position.Y, 1, true);
             }
             if (Input.isKeyTap(Keyboard.Key.V)) //Add a door
             {
-                Game.internalGame.map.addWall(this.Position.X, this.Position.Y, 1, false);
+                currentMap.addWall(this.Position.X, this.Position.Y, 1, false);
             }
             if (Input.isKeyTap(Keyboard.Key.C)) //Add a table
             {
@@ -90,7 +90,7 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.A))
             {
-                Wall wall = Game.internalGame.map.getLeftWallInArray(Position.X, Position.Y);
+                Wall wall = currentMap.getLeftWallInArray(Position.X, Position.Y);
                 if (wall == null ||
                     (wall is Door && ((Door)wall).open))// Vector2i(Position.X, Position.Y)
                     sendPos(new Vector2i(Position.X - 1, Position.Y));
@@ -98,7 +98,7 @@ namespace Ares
             }
             if (Input.isKeyTap(Keyboard.Key.D))
             {
-                Wall wall = Game.internalGame.map.getLeftWallInArray(Position.X + 1, Position.Y);
+                Wall wall = currentMap.getLeftWallInArray(Position.X + 1, Position.Y);
                 if (wall == null ||
                     (wall is Door && ((Door)wall).open))
                     sendPos(new Vector2i(Position.X + 1, Position.Y));
@@ -107,7 +107,7 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.W))
             {
-                Wall wall = Game.internalGame.map.getTopWallInArray(Position.X, Position.Y);
+                Wall wall = currentMap.getTopWallInArray(Position.X, Position.Y);
                 if (wall == null ||
                 (wall is Door && ((Door)wall).open))
                     sendPos(new Vector2i(Position.X, Position.Y - 1));
@@ -115,7 +115,7 @@ namespace Ares
             }
             if (Input.isKeyTap(Keyboard.Key.S))
             {
-                Wall wall = Game.internalGame.map.getTopWallInArray(Position.X, Position.Y + 1);
+                Wall wall = currentMap.getTopWallInArray(Position.X, Position.Y + 1);
                     if (wall == null ||
                     (wall is Door && ((Door)wall).open))
                         sendPos(new Vector2i(Position.X, Position.Y + 1));

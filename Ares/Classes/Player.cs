@@ -13,7 +13,6 @@ namespace Ares
     public class Player : Actor
     {
         public long UID;
-
         protected int frame = 0;
         protected float frameDelta = 0;
 

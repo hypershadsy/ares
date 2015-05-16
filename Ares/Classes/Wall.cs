@@ -16,7 +16,7 @@ namespace Ares
         public bool LeftFacing; //A left facing wall is rotated such that it sits among the left side of the tile
                                 //A non left facing tile (top facing) sits among the top of the tile
         public Vector2i Position; //
-
+        public Map currentMap;
         public Vector2i IsoCoords
         {
             get
@@ -25,8 +25,9 @@ namespace Ares
             }
         }
 
-        public Wall(Vector2i position, bool leftFacing)
+        public Wall(Map currentMap, Vector2i position, bool leftFacing)
         {
+            this.currentMap = currentMap;
             this.LeftFacing = leftFacing;
             Position = position;
         }

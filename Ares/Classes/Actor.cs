@@ -13,6 +13,7 @@ namespace Ares
     public class Actor
     {
         public Vector2i Position;
+        public Map currentMap;
         public string Name = "";
         public int Health, MaxHealth;
         public Vector2i IsoPosition

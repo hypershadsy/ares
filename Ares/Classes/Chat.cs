@@ -21,31 +21,31 @@ namespace Ares
 
         public Chat(Player PlayerSender)
         {
-            this.PlayerSender = PlayerSender;
-            Game.window.TextEntered += (object sender, TextEventArgs e) =>
-            {
-                if (DraftEditorOpen)
-                {
-                    if (Keyboard.IsKeyPressed(Keyboard.Key.Back))
-                    {
-                        if (ChatDraft.Length > 0)
-                            ChatDraft = ChatDraft.Substring(0, ChatDraft.Length - 1);
-                    }
-                    else if (Keyboard.IsKeyPressed(Keyboard.Key.Return))
-                    {
-                    }
-                    else if (Keyboard.IsKeyPressed(Keyboard.Key.LControl))
-                    {
-                    }
-                    else if (Keyboard.IsKeyPressed(Keyboard.Key.Tab))
-                    {
-                    }
-                    else
-                    {
-                        ChatDraft += e.Unicode;
-                    }
-                }
-            };
+            //this.PlayerSender = PlayerSender;
+            //Game.window.TextEntered += (object sender, TextEventArgs e) =>
+            //{
+            //    if (DraftEditorOpen)
+            //    {
+            //        if (Keyboard.IsKeyPressed(Keyboard.Key.Back))
+            //        {
+            //            if (ChatDraft.Length > 0)
+            //                ChatDraft = ChatDraft.Substring(0, ChatDraft.Length - 1);
+            //        }
+            //        else if (Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            //        {
+            //        }
+            //        else if (Keyboard.IsKeyPressed(Keyboard.Key.LControl))
+            //        {
+            //        }
+            //        else if (Keyboard.IsKeyPressed(Keyboard.Key.Tab))
+            //        {
+            //        }
+            //        else
+            //        {
+            //            ChatDraft += e.Unicode;
+            //        }
+            //    }
+            //};
         }
 
         public void Update()

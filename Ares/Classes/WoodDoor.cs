@@ -12,8 +12,8 @@ namespace Ares
 {
     public class WoodDoor : Door
     {
-        public WoodDoor(Vector2i position, bool leftFacing)
-            : base(position, leftFacing)
+        public WoodDoor(Map currentMap, Vector2i position, bool leftFacing)
+            : base(currentMap, position, leftFacing)
         {
         }
 
@@ -22,13 +22,13 @@ namespace Ares
             open = false;
             if (!locked)
             {
-                for (int i = 0; i < Game.internalGame.map.Actors.Count; i++)
+                for (int i = 0; i < Game.internalGame.Actors.Count; i++)
                 {
-                    Actor iActor = Game.internalGame.map.Actors[i]; // This will need to refer to NPCs as well
-                        if (Helper.Distance(iActor.IsoPosition, this.IsoCoords) < 35)
-                        {
-                            open = true;
-                        }
+                    Actor iActor = Game.internalGame.Actors[i]; // This will need to refer to NPCs as well
+                    if (iActor.currentMap.floor == currentMap.floor && Helper.Distance(iActor.IsoPosition, this.IsoCoords) < 35)
+                    {
+                        open = true;
+                    }
 
                 }
 

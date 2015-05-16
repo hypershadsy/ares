@@ -15,8 +15,8 @@ namespace Ares
         public bool open = false;
         public bool locked = false;
 
-        public Door(Vector2i position, bool leftFacing)
-            : base(position, leftFacing)
+        public Door(Map currentMap, Vector2i position, bool leftFacing)
+            : base(currentMap, position, leftFacing)
         {
         }
 

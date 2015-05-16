@@ -12,6 +12,7 @@ namespace Ares
 {
     public abstract class GameObject
     {
+        public Map currentMap;
         public Vector2i Position;
         public bool LeftFacing = false;
         public long UID;
@@ -30,8 +31,9 @@ namespace Ares
         {
         }
 
-        public GameObject(Vector2i position, int UID, bool leftFacing)
+        public GameObject(Map currentMap, Vector2i position, int UID, bool leftFacing)
         {
+            this.currentMap = currentMap;
             this.Position = position;
             this.LeftFacing = leftFacing;
             this.UID = UID;
@@ -52,7 +54,7 @@ namespace Ares
 
         public virtual void Destroy()
         {
-            Game.internalGame.map.GameObjects.Remove(this);
+            Game.internalGame.GameObjects.Remove(this);
         }
     }
 }
