@@ -49,6 +49,7 @@ namespace Ares
 
         public void Draw()
         {
+            DrawLowerFloors();
             DrawTiles();
             DrawWalls();
             DrawPlayers();
@@ -107,6 +108,41 @@ namespace Ares
                 Player thisPlayer = (Player)Actors[i];
                 thisPlayer.Update();
             }
+        }
+
+        private void DrawLowerFloors()
+        {
+            int width = leftWalls.GetLength(0);
+            int height = leftWalls.GetLength(1);
+            int depth = leftWalls.GetLength(2);
+            int maxDepth = Math.Max(ClientPlayer.Position.Z, depth);
+
+            const int wallSpriteHeight = 60; //not actually sprite height, but plays nice with bg offset
+
+            for (int z = 0; z < maxDepth; z++)
+            {
+                int zDiff = ClientPlayer.Position.Z - z;
+                Render.OffsetPosition(new Vector2f(0f, zDiff * wallSpriteHeight));
+                int x, y;
+                //south end, top walls
+                y = height - 1;
+                for (x = 0; x < width; x++)
+                {
+                    Wall thisTopWall = topWalls[x, y, z];
+                    if (thisTopWall != null)
+                        thisTopWall.Draw(Layer.LowerWalls);
+                }
+
+                //east end, left walls
+                x = width - 1;
+                for (y = 0; y < height; y++)
+                {
+                    Wall thisLeftWall = leftWalls[x, y, z];
+                    if (thisLeftWall != null)
+                        thisLeftWall.Draw(Layer.LowerWalls);
+                }
+            }
+            Render.OffsetPosition(new Vector2f(0f, 0f));
         }
 
         private void DrawTiles()
