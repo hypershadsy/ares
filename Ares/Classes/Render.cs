@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +13,7 @@ namespace Ares
     public static class Render
     {
         public static List<LayeredDrawable> spriteBatch = new List<LayeredDrawable>();
+        private static Vector2f offsetPosition = new Vector2f(0f, 0f);
 
         public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, float layer = 0.0f)
         {
@@ -23,7 +24,7 @@ namespace Ares
         {
             Text text = new Text(message, font);
             text.Scale = new Vector2f(scale, scale);
-            text.Position = position;
+            text.Position = position + offsetPosition;
             text.Color = color;
             if (centered)
                 text.Position = new Vector2f(text.Position.X - ((text.GetLocalBounds().Width * scale) / 2), text.Position.Y);
@@ -56,7 +57,7 @@ namespace Ares
             sprite.Texture.Smooth = false;
             sprite.Scale = new Vector2f(facing, 1);
             sprite.Origin = origin;
-            sprite.Position = position;
+            sprite.Position = position + offsetPosition;
             sprite.Color = color;
             sprite.Rotation = rotation;
             if (textureRect.HasValue)
@@ -68,6 +69,11 @@ namespace Ares
             layeredSprite.Drawable = sprite;
             layeredSprite.Layer = layer;
             spriteBatch.Add(layeredSprite);
+        }
+
+        public static void OffsetPosition(Vector2f offset)
+        {
+            offsetPosition = offset;
         }
 
         public static void SpitToWindow()
