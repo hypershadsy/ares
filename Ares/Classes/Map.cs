@@ -165,11 +165,14 @@ namespace Ares
             for (int i = 0; i < Actors.Count; i++)
             {
                 Player thisPlayer = (Player)Actors[i];
-                //it's -1 because there's a corner case with topWall directly down, leftWall directly right
-                int thisRealY = thisPlayer.IsoPosition.Y - 1;
-                float lerpVal = thisRealY / (float)MaxRealY;
-                float layer = Helper.Lerp(Layer.WallFar, Layer.WallNear, lerpVal);
-                thisPlayer.Draw(layer);
+                if (thisPlayer.Position.Z == ClientPlayer.Position.Z)
+                {
+                    //it's -1 because there's a corner case with topWall directly down, leftWall directly right
+                    int thisRealY = thisPlayer.IsoPosition.Y - 1;
+                    float lerpVal = thisRealY / (float)MaxRealY;
+                    float layer = Helper.Lerp(Layer.WallFar, Layer.WallNear, lerpVal);
+                    thisPlayer.Draw(layer);
+                }
             }
         }
 
