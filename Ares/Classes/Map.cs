@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -128,33 +128,32 @@ namespace Ares
             }
         }
 
-        private void DrawWalls() //Not for future use: Must be rewritten for draw order
+        private void DrawWalls()
         {
-            var width = leftWalls.GetLength(0);
-            var height = leftWalls.GetLength(1);
+            int width = leftWalls.GetLength(0);
+            int height = leftWalls.GetLength(1);
+            int depth = leftWalls.GetLength(2);
+            int z = ClientPlayer.Position.Z;
+
+            //z out of bounds
+            if (z < 0 || z >= depth)
+                return;
 
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    for (int z = 0; z < floors; z++)
-                    {
-                        if (z == ClientPlayer.Position.Z)
-                        {
-                            Wall thisLeftWall = leftWalls[x, y, z];
-                            Wall thisTopWall = topWalls[x, y, z];
-                            var layer = Helper.TilePosToLayer(new Vector2i(x, y));
+                    Wall thisLeftWall = leftWalls[x, y, z];
+                    Wall thisTopWall = topWalls[x, y, z];
+                    var layer = Helper.TilePosToLayer(new Vector2i(x, y));
 
-                            //TODO: draw distance
-                            if (thisLeftWall != null)
-                            {
-                                thisLeftWall.Draw(layer);
-                            }
-                            if (thisTopWall != null)
-                            {
-                                thisTopWall.Draw(layer);
-                            }
-                        }
+                    if (thisLeftWall != null)
+                    {
+                        thisLeftWall.Draw(layer);
+                    }
+                    if (thisTopWall != null)
+                    {
+                        thisTopWall.Draw(layer);
                     }
                 }
             }
