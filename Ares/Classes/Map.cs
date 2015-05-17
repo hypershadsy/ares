@@ -115,7 +115,7 @@ namespace Ares
             int width = leftWalls.GetLength(0);
             int height = leftWalls.GetLength(1);
             int depth = leftWalls.GetLength(2);
-            int maxDepth = Math.Max(ClientPlayer.Position.Z, depth);
+            int maxDepth = Math.Min(ClientPlayer.Position.Z, depth);
 
             const int wallSpriteHeight = 60; //not actually sprite height, but plays nice with bg offset
 
