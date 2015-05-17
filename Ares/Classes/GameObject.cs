@@ -12,7 +12,7 @@ namespace Ares
 {
     public abstract class GameObject
     {
-        public Vector2i Position;
+        public Vector3i Position;
         public bool LeftFacing = false;
         public long UID;
 
@@ -22,7 +22,7 @@ namespace Ares
         {
             get
             {
-                return Helper.TileToIso(Position);
+                return Helper.TileToIso(new Vector2i(Position.X,Position.Y));
             }
         }
 
@@ -30,7 +30,7 @@ namespace Ares
         {
         }
 
-        public GameObject(Vector2i position, int UID, bool leftFacing)
+        public GameObject(Vector3i position, int UID, bool leftFacing)
         {
             this.Position = position;
             this.LeftFacing = leftFacing;

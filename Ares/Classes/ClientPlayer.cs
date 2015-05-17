@@ -18,7 +18,7 @@ namespace Ares
         public ClientPlayer()
             : base()
         {
-            Position = new Vector2i(1, 1);
+            Position = new Vector3i(1, 1, 0);
 
             gui = new GUI(this);
             Name = "Cactus Fantastico";
@@ -71,55 +71,63 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.B)) //Add a door
             {
-                Game.internalGame.map.addWall(this.Position.X, this.Position.Y, 1, true);
+                Game.internalGame.map.addWall(this.Position.X, this.Position.Y, this.Position.Z, 1, true);
             }
             if (Input.isKeyTap(Keyboard.Key.V)) //Add a door
             {
-                Game.internalGame.map.addWall(this.Position.X, this.Position.Y, 1, false);
+                Game.internalGame.map.addWall(this.Position.X, this.Position.Y, this.Position.Z, 1, false);
+            }
+            if (Input.isKeyTap(Keyboard.Key.Up)) //Add a door
+            {
+                Position.Z++;
+            }
+            if (Input.isKeyTap(Keyboard.Key.Down)) //Add a door
+            {
+                Position.Z--;
             }
 
             if (Input.isKeyTap(Keyboard.Key.A))
             {
-                Wall wall = Game.internalGame.map.getLeftWallInArray(Position.X, Position.Y);
+                Wall wall = Game.internalGame.map.getLeftWallInArray(Position.X, Position.Y, Position.Z);
                 if (wall == null ||
                     (wall is Door && ((Door)wall).open))// Vector2i(Position.X, Position.Y)
-                    sendPos(new Vector2i(Position.X - 1, Position.Y));
+                    sendPos(new Vector3i(Position.X - 1, Position.Y, Position.Z));
                 //Position.X--;
             }
             if (Input.isKeyTap(Keyboard.Key.D))
             {
-                Wall wall = Game.internalGame.map.getLeftWallInArray(Position.X + 1, Position.Y);
+                Wall wall = Game.internalGame.map.getLeftWallInArray(Position.X + 1, Position.Y, Position.Z);
                 if (wall == null ||
                     (wall is Door && ((Door)wall).open))
-                    sendPos(new Vector2i(Position.X + 1, Position.Y));
+                    sendPos(new Vector3i(Position.X + 1, Position.Y, Position.Z));
                 //Position.X++;
             }
 
             if (Input.isKeyTap(Keyboard.Key.W))
             {
-                Wall wall = Game.internalGame.map.getTopWallInArray(Position.X, Position.Y);
+                Wall wall = Game.internalGame.map.getTopWallInArray(Position.X, Position.Y,Position.Z);
                 if (wall == null ||
                 (wall is Door && ((Door)wall).open))
-                    sendPos(new Vector2i(Position.X, Position.Y - 1));
+                    sendPos(new Vector3i(Position.X, Position.Y - 1, Position.Z));
                 //Position.Y--;
             }
             if (Input.isKeyTap(Keyboard.Key.S))
             {
-                Wall wall = Game.internalGame.map.getTopWallInArray(Position.X, Position.Y + 1);
+                Wall wall = Game.internalGame.map.getTopWallInArray(Position.X, Position.Y + 1, Position.Z);
                     if (wall == null ||
                     (wall is Door && ((Door)wall).open))
-                        sendPos(new Vector2i(Position.X, Position.Y + 1));
+                        sendPos(new Vector3i(Position.X, Position.Y + 1, Position.Z));
                 //Position.Y++;
             }
         }
 
-        private void sendPos(Vector2i pos)
+        private void sendPos(Vector3i pos)
         {
             NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
             outGoingMessage.Write("POS");
             outGoingMessage.Write(pos.X);
             outGoingMessage.Write(pos.Y);
-
+            outGoingMessage.Write(pos.Z);
             Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
         }
 

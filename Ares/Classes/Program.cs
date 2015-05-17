@@ -227,7 +227,7 @@ namespace Ares
                     var yTilePos = msg.ReadInt32();
                     var zTilePos = msg.ReadInt32();
                     var tileType = msg.ReadInt32();
-                    handleTileMessage(new Vector2i(xTilePos, yTilePos), tileType);
+                    handleTileMessage(new Vector3i(xTilePos, yTilePos, zTilePos), tileType);
                     break;
 
                 case "WALL": //Recieves a wall of type 'wallType'
@@ -236,7 +236,7 @@ namespace Ares
                     var zWallPos = msg.ReadInt32();
                     var wallType = msg.ReadInt32();
                     bool leftFacing = msg.ReadBoolean();
-                    handleWallMessage(new Vector2i(xWallPos, yWallPos), wallType, leftFacing);
+                    handleWallMessage(new Vector3i(xWallPos, yWallPos, zWallPos), wallType, leftFacing);
                     break;
 
                 case "OBJ_CREATE":
@@ -251,7 +251,7 @@ namespace Ares
                             int objZ = msg.ReadInt32();
                             bool objLeftFacing = msg.ReadBoolean();
 
-                            internalGame.map.GameObjects.Add(new BasicBrownTable(new Vector2i(objX, objY),objUID, objLeftFacing));
+                            internalGame.map.GameObjects.Add(new BasicBrownTable(new Vector3i(objX, objY, objZ),objUID, objLeftFacing));
                             break;
                     }
                     break;
@@ -280,7 +280,7 @@ namespace Ares
             Actor plr = getPlayerWithUID(uid);
             if (plr != null) //stale POS message, player is already gone?
             {
-                plr.Position = new Vector2i(x, y);
+                plr.Position = new Vector3i(x, y,z);
             }
         }
 
@@ -314,14 +314,14 @@ namespace Ares
             return null;
         }
 
-        private static void handleTileMessage(Vector2i pos, int type)
+        private static void handleTileMessage(Vector3i pos, int type)
         {
-            internalGame.map.addTile(pos.X, pos.Y, type);
+            internalGame.map.addTile(pos.X, pos.Y, pos.Z, type);
         }
 
-        private static void handleWallMessage(Vector2i pos, int type, bool leftFacing)
+        private static void handleWallMessage(Vector3i pos, int type, bool leftFacing)
         {
-            internalGame.map.addWall(pos.X, pos.Y, type, leftFacing);
+            internalGame.map.addWall(pos.X, pos.Y, pos.Z, type, leftFacing);
         }
 
 

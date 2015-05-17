@@ -17,7 +17,7 @@ namespace Ares
         private Wall[, ,] topWalls;
         private Wall[, ,] leftWalls;
 
-        private int floors;
+        private int floors = 5;
 
         public List<Actor> Actors = new List<Actor>();
         //public List<NPC> NPCs = new List<(NPC)(); //
@@ -117,9 +117,12 @@ namespace Ares
                 {
                     for (int z = 0; z < floors; z++)
                     {
-                        Tile thisTile = tiles[x, y, z];
-                        if (thisTile != null)
-                            thisTile.Draw();
+                        if (z == ClientPlayer.Position.Z)
+                        {
+                            Tile thisTile = tiles[x, y, z];
+                            if (thisTile != null)
+                                thisTile.Draw();
+                        }
                     }
                 }
             }
@@ -136,18 +139,21 @@ namespace Ares
                 {
                     for (int z = 0; z < floors; z++)
                     {
-                        Wall thisLeftWall = leftWalls[x, y, z];
-                        Wall thisTopWall = topWalls[x, y, z];
-                        var layer = Helper.TilePosToLayer(new Vector2i(x, y));
+                        if (z == ClientPlayer.Position.Z)
+                        {
+                            Wall thisLeftWall = leftWalls[x, y, z];
+                            Wall thisTopWall = topWalls[x, y, z];
+                            var layer = Helper.TilePosToLayer(new Vector2i(x, y));
 
-                        //TODO: draw distance
-                        if (thisLeftWall != null)
-                        {
-                            thisLeftWall.Draw(layer);
-                        }
-                        if (thisTopWall != null)
-                        {
-                            thisTopWall.Draw(layer);
+                            //TODO: draw distance
+                            if (thisLeftWall != null)
+                            {
+                                thisLeftWall.Draw(layer);
+                            }
+                            if (thisTopWall != null)
+                            {
+                                thisTopWall.Draw(layer);
+                            }
                         }
                     }
                 }

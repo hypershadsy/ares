@@ -12,11 +12,11 @@ namespace Ares
 {
     public class BasicBrownTable : GameObject
     {
-        public BasicBrownTable(Vector2i Position, int UID, bool leftFacing)
+        public BasicBrownTable(Vector3i Position, int UID, bool leftFacing)
             : base(Position, UID, leftFacing)
         {
             //Vector2i tilePos = Helper.IsoToTile(Position);
-            parentTile = Game.internalGame.map.getTileInArray(Position.X, Position.Y);
+            parentTile = Game.internalGame.map.getTileInArray(Position.X, Position.Y, Position.Z);
         }
 
         public override void Update()
@@ -30,7 +30,7 @@ namespace Ares
             var gOrigin = new Vector2f(29,20);
             var gRot = 0f;
             int gFacing = LeftFacing ? 1 : -1;
-            float gLayer = Helper.TilePosToLayer(Position);
+            float gLayer = Helper.TilePosToLayer(new Vector2i(Position.X,Position.Y));
 
             Render.Draw(Game.tableBrown, IsoCoords.ToF(), Color.White, gOrigin, gFacing, gRot, gLayer);
         }

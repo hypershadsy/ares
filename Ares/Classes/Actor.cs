@@ -12,14 +12,14 @@ namespace Ares
 {
     public class Actor
     {
-        public Vector2i Position;
+        public Vector3i Position;
         public string Name = "";
         public int Health, MaxHealth;
         public Vector2i IsoPosition
         {
             get
             {
-                Vector2i ret = Helper.TileToIso(Position);
+                Vector2i ret = Helper.TileToIso(new Vector2i(Position.X,Position.Y));
                 ret.Y += 16;
                 return ret; //isospace pos of feet standing at center of tile
             }

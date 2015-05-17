@@ -17,7 +17,7 @@ namespace Ares
         public NetPlayer(long uid)
         {
             this.UID = uid;
-            Position = new Vector2i(1, 1);
+            Position = new Vector3i(1, 1, 0);
             PositionInter = IsoPosition.ToF();
             Name = "Seymour Butts";
         }
