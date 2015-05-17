@@ -297,7 +297,7 @@ namespace Ares
         private static void handleJoinMessage(long uid)
         {
             //add a new net player to players
-            internalGame.Actors.Add(new NetPlayer(uid));
+            internalGame.Actors.Add(new NetPlayer(Game.internalGame.getFloors()[0], uid));
         }
 
         private static void handleChatMessage(long uid, string message)

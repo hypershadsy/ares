@@ -97,7 +97,8 @@ namespace Ares
                 int thisRealY = thisPlayer.IsoPosition.Y - 1;
                 float lerpVal = thisRealY / (float)floors[currentFloor].MaxRealY;
                 float layer = Helper.Lerp(Layer.WallFar, Layer.WallNear, lerpVal);
-                thisPlayer.Draw(layer);
+                if (thisPlayer.currentMap.floor == ClientPlayer.currentMap.floor)
+                    thisPlayer.Draw(layer);
             }
         }
 

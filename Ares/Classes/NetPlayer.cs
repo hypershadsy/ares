@@ -14,9 +14,10 @@ namespace Ares
     {
         public Vector2f PositionInter;
 
-        public NetPlayer(long uid)
+        public NetPlayer(Map currentMap, long uid)
         {
             this.UID = uid;
+            this.currentMap = currentMap;
             Position = new Vector2i(1, 1);
             PositionInter = IsoPosition.ToF();
             Name = "Cactus Fantastico";

@@ -51,6 +51,7 @@ namespace Ares
 
         public override void Draw(float layer)
         {
+            Console.WriteLine(Game.internalGame.currentFloor);
             IncrementAnimationFrame();
             Vector2f origin = new Vector2f(12f, 55f); //12,55 places his feet approx at the middle of the tile
             //Render.Draw(Game.charTexture, IsoPosition.ToF(), Color.Red, origin, 1, 0f);
@@ -74,6 +75,10 @@ namespace Ares
             if (Input.isKeyTap(Keyboard.Key.V)) //Add a door
             {
                 currentMap.addWall(this.Position.X, this.Position.Y, 1, false);
+            }
+            if (Input.isKeyTap(Keyboard.Key.Up)) //Up a floor
+            {
+                currentMap = Game.internalGame.getFloors()[currentMap.floor + 1];
             }
 
             if (Input.isKeyTap(Keyboard.Key.A))
