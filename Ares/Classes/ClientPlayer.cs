@@ -19,7 +19,7 @@ namespace Ares
             : base()
         {
             this.Position = Position;
-
+            this.currentMap = currentMap;
             gui = new GUI(this);
             Name = "Cactus Fantastico";
         }
@@ -37,8 +37,6 @@ namespace Ares
 
                 Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
             }
-
-
 
             setUID();
 
@@ -76,16 +74,6 @@ namespace Ares
             if (Input.isKeyTap(Keyboard.Key.V)) //Add a door
             {
                 currentMap.addWall(this.Position.X, this.Position.Y, 1, false);
-            }
-            if (Input.isKeyTap(Keyboard.Key.C)) //Add a table
-            {
-                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                outGoingMessage.Write("OBJ_CREATE");
-                outGoingMessage.Write(0);
-                outGoingMessage.Write(Position.X);
-                outGoingMessage.Write(Position.Y);
-
-                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
             }
 
             if (Input.isKeyTap(Keyboard.Key.A))

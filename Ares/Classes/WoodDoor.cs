@@ -25,7 +25,7 @@ namespace Ares
                 for (int i = 0; i < Game.internalGame.Actors.Count; i++)
                 {
                     Actor iActor = Game.internalGame.Actors[i]; // This will need to refer to NPCs as well
-                    if (iActor.currentMap.floor == currentMap.floor && Helper.Distance(iActor.IsoPosition, this.IsoCoords) < 35)
+                    if (Helper.Distance(iActor.IsoPosition, this.IsoCoords) < 35)
                     {
                         open = true;
                     }

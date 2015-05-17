@@ -20,13 +20,17 @@ namespace Ares
             : base()
         {
             createFloors(20, 3);
-            ClientPlayer = new ClientPlayer(floors[0], new Vector2i(1, 1));
+            ClientPlayer = new ClientPlayer(floors[1], new Vector2i(1, 1));
+
+            Actors.Add(ClientPlayer);
         }
 
         public override void Update()
         {
             base.Update();
             updateAllFloors();
+            UpdatePlayers();
+            UpdateGameObjects();
         }
 
         public override void Draw()
@@ -35,6 +39,8 @@ namespace Ares
 
             Game.window.SetView(Game.camera2D);
             drawCurrentFloor();
+            DrawPlayers();
+            DrawGameObjects();
             Render.Draw(Game.cityBackground, new Vector2f(0, 0), Color.White, new Vector2f(1066, 818), 1, 0f, 1);
             Render.SpitToWindow();
 

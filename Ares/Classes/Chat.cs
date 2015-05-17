@@ -21,7 +21,7 @@ namespace Ares
 
         public Chat(Player PlayerSender)
         {
-            //this.PlayerSender = PlayerSender;
+            this.PlayerSender = PlayerSender;
             //Game.window.TextEntered += (object sender, TextEventArgs e) =>
             //{
             //    if (DraftEditorOpen)
