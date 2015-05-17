@@ -72,7 +72,7 @@ namespace Ares
         {
             //Load
             window = new RenderWindow(
-                new VideoMode(800, 600), "Project Ares", Styles.Titlebar);
+                new VideoMode(800, 600), "Project Ares", Styles.Default);
 
             windowSize = new Vector2f(800, 600);
             window.SetFramerateLimit(60);
