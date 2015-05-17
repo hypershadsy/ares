@@ -20,7 +20,6 @@ namespace Ares
         public override void Draw()
         {
             base.Draw();
-
             Game.window.SetView(Game.camera2D);
             map.Draw();
             Render.Draw(Game.cityBackground, new Vector2f(0, 0), Color.White, new Vector2f(1066, 818), 1, 0f, 1);

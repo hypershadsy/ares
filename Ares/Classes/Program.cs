@@ -202,7 +202,8 @@ namespace Ares
                     var UID_POS = msg.ReadInt64();
                     var xPos = msg.ReadInt32();
                     var yPos = msg.ReadInt32();
-                    handlePosMessage(UID_POS, xPos, yPos);
+                    var zPos = msg.ReadInt32();
+                    handlePosMessage(UID_POS, xPos, yPos, zPos);
                     break;
 
                 case "JOIN": //Add a player
@@ -224,6 +225,7 @@ namespace Ares
                 case "TILE": //Recieves a tile of type 'tileType'
                     var xTilePos = msg.ReadInt32();
                     var yTilePos = msg.ReadInt32();
+                    var zTilePos = msg.ReadInt32();
                     var tileType = msg.ReadInt32();
                     handleTileMessage(new Vector2i(xTilePos, yTilePos), tileType);
                     break;
@@ -231,6 +233,7 @@ namespace Ares
                 case "WALL": //Recieves a wall of type 'wallType'
                     var xWallPos = msg.ReadInt32();
                     var yWallPos = msg.ReadInt32();
+                    var zWallPos = msg.ReadInt32();
                     var wallType = msg.ReadInt32();
                     bool leftFacing = msg.ReadBoolean();
                     handleWallMessage(new Vector2i(xWallPos, yWallPos), wallType, leftFacing);
@@ -245,6 +248,7 @@ namespace Ares
                         case 0: //Basic Brown Table
                             int objX = msg.ReadInt32();
                             int objY = msg.ReadInt32();
+                            int objZ = msg.ReadInt32();
                             bool objLeftFacing = msg.ReadBoolean();
 
                             internalGame.map.GameObjects.Add(new BasicBrownTable(new Vector2i(objX, objY),objUID, objLeftFacing));
@@ -271,7 +275,7 @@ namespace Ares
             getPlayerWithUID(uid).Name = newName;
         }
 
-        private static void handlePosMessage(long uid, int x, int y)
+        private static void handlePosMessage(long uid, int x, int y, int z)
         {
             Actor plr = getPlayerWithUID(uid);
             if (plr != null) //stale POS message, player is already gone?

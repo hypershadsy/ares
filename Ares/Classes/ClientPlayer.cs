@@ -77,16 +77,6 @@ namespace Ares
             {
                 Game.internalGame.map.addWall(this.Position.X, this.Position.Y, 1, false);
             }
-            if (Input.isKeyTap(Keyboard.Key.C)) //Add a table
-            {
-                NetOutgoingMessage outGoingMessage = Game.client.CreateMessage();
-                outGoingMessage.Write("OBJ_CREATE");
-                outGoingMessage.Write(0);
-                outGoingMessage.Write(Position.X);
-                outGoingMessage.Write(Position.Y);
-
-                Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
-            }
 
             if (Input.isKeyTap(Keyboard.Key.A))
             {

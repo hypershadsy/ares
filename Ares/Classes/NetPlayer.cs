@@ -19,7 +19,7 @@ namespace Ares
             this.UID = uid;
             Position = new Vector2i(1, 1);
             PositionInter = IsoPosition.ToF();
-            Name = "Cactus Fantastico";
+            Name = "Seymour Butts";
         }
 
         public override void Update()

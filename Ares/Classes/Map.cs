@@ -12,10 +12,12 @@ namespace Ares
 {
     public class Map
     {
-        private Tile[,] tiles;
+        private Tile[, ,] tiles;
 
-        private Wall[,] topWalls;
-        private Wall[,] leftWalls;
+        private Wall[, ,] topWalls;
+        private Wall[, ,] leftWalls;
+
+        private int floors;
 
         public List<Actor> Actors = new List<Actor>();
         //public List<NPC> NPCs = new List<(NPC)(); //
@@ -26,11 +28,11 @@ namespace Ares
         public Map(int size)
         {
             ClientPlayer = new ClientPlayer();
-            tiles = new Tile[size, size];
+            tiles = new Tile[size, size, floors];
             MaxRealY = Helper.TileToIso(new Vector2i(size - 1, size - 1)).Y;
 
-            topWalls = new Wall[size + 1, size + 1];
-            leftWalls = new Wall[size + 1, size + 1];
+            topWalls = new Wall[size + 1, size + 1, floors];
+            leftWalls = new Wall[size + 1, size + 1, floors];
 
             Actors.Add(ClientPlayer);
         }
@@ -59,9 +61,12 @@ namespace Ares
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    Tile thisTile = tiles[x, y];
-                    if (thisTile != null)
-                        thisTile.Update();
+                    for (int z = 0; z < floors; z++)
+                    {
+                        Tile thisTile = tiles[x, y, z];
+                        if (thisTile != null)
+                            thisTile.Update();
+                    }
                 }
             }
         }
@@ -72,18 +77,24 @@ namespace Ares
             {
                 for (int y = 0; y < leftWalls.GetLength(1); y++)
                 {
-                    Wall thisWall = leftWalls[x, y];
-                    if (thisWall != null)
-                        thisWall.Update();
+                    for (int z = 0; z < floors; z++)
+                    {
+                        Wall thisWall = leftWalls[x, y, z];
+                        if (thisWall != null)
+                            thisWall.Update();
+                    }
                 }
             }
             for (int x = 0; x < topWalls.GetLength(0); x++)
             {
                 for (int y = 0; y < topWalls.GetLength(1); y++)
                 {
-                    Wall thisWall = topWalls[x, y];
-                    if (thisWall != null)
-                        thisWall.Update();
+                    for (int z = 0; z < floors; z++)
+                    {
+                        Wall thisWall = topWalls[x, y, z];
+                        if (thisWall != null)
+                            thisWall.Update();
+                    }
                 }
             }
         }
@@ -104,9 +115,12 @@ namespace Ares
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    Tile thisTile = tiles[x, y];
-                    if (thisTile != null)
-                        thisTile.Draw();
+                    for (int z = 0; z < floors; z++)
+                    {
+                        Tile thisTile = tiles[x, y, z];
+                        if (thisTile != null)
+                            thisTile.Draw();
+                    }
                 }
             }
         }
@@ -120,18 +134,21 @@ namespace Ares
             {
                 for (int y = 0; y < height; y++)
                 {
-                    Wall thisLeftWall = leftWalls[x, y];
-                    Wall thisTopWall = topWalls[x, y];
-                    var layer = Helper.TilePosToLayer(new Vector2i(x, y));
+                    for (int z = 0; z < floors; z++)
+                    {
+                        Wall thisLeftWall = leftWalls[x, y, z];
+                        Wall thisTopWall = topWalls[x, y, z];
+                        var layer = Helper.TilePosToLayer(new Vector2i(x, y));
 
-                    //TODO: draw distance
-                    if (thisLeftWall != null)
-                    {
-                        thisLeftWall.Draw(layer);
-                    }
-                    if (thisTopWall != null)
-                    {
-                        thisTopWall.Draw(layer);
+                        //TODO: draw distance
+                        if (thisLeftWall != null)
+                        {
+                            thisLeftWall.Draw(layer);
+                        }
+                        if (thisTopWall != null)
+                        {
+                            thisTopWall.Draw(layer);
+                        }
                     }
                 }
             }
@@ -174,14 +191,14 @@ namespace Ares
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="type"></param>
-        public void addTile(int x, int y, int type)
+        public void addTile(int x, int y, int z, int type)
         {
             try
             {
                 switch (type)
                 {
                     case 0:
-                        tiles[x, y] = new WoodTile(new Vector2i(x, y));
+                        tiles[x, y, z] = new WoodTile(new Vector2i(x, y));
                         break;
                 }
             }
@@ -196,7 +213,7 @@ namespace Ares
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="type"></param>
-        public void addWall(int x, int y, int type, bool leftFacing)
+        public void addWall(int x, int y, int z, int type, bool leftFacing)
         {
             try
             {
@@ -204,15 +221,15 @@ namespace Ares
                 {
                     case 0:
                         if (leftFacing)
-                            leftWalls[x, y] = new RedBrickWall(new Vector2i(x, y), true);
+                            leftWalls[x, y, z] = new RedBrickWall(new Vector2i(x, y), true);
                         else
-                            topWalls[x, y] = new RedBrickWall(new Vector2i(x, y), false);
+                            topWalls[x, y, z] = new RedBrickWall(new Vector2i(x, y), false);
                         break;
                     case 1:
                         if (leftFacing)
-                            leftWalls[x, y] = new WoodDoor(new Vector2i(x, y), true);
+                            leftWalls[x, y, z] = new WoodDoor(new Vector2i(x, y), true);
                         else
-                            topWalls[x, y] = new WoodDoor(new Vector2i(x, y), false);
+                            topWalls[x, y, z] = new WoodDoor(new Vector2i(x, y), false);
                         break;
                 }
             }
@@ -221,9 +238,9 @@ namespace Ares
             }
         }
 
-        public Tile getTileInArray(int x, int y)
+        public Tile getTileInArray(int x, int y, int z)
         {
-            return tiles[x, y];
+            return tiles[x, y, z];
         }
 
         /// <summary>
@@ -232,16 +249,16 @@ namespace Ares
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public Tile getTileInWorld(float x, float y)
+        public Tile getTileInWorld(float x, float y, int z)
         {
-            return tiles[(int)(x / 32), (int)(y / 32)];
+            return tiles[(int)(x / 32), (int)(y / 32), z];
         }
 
-        public Wall getTopWallInArray(int x, int y)
+        public Wall getTopWallInArray(int x, int y, int z)
         {
             try
             {
-                return topWalls[(int)(x), (int)(y)];
+                return topWalls[(int)(x), (int)(y), z];
             }
             catch (IndexOutOfRangeException)
             {
@@ -249,11 +266,11 @@ namespace Ares
             }
         }
 
-        public Wall getLeftWallInArray(int x, int y)
+        public Wall getLeftWallInArray(int x, int y, int z)
         {
             try
             {
-                return leftWalls[(int)(x), (int)(y)];
+                return leftWalls[(int)(x), (int)(y), z];
             }
             catch (IndexOutOfRangeException)
             {
