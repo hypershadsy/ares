@@ -177,8 +177,11 @@ namespace Ares
         {
             for (int i = 0; i < GameObjects.Count; i++)
             {
-                GameObject thisGameObject = GameObjects[i];
-                thisGameObject.Draw();
+                if (GameObjects[i].Position.Z == ClientPlayer.Position.Z)
+                {
+                    GameObject thisGameObject = GameObjects[i];
+                    thisGameObject.Draw();
+                }
             }
         }
 
