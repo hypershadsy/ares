@@ -90,6 +90,7 @@
     <Compile Include="Classes\NetPlayer.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Program.cs" />
+    <Compile Include="Classes\Vector3i.cs" />
     <Compile Include="Classes\Wall.cs" />
     <Compile Include="Classes\WoodDoor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
