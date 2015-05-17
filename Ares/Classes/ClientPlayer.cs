@@ -117,6 +117,7 @@ namespace Ares
             outGoingMessage.Write("POS");
             outGoingMessage.Write(pos.X);
             outGoingMessage.Write(pos.Y);
+            outGoingMessage.Write(Game.internalGame.currentFloor);
 
             Game.client.SendMessage(outGoingMessage, NetDeliveryMethod.ReliableOrdered);
         }

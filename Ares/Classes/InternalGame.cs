@@ -10,7 +10,7 @@ namespace Ares
     public class InternalGame : GameState
     {
         private List<Map> floors = new List<Map>() { };
-        private int currentFloor = 1;
+        public int currentFloor = 1;
         public ClientPlayer ClientPlayer;
 
         public List<Actor> Actors = new List<Actor>();

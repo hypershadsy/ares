@@ -202,6 +202,7 @@ namespace Ares
                     var UID_POS = msg.ReadInt64();
                     var xPos = msg.ReadInt32();
                     var yPos = msg.ReadInt32();
+                    var zPos = msg.ReadInt32();
                     handlePosMessage(UID_POS, xPos, yPos);
                     break;
 
