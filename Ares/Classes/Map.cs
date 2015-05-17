@@ -17,7 +17,7 @@ namespace Ares
         private Wall[, ,] topWalls;
         private Wall[, ,] leftWalls;
 
-        private int floors = 5;
+        private int floors = 20;
 
         public List<Actor> Actors = new List<Actor>();
         //public List<NPC> NPCs = new List<(NPC)(); //
