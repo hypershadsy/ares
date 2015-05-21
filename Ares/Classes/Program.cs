@@ -316,12 +316,12 @@ namespace Ares
 
         private static void handleTileMessage(Vector3i pos, int type)
         {
-            internalGame.map.addTile(pos.X, pos.Y, pos.Z, type);
+            internalGame.map.AddTile(pos.X, pos.Y, pos.Z, type);
         }
 
         private static void handleWallMessage(Vector3i pos, int type, bool leftFacing)
         {
-            internalGame.map.addWall(pos.X, pos.Y, pos.Z, type, leftFacing);
+            internalGame.map.AddWall(pos.X, pos.Y, pos.Z, type, leftFacing);
         }
 
 

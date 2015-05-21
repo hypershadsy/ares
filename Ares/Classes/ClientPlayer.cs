@@ -71,11 +71,11 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.B)) //Add a door
             {
-                Game.internalGame.map.addWall(this.Position.X, this.Position.Y, this.Position.Z, 1, true);
+                Game.internalGame.map.AddWall(this.Position.X, this.Position.Y, this.Position.Z, 1, true);
             }
             if (Input.isKeyTap(Keyboard.Key.V)) //Add a door
             {
-                Game.internalGame.map.addWall(this.Position.X, this.Position.Y, this.Position.Z, 1, false);
+                Game.internalGame.map.AddWall(this.Position.X, this.Position.Y, this.Position.Z, 1, false);
             }
             if (Input.isKeyTap(Keyboard.Key.Up)) //Add a door
             {
@@ -88,7 +88,7 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.A))
             {
-                Wall wall = Game.internalGame.map.getLeftWallInArray(Position.X, Position.Y, Position.Z);
+                Wall wall = Game.internalGame.map.GetWallLeft(Position.X, Position.Y, Position.Z);
                 if (wall == null ||
                     (wall is Door && ((Door)wall).open))// Vector2i(Position.X, Position.Y)
                     sendPos(new Vector3i(Position.X - 1, Position.Y, Position.Z));
@@ -96,7 +96,7 @@ namespace Ares
             }
             if (Input.isKeyTap(Keyboard.Key.D))
             {
-                Wall wall = Game.internalGame.map.getLeftWallInArray(Position.X + 1, Position.Y, Position.Z);
+                Wall wall = Game.internalGame.map.GetWallLeft(Position.X + 1, Position.Y, Position.Z);
                 if (wall == null ||
                     (wall is Door && ((Door)wall).open))
                     sendPos(new Vector3i(Position.X + 1, Position.Y, Position.Z));
@@ -105,7 +105,7 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.W))
             {
-                Wall wall = Game.internalGame.map.getTopWallInArray(Position.X, Position.Y,Position.Z);
+                Wall wall = Game.internalGame.map.GetWallTop(Position.X, Position.Y,Position.Z);
                 if (wall == null ||
                 (wall is Door && ((Door)wall).open))
                     sendPos(new Vector3i(Position.X, Position.Y - 1, Position.Z));
@@ -113,7 +113,7 @@ namespace Ares
             }
             if (Input.isKeyTap(Keyboard.Key.S))
             {
-                Wall wall = Game.internalGame.map.getTopWallInArray(Position.X, Position.Y + 1, Position.Z);
+                Wall wall = Game.internalGame.map.GetWallTop(Position.X, Position.Y + 1, Position.Z);
                     if (wall == null ||
                     (wall is Door && ((Door)wall).open))
                         sendPos(new Vector3i(Position.X, Position.Y + 1, Position.Z));

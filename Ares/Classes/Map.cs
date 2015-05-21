@@ -1,49 +1,41 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SFML;
-using SFML.Graphics;
 using SFML.Window;
-using SFML.Audio;
-using Lidgren.Network;
 
 namespace Ares
 {
     public class Map
     {
-        private Tile[, ,] tiles;
+        private Tile[,,] tiles;
+        private Wall[,,] topWalls;
+        private Wall[,,] leftWalls;
 
-        private Wall[, ,] topWalls;
-        private Wall[, ,] leftWalls;
+        private const int FLOORS = 20;
 
-        private int floors = 20;
-
-        public List<Actor> Actors = new List<Actor>();
-        //public List<NPC> NPCs = new List<(NPC)(); //
-        public List<GameObject> GameObjects = new List<GameObject>();
-        public ClientPlayer ClientPlayer;
+        public List<Actor> Actors { get; private set; }
+        public List<GameObject> GameObjects { get; private set; }
+        public ClientPlayer ClientPlayer { get; private set; }
         public float MaxRealY { get; private set; }
 
         public Map(int size)
         {
-            ClientPlayer = new ClientPlayer();
-            tiles = new Tile[size, size, floors];
-            MaxRealY = Helper.TileToIso(new Vector2i(size - 1, size - 1)).Y;
+            tiles = new Tile[size, size, FLOORS];
+            topWalls = new Wall[size + 1, size + 1, FLOORS];
+            leftWalls = new Wall[size + 1, size + 1, FLOORS];
 
-            topWalls = new Wall[size + 1, size + 1, floors];
-            leftWalls = new Wall[size + 1, size + 1, floors];
+            Actors = new List<Actor>();
+            GameObjects = new List<GameObject>();
+            ClientPlayer = new ClientPlayer();
+            MaxRealY = Helper.TileToIso(new Vector2i(size - 1, size - 1)).Y;
 
             Actors.Add(ClientPlayer);
         }
-
-
+        
         public void Update()
         {
             UpdateTiles();
             UpdateWalls();
             UpdatePlayers();
-
             UpdateGameObjects();
         }
 
@@ -62,7 +54,7 @@ namespace Ares
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    for (int z = 0; z < floors; z++)
+                    for (int z = 0; z < FLOORS; z++)
                     {
                         Tile thisTile = tiles[x, y, z];
                         if (thisTile != null)
@@ -78,7 +70,7 @@ namespace Ares
             {
                 for (int y = 0; y < leftWalls.GetLength(1); y++)
                 {
-                    for (int z = 0; z < floors; z++)
+                    for (int z = 0; z < FLOORS; z++)
                     {
                         Wall thisWall = leftWalls[x, y, z];
                         if (thisWall != null)
@@ -90,7 +82,7 @@ namespace Ares
             {
                 for (int y = 0; y < topWalls.GetLength(1); y++)
                 {
-                    for (int z = 0; z < floors; z++)
+                    for (int z = 0; z < FLOORS; z++)
                     {
                         Wall thisWall = topWalls[x, y, z];
                         if (thisWall != null)
@@ -100,13 +92,21 @@ namespace Ares
             }
         }
 
-
         private void UpdatePlayers()
         {
             for (int i = 0; i < Actors.Count; i++)
             {
                 Player thisPlayer = (Player)Actors[i];
                 thisPlayer.Update();
+            }
+        }
+
+        private void UpdateGameObjects()
+        {
+            for (int i = 0; i < GameObjects.Count; i++)
+            {
+                GameObject thisGameObject = GameObjects[i];
+                thisGameObject.Update();
             }
         }
 
@@ -151,7 +151,7 @@ namespace Ares
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    for (int z = 0; z < floors; z++)
+                    for (int z = 0; z < FLOORS; z++)
                     {
                         if (z == ClientPlayer.Position.Z)
                         {
@@ -223,22 +223,10 @@ namespace Ares
             }
         }
 
-        private void UpdateGameObjects()
-        {
-            for (int i = 0; i < GameObjects.Count; i++)
-            {
-                GameObject thisGameObject = GameObjects[i];
-                thisGameObject.Update();
-            }
-        }
-
         /// <summary>
-        /// Used to add a tile at an array index, not world coordinates
+        /// Add a tile at an array index, not world coordinates
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="type"></param>
-        public void addTile(int x, int y, int z, int type)
+        public void AddTile(int x, int y, int z, int type)
         {
             try
             {
@@ -255,12 +243,9 @@ namespace Ares
         }
 
         /// <summary>
-        /// Used to get a wall at an array index, not world coordinates
+        /// Get a wall at an array index, not world coordinates
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="type"></param>
-        public void addWall(int x, int y, int z, int type, bool leftFacing)
+        public void AddWall(int x, int y, int z, int type, bool leftFacing)
         {
             try
             {
@@ -285,44 +270,28 @@ namespace Ares
             }
         }
 
-        public Tile getTileInArray(int x, int y, int z)
+        /// <summary>
+        /// Get a tile at an array index, not world coordinates
+        /// </summary>
+        public Tile GetTile(int x, int y, int z)
         {
             return tiles[x, y, z];
         }
 
         /// <summary>
-        /// Used to get a tile at a world coordinate, not an array index
+        /// Get a top wall at an array index, not world coordinates
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        public Tile getTileInWorld(float x, float y, int z)
+        public Wall GetWallTop(int x, int y, int z)
         {
-            return tiles[(int)(x / 32), (int)(y / 32), z];
+            return topWalls[x, y, z];
         }
 
-        public Wall getTopWallInArray(int x, int y, int z)
+        /// <summary>
+        /// Get a left wall at an array index, not world coordinates
+        /// </summary>
+        public Wall GetWallLeft(int x, int y, int z)
         {
-            try
-            {
-                return topWalls[(int)(x), (int)(y), z];
-            }
-            catch (IndexOutOfRangeException)
-            {
-                return null;
-            }
-        }
-
-        public Wall getLeftWallInArray(int x, int y, int z)
-        {
-            try
-            {
-                return leftWalls[(int)(x), (int)(y), z];
-            }
-            catch (IndexOutOfRangeException)
-            {
-                return null;
-            }
+            return leftWalls[x, y, z];
         }
     }
 }

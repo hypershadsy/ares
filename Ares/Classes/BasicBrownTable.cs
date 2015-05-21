@@ -16,7 +16,7 @@ namespace Ares
             : base(Position, UID, leftFacing)
         {
             //Vector2i tilePos = Helper.IsoToTile(Position);
-            parentTile = Game.internalGame.map.getTileInArray(Position.X, Position.Y, Position.Z);
+            parentTile = Game.internalGame.map.GetTile(Position.X, Position.Y, Position.Z);
         }
 
         public override void Update()
