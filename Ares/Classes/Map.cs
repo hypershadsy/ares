@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using SFML.Window;
 
@@ -11,6 +11,7 @@ namespace Ares
         private Wall[,,] leftWalls;
 
         private const int FLOORS = 20;
+        public const int wallSpriteHeight = 45;
 
         public List<Actor> Actors { get; private set; }
         public List<GameObject> GameObjects { get; private set; }
@@ -116,8 +117,6 @@ namespace Ares
             int height = leftWalls.GetLength(1);
             int depth = leftWalls.GetLength(2);
             int maxDepth = Math.Min(ClientPlayer.Position.Z, depth);
-
-            const int wallSpriteHeight = 60; //not actually sprite height, but plays nice with bg offset
 
             for (int z = 0; z < maxDepth; z++)
             {
