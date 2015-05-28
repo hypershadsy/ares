@@ -12,6 +12,9 @@ namespace Ares
 {
     public class GUI
     {
+        public enum MenuEnum { inactive, main, inventory, settings};
+
+        public MenuEnum menuEnum = MenuEnum.inactive;
         public Chat chat;
         public Player attachedPlayer;
 
@@ -29,6 +32,17 @@ namespace Ares
         public void Draw()
         {
             chat.Draw();
+            switch (menuEnum)
+            {
+                case MenuEnum.inactive:
+                    break;
+                case MenuEnum.inventory:
+                    break;
+                case MenuEnum.main:
+                    break;
+                case MenuEnum.settings:
+                    break;
+            }
         }
     }
 }

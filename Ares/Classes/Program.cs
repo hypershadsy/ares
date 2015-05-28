@@ -34,7 +34,7 @@ namespace Ares
         public static Font font;
         public static Texture charTexture, wallTexture, grassTexture, walktest, woodfloor,
             doorClosedTexture, pathTexture, bulletTexture, isoBlock, tileBedug, idletest,
-            brickWallTexture, woodDoor1, tableBrown, cityBackground;
+            brickWallTexture, woodDoor1, tableBrown, cityBackground, menu;
 
         static void Main(string[] args)
         {
@@ -108,6 +108,7 @@ namespace Ares
             woodDoor1 = new Texture("Content/wall/door/door2.png");
             tableBrown = new Texture("Content/furniture/tableBrown.png");
             cityBackground = new Texture("Content/debug/background.png");
+            menu = new Texture("Content/gui/menu.png");
             //Initialize
             NetPeerConfiguration config = new NetPeerConfiguration("ares");
             config.EnableMessageType(NetIncomingMessageType.ConnectionLatencyUpdated);
