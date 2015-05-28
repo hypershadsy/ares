@@ -23,7 +23,6 @@ namespace Ares
         //public List<NPC> NPCs = new List<(NPC)(); //
         public List<GameObject> GameObjects = new List<GameObject>();
         public ClientPlayer ClientPlayer;
-        public static int wallSpriteHeight = 55; //not actually sprite height, but plays nice with bg offset
         public float MaxRealY { get; private set; }
 
         public Map(int size)
@@ -118,7 +117,7 @@ namespace Ares
             int depth = leftWalls.GetLength(2);
             int maxDepth = Math.Min(ClientPlayer.Position.Z, depth);
 
-            
+            const int wallSpriteHeight = 60; //not actually sprite height, but plays nice with bg offset
 
             for (int z = 0; z < maxDepth; z++)
             {
