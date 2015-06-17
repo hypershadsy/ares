@@ -33,12 +33,12 @@ namespace Ares
         public static View camera2D;
         public static Font font;
         public static Texture charTexture, wallTexture, grassTexture, walktest, woodfloor,
-            doorClosedTexture, pathTexture, bulletTexture, isoBlock, tileBedug, idletest,
-            brickWallTexture, woodDoor1, tableBrown, cityBackground, menu;
+            doorClosedTexture, pixel, bulletTexture, isoBlock, tileBedug, idletest,
+            brickWallTexture, woodDoor1, tableBrown, cityBackground, menu, invIcon, settIcon, checIcon, package, interactButton;
 
         static void Main(string[] args)
         {
-           
+
             PreRun();
             LoadContentInitialize();
 
@@ -72,7 +72,7 @@ namespace Ares
         {
             //Load
             window = new RenderWindow(
-                new VideoMode(800, 600), "Project Ares",Styles.Titlebar);
+                new VideoMode(800, 600), "Project Ares", Styles.Titlebar);
 
             windowSize = new Vector2f(800, 600);
             window.SetFramerateLimit(60);
@@ -96,7 +96,7 @@ namespace Ares
             wallTexture = new Texture("Content/wall.png");
             grassTexture = new Texture("Content/grass.png");
             doorClosedTexture = new Texture("Content/doorClosed.png");
-            pathTexture = new Texture("Content/path.png");
+            pixel = new Texture("Content/path.png");
             bulletTexture = new Texture("Content/bullet.png");
             isoBlock = new Texture("Content/isoBlock.png");
             font = new Font("Content/Font1.ttf");
@@ -109,6 +109,11 @@ namespace Ares
             tableBrown = new Texture("Content/furniture/tableBrown.png");
             cityBackground = new Texture("Content/debug/background.png");
             menu = new Texture("Content/gui/menu.png");
+            invIcon = new Texture("Content/gui/inventoryIcon.png");
+            settIcon = new Texture("Content/gui/settingsIcon.png");
+            checIcon = new Texture("Content/gui/checklistIcon.png");
+            package = new Texture("Content/furniture/package.png");
+            interactButton = new Texture("Content/gui/interactButton.png");
             //Initialize
             NetPeerConfiguration config = new NetPeerConfiguration("ares");
             config.EnableMessageType(NetIncomingMessageType.ConnectionLatencyUpdated);
@@ -252,14 +257,14 @@ namespace Ares
                             int objZ = msg.ReadInt32();
                             bool objLeftFacing = msg.ReadBoolean();
 
-                            internalGame.map.GameObjects.Add(new BasicBrownTable(new Vector3i(objX, objY, objZ),objUID, objLeftFacing));
+                            internalGame.map.GameObjects.Add(new BasicBrownTable(new Vector3i(objX, objY, objZ), objUID, objLeftFacing));
                             break;
                     }
                     break;
 
                 case "INFO": //Recieved when server has completed sending all newbie initialization
                     break;
-                
+
                 default:
                     Console.WriteLine("Unrecognized Game Message Recieved: {0}\n{1}", msg.ToString(), messageType);
                     break;
@@ -281,7 +286,7 @@ namespace Ares
             Actor plr = getPlayerWithUID(uid);
             if (plr != null) //stale POS message, player is already gone?
             {
-                plr.Position = new Vector3i(x, y,z);
+                plr.Position = new Vector3i(x, y, z);
             }
         }
 

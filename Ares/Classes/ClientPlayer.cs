@@ -51,9 +51,12 @@ namespace Ares
 
         void HandleControls()
         {
-            if (Input.isKeyTap(Keyboard.Key.N))
+            if (Input.isKeyTap(Keyboard.Key.I))
             {
-                noClip = !noClip;
+                if (gui.menuEnum.Equals(GUI.MenuEnum.inactive))
+                    gui.menuEnum = GUI.MenuEnum.main;
+                else if (gui.menuEnum.Equals(GUI.MenuEnum.main))
+                    gui.menuEnum = GUI.MenuEnum.inactive;
             }
 
             if (Input.isKeyTap(Keyboard.Key.B)) //Add a door
@@ -92,7 +95,7 @@ namespace Ares
 
             if (Input.isKeyTap(Keyboard.Key.W))
             {
-                Wall wall = Game.internalGame.map.GetWallTop(Position.X, Position.Y,Position.Z);
+                Wall wall = Game.internalGame.map.GetWallTop(Position.X, Position.Y, Position.Z);
                 if (wall == null ||
                 (wall is Door && ((Door)wall).open))
                     sendPos(new Vector3i(Position.X, Position.Y - 1, Position.Z));
@@ -101,9 +104,9 @@ namespace Ares
             if (Input.isKeyTap(Keyboard.Key.S))
             {
                 Wall wall = Game.internalGame.map.GetWallTop(Position.X, Position.Y + 1, Position.Z);
-                    if (wall == null ||
-                    (wall is Door && ((Door)wall).open))
-                        sendPos(new Vector3i(Position.X, Position.Y + 1, Position.Z));
+                if (wall == null ||
+                (wall is Door && ((Door)wall).open))
+                    sendPos(new Vector3i(Position.X, Position.Y + 1, Position.Z));
                 //Position.Y++;
             }
         }

@@ -18,6 +18,7 @@ namespace Ares
         public ClientPlayer ClientPlayer { get; private set; }
         public float MaxRealY { get; private set; }
 
+
         public Map(int size)
         {
             tiles = new Tile[size, size, FLOORS];
@@ -28,6 +29,7 @@ namespace Ares
             GameObjects = new List<GameObject>();
             ClientPlayer = new ClientPlayer();
             MaxRealY = Helper.TileToIso(new Vector2i(size - 1, size - 1)).Y;
+            GameObjects.Add(new Package(ClientPlayer.Position, 1, false));
 
             Actors.Add(ClientPlayer);
         }

@@ -107,5 +107,10 @@ namespace Ares
         {
             return (1 - t) * v0 + t * v1;
         }
+
+        public static Vector2f V3itoVec2f(Vector3i vec)
+        {
+            return new Vector2f(vec.X, vec.Y);
+        }
     }
 }

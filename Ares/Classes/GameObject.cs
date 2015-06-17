@@ -15,6 +15,8 @@ namespace Ares
         public Vector3i Position;
         public bool LeftFacing = false;
         public long UID;
+        public Texture texture;
+        public bool interactable;
 
         public Tile parentTile;
 

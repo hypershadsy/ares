@@ -20,6 +20,14 @@ namespace Ares
 
         public static bool isActive = true;
 
+        public static Vector2i screenMousePos
+        {
+            get
+            {
+                return Mouse.GetPosition(Game.window);
+            }
+        }
+
         public static void Update()
         {
             refreshState();
