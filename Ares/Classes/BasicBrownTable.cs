@@ -31,8 +31,9 @@ namespace Ares
             var gRot = 0f;
             int gFacing = LeftFacing ? 1 : -1;
             float gLayer = Helper.TilePosToLayer(new Vector2i(Position.X,Position.Y));
+            Texture tableBrown = Content.GetTexture("furniture/tableBrown.png");
 
-            Render.Draw(Game.tableBrown, IsoCoords.ToF(), Color.White, gOrigin, gFacing, gRot, gLayer);
+            Render.Draw(tableBrown, IsoCoords.ToF(), Color.White, gOrigin, gFacing, gRot, gLayer);
         }
 
         public override void Activate()

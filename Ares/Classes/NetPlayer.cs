@@ -37,9 +37,11 @@ namespace Ares
             IncrementAnimationFrame();
             Vector2f origin = new Vector2f(12f, 55f); //12,55 places his feet approx at the middle of the tile
 
-            Render.DrawAnimation(Game.idletest, IsoPosition.ToF(), Color.White, origin, 1, 3, 1, frame, 0, layer);
+            Texture idleTest = Content.GetTexture("debug/idletest.png");
+            Render.DrawAnimation(idleTest, IsoPosition.ToF(), Color.White, origin, 1, 3, 1, frame, 0, layer);
 
-            Render.DrawString(Game.font, Name, IsoPosition.ToF() - new Vector2f(0, 50), Color.Green, 0.3f, true);
+            Font font = Content.GetFont("Font1.ttf");
+            Render.DrawString(font, Name, IsoPosition.ToF() - new Vector2f(0, 50), Color.Green, 0.3f, true);
         }
     }
 }

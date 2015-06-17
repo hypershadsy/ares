@@ -31,10 +31,6 @@ namespace Ares
 
         public static NetClient client;
         public static View camera2D, guiCamera;
-        public static Font font;
-        public static Texture charTexture, wallTexture, grassTexture, walktest, woodfloor,
-            doorClosedTexture, pixel, bulletTexture, isoBlock, tileBedug, idletest,
-            brickWallTexture, woodDoor1, tableBrown, cityBackground, menu, invIcon, settIcon, checIcon, package, interactButton;
 
         static void Main(string[] args)
         {
@@ -90,33 +86,9 @@ namespace Ares
 
             camera2D = new View(window.DefaultView);
             camera2D.Zoom(0.5f);
-
             guiCamera = new View(window.DefaultView);
             guiCamera.Zoom(0.5f);
             //guiCamera.Center = window.DefaultView.Center;
-
-            charTexture = new Texture("Content/player.png");
-            wallTexture = new Texture("Content/wall.png");
-            grassTexture = new Texture("Content/grass.png");
-            doorClosedTexture = new Texture("Content/doorClosed.png");
-            pixel = new Texture("Content/path.png");
-            bulletTexture = new Texture("Content/bullet.png");
-            isoBlock = new Texture("Content/isoBlock.png");
-            font = new Font("Content/Font1.ttf");
-            idletest = new Texture("Content/debug/idletest.png");
-            walktest = new Texture("Content/debug/walktest.png");
-            tileBedug = new Texture("Content/tile/bedug.png");
-            woodfloor = new Texture("Content/tile/woodfloor.png");
-            brickWallTexture = new Texture("Content/wall/redbrick.png");
-            woodDoor1 = new Texture("Content/wall/door/door2.png");
-            tableBrown = new Texture("Content/furniture/tableBrown.png");
-            cityBackground = new Texture("Content/debug/background.png");
-            menu = new Texture("Content/gui/menu.png");
-            invIcon = new Texture("Content/gui/inventoryIcon.png");
-            settIcon = new Texture("Content/gui/settingsIcon.png");
-            checIcon = new Texture("Content/gui/checklistIcon.png");
-            package = new Texture("Content/furniture/package.png");
-            interactButton = new Texture("Content/gui/interactButton.png");
             //Initialize
             NetPeerConfiguration config = new NetPeerConfiguration("ares");
             config.EnableMessageType(NetIncomingMessageType.ConnectionLatencyUpdated);
@@ -129,7 +101,7 @@ namespace Ares
             internalGame.map = new Map(20);
 
             //start processing messages
-            //client.Connect(ip, port);
+            client.Connect(ip, port);
         }
 
         private static void UpdateDraw(RenderWindow window)

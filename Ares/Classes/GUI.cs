@@ -31,12 +31,11 @@ namespace Ares
 
         public void Draw()
         {
+            Font font = Content.GetFont("Font1.ttf");
             chat.Draw();
             if (!menuEnum.Equals(MenuEnum.inactive))
             {
-                Render.Draw(Game.menu, new Vector2f(210, 150), Color.White, new Vector2f(0, 0), 1, 0, 0f);
-
-                
+                Render.Draw(Content.GetTexture("gui/menu.png"), new Vector2f(210, 150), Color.White, new Vector2f(0, 0), 1, 0, 0f);
             }
 
             switch (menuEnum)
@@ -46,7 +45,7 @@ namespace Ares
                 case MenuEnum.inventory:
                     for (int i = 0; i < 8; i++)
                     {
-                        Render.Draw(Game.pixel, new Vector2f(310 + (i * 28), 244), Color.White, new Vector2f(0, 0), 1, 0, 0, 25);
+                        Render.Draw(Content.GetTexture("pixel.png"), new Vector2f(310 + (i * 28), 244), Color.White, new Vector2f(0, 0), 1, 0, 0, 25);
                         if (i < attachedPlayer.inventory.Count && attachedPlayer.inventory[i] != null)
                         {
                             Texture t = attachedPlayer.inventory[i].texture;
@@ -59,7 +58,7 @@ namespace Ares
                 case MenuEnum.settings:
                     break;
             }
-            Render.DrawString(Game.font, Mouse.GetPosition(Game.window).ToString(), new Vector2f(210, 150), Color.White, .25f, false, 0f);
+            Render.DrawString(font, Mouse.GetPosition(Game.window).ToString(), new Vector2f(210, 150), Color.White, .25f, false, 0f);
         }
     }
 }

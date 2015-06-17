@@ -15,7 +15,7 @@ namespace Ares
         public Package(Vector3i position, int UID, bool leftFacing)
             : base(position, UID, leftFacing)
         {
-            texture = Game.package;
+            texture = Content.GetTexture("furniture/package.png");
             interactable = true;
         }
 
@@ -30,7 +30,8 @@ namespace Ares
         {
             if (Helper.Distance(Helper.V3itoVec2f(Position), Helper.V3itoVec2f(Game.internalGame.map.ClientPlayer.Position)) < 2)
             {
-                Render.Draw(Game.interactButton, IsoCoords.ToF() - new Vector2f(0,30), Color.White, new Vector2f(0, 0), 1, 0, 0);
+                Texture interactButton = Content.GetTexture("gui/interactButton.png");
+                Render.Draw(interactButton, IsoCoords.ToF() - new Vector2f(0,30), Color.White, new Vector2f(0, 0), 1, 0, 0);
             
             }
 

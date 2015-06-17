@@ -23,7 +23,10 @@ namespace Ares
             Game.window.SetView(Game.camera2D);
             map.Draw();
             if (map.ClientPlayer.Position.Z >= 0)
-                Render.Draw(Game.cityBackground, new Vector2f(0, map.ClientPlayer.Position.Z * Map.wallSpriteHeight), Color.White, new Vector2f(1066, 818), 1, 0f, 1);
+            {
+                Texture cityBackground = Content.GetTexture("debug/background.png");
+                Render.Draw(cityBackground, new Vector2f(0, map.ClientPlayer.Position.Z * Map.wallSpriteHeight), Color.White, new Vector2f(1066, 818), 1, 0f, 1);
+            }
             Render.SpitToWindow();
 
             Game.window.SetView(Game.guiCamera);

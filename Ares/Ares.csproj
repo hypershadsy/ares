@@ -78,6 +78,7 @@
     <Compile Include="Classes\BasicBrownTable.cs" />
     <Compile Include="Classes\InventorySlot.cs" />
     <Compile Include="Classes\Package.cs" />
+    <Compile Include="Classes\Content.cs" />
     <Compile Include="Classes\Door.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\InternalGame.cs" />
@@ -147,7 +148,7 @@
     <Content Include="Content\gui\menu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\path.png">
+    <Content Include="Content\pixel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\player.png">

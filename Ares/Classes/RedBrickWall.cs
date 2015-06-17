@@ -19,7 +19,8 @@ namespace Ares
 
         public override void Draw(float drawLayer)
         {
-            DefaultDraw(Game.brickWallTexture, drawLayer);
+            Texture brickWall = Content.GetTexture("wall/redbrick.png");
+            DefaultDraw(brickWall, drawLayer);
         }
     }
 }

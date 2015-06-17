@@ -59,7 +59,8 @@ namespace Ares
                 tCol = new Color(190, 190, 190);
             int tFacing = LeftFacing ? 1 : -1;
             int tOpenFacing = open ? -1 : 1;
-            Render.Draw(Game.woodDoor1, IsoCoords.ToF(), tCol, tOrigin, tFacing * tOpenFacing, tRot, drawLayer);
+            Texture woodDoor = Content.GetTexture("wall/door/door2.png");
+            Render.Draw(woodDoor, IsoCoords.ToF(), tCol, tOrigin, tFacing * tOpenFacing, tRot, drawLayer);
 
             base.Draw(drawLayer);
         }
