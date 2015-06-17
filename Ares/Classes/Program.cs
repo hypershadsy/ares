@@ -88,7 +88,8 @@ namespace Ares
             camera2D.Zoom(0.5f);
             guiCamera = new View(window.DefaultView);
             guiCamera.Zoom(0.5f);
-            //guiCamera.Center = window.DefaultView.Center;
+            window.SetMouseCursorVisible(false);
+            //guiCamera.Center = new Vector2f(window.Size.X/2, window.Size.Y/2);// window.DefaultView.Center;
             //Initialize
             NetPeerConfiguration config = new NetPeerConfiguration("ares");
             config.EnableMessageType(NetIncomingMessageType.ConnectionLatencyUpdated);

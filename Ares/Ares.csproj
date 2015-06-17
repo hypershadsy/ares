@@ -76,7 +76,6 @@
   <ItemGroup>
     <Compile Include="Classes\Actor.cs" />
     <Compile Include="Classes\BasicBrownTable.cs" />
-    <Compile Include="Classes\InventorySlot.cs" />
     <Compile Include="Classes\Package.cs" />
     <Compile Include="Classes\Content.cs" />
     <Compile Include="Classes\Door.cs" />
@@ -131,8 +130,12 @@
     <Content Include="Content\gui\checklistIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\gui\cursorHover.png" />
-    <Content Include="Content\gui\cursorPointer.png" />
+    <Content Include="Content\gui\cursorHover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\gui\cursorPointer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\gui\interactButton.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
