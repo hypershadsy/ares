@@ -19,7 +19,7 @@ namespace Ares
 
         public override void Draw()
         {
-            DefaultDraw(Game.woodfloor);
+            DefaultDraw(Content.GetTexture("tile/woodfloor.png"));
         }
     }
 }

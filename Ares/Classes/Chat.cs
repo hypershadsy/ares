@@ -85,10 +85,11 @@ namespace Ares
 
         public void Draw()
         {
-            Render.DrawString(Game.font, ChatDraft, new Vector2f(0, 0), Color.White, chatScale, false);
+            Font font = Content.GetFont("Font1.ttf");
+            Render.DrawString(font, ChatDraft, new Vector2f(0, 0), Color.White, chatScale, false);
             if (DraftEditorOpen)
             {
-                Render.DrawString(Game.font, "|", new Vector2f((18 * chatScale) * ChatDraft.Length, 0), Color.White, chatScale, false); //add chat cursor
+                Render.DrawString(font, "|", new Vector2f((18 * chatScale) * ChatDraft.Length, 0), Color.White, chatScale, false); //add chat cursor
             }
 
             if (messages.Count > lineDisplayCount)
@@ -96,7 +97,7 @@ namespace Ares
 
             for (int i = 0; i < messages.Count; i++)
             {
-                Render.DrawString(Game.font, messages[i].Message, new Vector2f(0, 20 + (i * 15)), Color.White, chatScale, false);
+                Render.DrawString(font, messages[i].Message, new Vector2f(0, 20 + (i * 15)), Color.White, chatScale, false);
             }
         }
     }
