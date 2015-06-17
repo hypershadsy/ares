@@ -21,6 +21,8 @@ namespace Ares
 
         public override void Update()
         {
+            if (Input.isKeyTap(Keyboard.Key.E))
+                Activate();
             base.Update();
         }
 
@@ -38,6 +40,8 @@ namespace Ares
 
         public override void Activate()
         {
+            Game.internalGame.map.ClientPlayer.inventory.Add(this);
+            Game.internalGame.map.GameObjects.Remove(this);
             base.Activate();
         }
 

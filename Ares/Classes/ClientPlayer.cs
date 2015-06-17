@@ -54,8 +54,8 @@ namespace Ares
             if (Input.isKeyTap(Keyboard.Key.I))
             {
                 if (gui.menuEnum.Equals(GUI.MenuEnum.inactive))
-                    gui.menuEnum = GUI.MenuEnum.main;
-                else if (gui.menuEnum.Equals(GUI.MenuEnum.main))
+                    gui.menuEnum = GUI.MenuEnum.inventory;
+                else if (gui.menuEnum.Equals(GUI.MenuEnum.inventory))
                     gui.menuEnum = GUI.MenuEnum.inactive;
             }
 

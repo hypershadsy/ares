@@ -130,6 +130,8 @@
     <Content Include="Content\gui\checklistIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\gui\cursorHover.png" />
+    <Content Include="Content\gui\cursorPointer.png" />
     <Content Include="Content\gui\interactButton.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

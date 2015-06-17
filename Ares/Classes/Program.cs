@@ -30,7 +30,7 @@ namespace Ares
         }
 
         public static NetClient client;
-        public static View camera2D;
+        public static View camera2D, guiCamera;
         public static Font font;
         public static Texture charTexture, wallTexture, grassTexture, walktest, woodfloor,
             doorClosedTexture, pixel, bulletTexture, isoBlock, tileBedug, idletest,
@@ -89,8 +89,11 @@ namespace Ares
             { }
 
             camera2D = new View(window.DefaultView);
-
             camera2D.Zoom(0.5f);
+
+            guiCamera = new View(window.DefaultView);
+            guiCamera.Zoom(0.5f);
+            //guiCamera.Center = window.DefaultView.Center;
 
             charTexture = new Texture("Content/player.png");
             wallTexture = new Texture("Content/wall.png");
@@ -126,7 +129,7 @@ namespace Ares
             internalGame.map = new Map(20);
 
             //start processing messages
-            client.Connect(ip, port);
+            //client.Connect(ip, port);
         }
 
         private static void UpdateDraw(RenderWindow window)

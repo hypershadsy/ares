@@ -26,7 +26,7 @@ namespace Ares
                 Render.Draw(Game.cityBackground, new Vector2f(0, map.ClientPlayer.Position.Z * Map.wallSpriteHeight), Color.White, new Vector2f(1066, 818), 1, 0f, 1);
             Render.SpitToWindow();
 
-            Game.window.SetView(Game.window.DefaultView);
+            Game.window.SetView(Game.guiCamera);
             map.ClientPlayer.gui.Draw();
             Render.SpitToWindow();
         }

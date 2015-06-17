@@ -18,6 +18,7 @@ namespace Ares
         public Texture texture;
         public bool interactable;
 
+
         public Tile parentTile;
 
         public Vector2i IsoCoords

@@ -15,9 +15,9 @@ namespace Ares
         public static List<LayeredDrawable> spriteBatch = new List<LayeredDrawable>();
         private static Vector2f offsetPosition = new Vector2f(0f, 0f);
 
-        public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, float layer = 0.0f)
+        public static void Draw(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, float layer = 0.0f, float scale = 1f)
         {
-            DrawGenericTexture(texture, position, color, origin, facing, rotation, null, layer);
+            DrawGenericTexture(texture, position, color, origin, facing, rotation, null, layer, scale);
         }
 
         public static void DrawString(Font font, String message, Vector2f position, Color color, float scale, bool centered, float layer = 0.0f)
@@ -51,7 +51,7 @@ namespace Ares
         }
 
         //TODO: fix facing origin (-1 doesn't reflect about its center)
-        private static void DrawGenericTexture(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, IntRect? textureRect, float layer)
+        private static void DrawGenericTexture(Texture texture, Vector2f position, Color color, Vector2f origin, int facing, float rotation, IntRect? textureRect, float layer, float scale = 1)
         {
             Sprite sprite = new Sprite(texture);
             sprite.Texture.Smooth = false;
@@ -60,6 +60,7 @@ namespace Ares
             sprite.Position = position + offsetPosition;
             sprite.Color = color;
             sprite.Rotation = rotation;
+            sprite.Scale = new Vector2f(facing, 1) * scale;
             if (textureRect.HasValue)
             {
                 sprite.TextureRect = textureRect.Value;
