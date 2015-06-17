@@ -32,7 +32,7 @@ namespace Ares
         protected void IncrementAnimationFrame()
         {
             frameDelta += (float)Game.deltaTime.TotalMilliseconds;
-            if (frameDelta > 150f)
+            if (frameDelta > 25f)
             {
                 frameDelta = 0;
                 frame++;
