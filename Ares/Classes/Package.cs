@@ -28,10 +28,11 @@ namespace Ares
 
         public override void Draw()
         {
-            if (Helper.Distance(Helper.V3itoVec2f(Position), Helper.V3itoVec2f(Game.internalGame.map.ClientPlayer.Position)) < 2)
+            if (Helper.Distance(Helper.V3itoVec2f(Position), Helper.V3itoVec2f(Game.internalGame.map.ClientPlayer.Position)) < 1)
             {
                 Texture interactButton = Content.GetTexture("gui/interactButton.png");
                 Render.Draw(interactButton, IsoCoords.ToF() - new Vector2f(0,30), Color.White, new Vector2f(0, 0), 1, 0, 0);
+                Render.DrawString(Content.GetFont("Font1.ttf"), "Pick Up", IsoCoords.ToF() - new Vector2f(-45, 29), Color.White,.4f,true, 0);
             
             }
 

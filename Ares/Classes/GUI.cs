@@ -30,7 +30,8 @@ namespace Ares
         public void Update()
         {
             cursor = Content.GetTexture("gui/cursorPointer.png");
-            worldMousePosition = Mouse.GetPosition(Game.window).ToF() / 2 + new Vector2f(Game.window.Size.X / 4, Game.window.Size.Y / 4);
+
+            worldMousePosition = Game.window.MapPixelToCoords(Mouse.GetPosition(Game.window), Game.guiCamera); //Mouse.GetPosition(Game.window).ToF() / 2 + new Vector2f(Game.window.Size.X / 4, Game.window.Size.Y / 4);
             chat.Update();
         }
 
